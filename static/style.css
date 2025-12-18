@@ -671,31 +671,47 @@ hr.sep{
   font-size: 14px;
 }
 
-/* Auth: colonne sx/dx (solo per i blocchi con .grid cols-2) */
+/* ✅ FIX REGISTRAZIONE: layout 2-colonne pulito, niente width fisse, niente gap enorme */
 .auth .grid.cols-2{
-  grid-template-columns: auto auto;
-  justify-content: space-between;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
   align-items: start;
-  column-gap: 125px;
 }
 .auth .grid.cols-2 > .field{
-  width: 320px;
-  max-width: 100%;
+  width: auto;
+  max-width: none;
+}
+
+/* card “wide” usata in registrazione */
+.auth .auth-card-wide{
+  width: min(920px, calc(100% - 0px));
+  margin: 0 auto;
+}
+
+/* se usi auth-card (login), resta stretto */
+.auth .auth-card{
+  width: min(560px, 100%);
+  margin: 0 auto;
 }
 
 /* sotto 700px stack */
 @media (max-width: 700px){
   .auth .grid.cols-2{ grid-template-columns: 1fr; }
-  .auth .grid.cols-2 > .field{ width: 100%; }
 }
 
-/* Login: restringe i field */
+/* Login: restringe i field (solo se c’è .auth-card) */
 .auth .auth-card .form{
   max-width: 520px;
   margin: 0 auto;
 }
 .auth .auth-card .field{
   max-width: 520px;
+}
+
+/* Registrazione: non restringere i field dentro la card wide */
+.auth .auth-card-wide .form{
+  max-width: none;
+  margin: 0;
 }
 
 /* ===== Pricing Table ===== */
