@@ -24,13 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-7c0)!%m0^1kmz7yt4ahp9ftr4!qv8wz=%#)-l0*@op(8--ld7='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
-    "hackaton-production-5e82.up.railway.app",
-    ".up.railway.app",
-    "localhost",
-    "127.0.0.1",
+    "*"
 ]
 
 
