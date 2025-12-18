@@ -23,4 +23,4 @@ def after_login(request):
     return redirect("/private/")       # cambia con la tua pagina
 
 def home(request):
-    return render(request, "home.html")
+    return render(request, "lobby/index.html")

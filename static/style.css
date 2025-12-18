@@ -322,7 +322,6 @@ input:focus, select:focus, textarea:focus{
 @media (max-width: 700px){
   .auth .grid.cols-2{ grid-template-columns: 1fr; }
 }
-
 /* Login: centra e limita larghezza */
 .auth .auth-card .form{
   max-width: 520px;
