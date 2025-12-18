@@ -55,7 +55,7 @@
           </a>
 
           <!-- Le URL qui sotto sono placeholder: aggiornale con i tuoi name= nelle urls.py -->
-          <a class="side-link" href="#">
+          <a class="side-link" href="#dipendenti">
             Dipendenti <span class="badge">{{ employees_active|default:"24" }}</span>
           </a>
           <a class="side-link" href="#">
@@ -140,7 +140,7 @@
             <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
               <div>
                 <strong>Progressi per area</strong>
-                <div class="help">Media aziendale (demo)</div>
+                <div class="help">Media aziendale</div>
               </div>
               <div class="btn-row">
                 <a class="btn btn-outline" href="#">Esporta</a>
@@ -172,7 +172,7 @@
           <!-- Azioni / Attività -->
           <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
             <strong>Attività recente</strong>
-            <div class="help">Ultime azioni (demo)</div>
+            <div class="help">Ultime azioni</div>
 
             <table class="table" style="margin-top:12px;">
               <thead>
@@ -219,11 +219,11 @@
         <hr class="sep" />
 
         <!-- Dipendenti (preview) -->
-        <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
+        <div id="dipendenti" class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
           <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:center;">
             <div>
               <strong>Dipendenti</strong>
-              <div class="help">Top progressi (demo)</div>
+              <div class="help">Top progressi</div>
             </div>
             <div class="btn-row">
               <a class="btn btn-ghost" href="#">Gestisci</a>
@@ -284,13 +284,31 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div><strong>UrbanKnowledge</strong> — © 2025</div>
+      <div>
+        <strong>UrbanKnowledge</strong> — © 2025<br>
+        <a href="#">Privacy</a> - <a href="#">Termini</a> - <a href="#">Supporto</a>
+      </div>
+
       <div class="footer-links">
-        <a href="#">Privacy</a>
-        <a href="#">Termini</a>
-        <a href="#">Supporto</a>
+        <p><b>Contatti</b><br>
+          <a href="mailto:info@urbanknowledge.it">info@urbanknowledge.it</a><br>
+          <a href="tel:+393456789012">+39 345 678 9012</a><br>
+          Via Esino 36, Ancona, Italia
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <p><b>Team</b><br>
+          Mattia Fermani<br>
+          Abu Shahid Islam<br>
+          Gabriele Papa<br>
+          Samuel Sanchez<br>
+          Matteo Scoccianti<br>
+          Simone Vescovo
+        </p>
       </div>
     </div>
   </footer>
+
 </body>
 </html>
