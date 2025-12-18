@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
-from core import settings
+from django.conf import settings
 # Create your models here.
 class Profile(models.Model):
     class Type(models.TextChoices):
@@ -17,11 +16,7 @@ class Profile(models.Model):
 
     # Azienda
     company_name = models.CharField(max_length=120, blank=True)
-    piva = models.CharField(max_length=20, blank=True, unique=True)
+    piva = models.CharField(max_length=20, blank=True)   # (se vuoi unique, poi lo metti)
     city = models.CharField(max_length=80, blank=True)
 
-    # comune
-    phone = models.CharField(max_length=30, blank=True)  # non obbligatorio
-
-    def __str__(self):
-        return f"{self.user.username} ({self.user_type})"
+    phone = models.CharField(max_length=30, blank=True)
