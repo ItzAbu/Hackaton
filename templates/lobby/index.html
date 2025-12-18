@@ -1,190 +1,254 @@
 <!doctype html>
+{% load static %}
 <html lang="it">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Template Dark - Home / Prezzi</title>
-
-  <link rel="stylesheet" href="css/style.css" />
-  <script defer src="js/app.js"></script>
+  <title>UrbanKnowledge — Home</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
 </head>
-
 <body>
-  <a class="skip-link" href="#home">Salta al contenuto</a>
-
-  <header class="topbar" id="top">
-    <nav class="nav" aria-label="Navigazione principale">
-      <a class="brand" href="#home" aria-label="Vai alla Home">
-        <span class="brand__mark" aria-hidden="true"></span>
-        <span class="brand__text">DarkTemplate</span>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{% url 'home' %}">
+        <div class="logo" aria-hidden="true"><img src="{% static 'img/logo.png' %}" alt="Logo"></div>
+        <div>UrbanKnowledge</div>
       </a>
 
-      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="navMenu">
-        <span class="nav__toggle-lines" aria-hidden="true"></span>
-        <span class="sr-only">Apri menu</span>
-      </button>
+      <nav class="nav" aria-label="Navigazione principale">
+        <a href="#come-funziona">Come funziona</a>
+        <a href="#privati">Per privati</a>
+        <a href="#aziende">Per aziende</a>
+        <a href="#recensioni">Recensioni</a>
+        <a href="#faq">FAQ</a>
+      </nav>
 
-      <div class="nav__menu" id="navMenu">
-        <ul class="nav__links" role="list">
-          <li><a class="nav__link is-active" href="#home" data-nav="home">Home</a></li>
-          <li><a class="nav__link" href="#prezzi" data-nav="prezzi">Prezzi</a></li>
-        </ul>
-
-        <div class="nav__actions">
-          <button class="btn btn--ghost" type="button" data-open-modal="signin">Sign In</button>
-          <button class="btn btn--primary" type="button" data-open-modal="login">Log In</button>
-        </div>
+      <div class="btn-row">
+        <a class="btn btn-ghost" href="{% url 'login' %}">Accedi</a>
+        <a class="btn btn-primary" href="{% url 'register' %}">Inizia gratis</a>
       </div>
-    </nav>
+    </div>
   </header>
 
+  <!-- MAIN -->
   <main>
-    <section class="section hero" id="home" data-section="home">
-      <div class="container grid-2">
-        <div class="stack">
-          <h1 class="hero__title">Tema scuro, layout pulito, pronto da estendere.</h1>
-          <p class="hero__subtitle">
-            Navbar con Home/Prezzi + bottoni Sign In / Log In. CSS e JS separati.
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-wrap">
+        <div class="card hero-card">
+          <div class="kicker">🎯 Quest • 📚 Knowledge • 🧠 Level Up</div>
+          <h1 class="h1">Impara esplorando una città.</h1>
+          <p class="p">
+            Un’esperienza interattiva in cui l’utente completa missioni legate a specifiche aree disciplinari, accumula XP e sblocca nuovi livelli di progressione.<br>
+            Ideale sia per utenti privati sia per aziende che desiderano potenziare la formazione e lo sviluppo delle competenze dei propri dipendenti.
           </p>
 
-          <div class="row">
-            <a class="btn btn--primary" href="#prezzi">Vedi prezzi</a>
-            <button class="btn btn--ghost" type="button" data-open-modal="login">Accedi</button>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="{% url 'register' %}">Crea account</a>
+            <a class="btn btn-outline" href="#prezzi">Vedi abbonamenti per aziende</a>
           </div>
 
-          <div class="meta">
-            <div class="pill">Responsive</div>
-            <div class="pill">Accessibile</div>
-            <div class="pill">Vanilla JS</div>
+          <hr class="sep" />
+          <div class="grid cols-3">
+            <div class="card pad">
+              <div class="badge success">Progressione</div>
+              <p class="p" style="margin-top:10px;">Sblocca quest e livelli in base alle tue conoscenze.</p>
+            </div>
+            <div class="card pad">
+              <div class="badge success">Personalizzazione</div>
+              <p class="p" style="margin-top:10px;">Avatar e percorso di apprendimento su misura.</p>
+            </div>
+            <div class="card pad">
+              <div class="badge success">Analytics</div>
+              <p class="p" style="margin-top:10px;">Vista completa su progressi, team e contenuti.</p>
+            </div>
           </div>
         </div>
 
-        <div class="card card--glow">
-          <h2 class="card__title">Preview</h2>
-          <p class="card__text">
-            Sostituisci testi e sezioni. Aggiungi pagine o routing quando vuoi.
-          </p>
-          <div class="stats">
-            <div class="stat">
-              <div class="stat__value">2</div>
-              <div class="stat__label">Sezioni</div>
+        <!-- mock rimosso (come nel tuo html) -->
+      </div>
+    </section>
+
+    <!-- COME FUNZIONA -->
+    <section id="come-funziona" class="section">
+      <div class="container hero-wrap hero-card">
+        <h2 class="h2">Come funziona</h2>
+        <div class="grid cols-3">
+          <div class="card pad">
+            <h3 style="margin:0 0 6px;">1) Esplora</h3>
+            <p class="p">Muoviti nella città e scegli le quest disponibili.</p>
+          </div>
+          <div class="card pad">
+            <h3 style="margin:0 0 6px;">2) Completa i test</h3>
+            <p class="p">Ogni “palazzo” contiene prove su uno specifico argomento.</p>
+          </div>
+          <div class="card pad">
+            <h3 style="margin:0 0 6px;">3) Cresci</h3>
+            <p class="p">Guadagni XP, sali di livello e sblocca nuove aree.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRIVATI -->
+    <section id="privati" class="section compact">
+      <div class="container">
+        <div class="card pad">
+          <h2 class="h2">Per privati</h2>
+          <p class="p">Account gratuito per giocare, migliorare le competenze e personalizzare il personaggio.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="{% url 'register' %}">Registrati gratis</a>
+            <a class="btn btn-ghost" href="/demo/">Vai alla demo gioco</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AZIENDE -->
+    <section id="aziende" class="section">
+      <div class="container hero-wrap hero-card">
+        <h2 class="h2">Per aziende</h2>
+        <p class="p">Scegli un abbonamento in base al numero di dipendenti e al numero di città generabili.</p>
+
+        <!-- PRICING -->
+        <div id="prezzi" class="grid cols-2">
+          <div class="card pad" style="border-color: rgba(59,120,64,0.35); background: rgba(255,255,255,0.78);">
+            <div class="badge success">Bronze</div>
+            <div class="price">€ 199/mese</div>
+            <ul class="ul">
+              <li>Fino a 10 dipendenti</li>
+              <li>Città generabili: 1</li>
+            </ul>
+            <div class="btn-row" style="margin-top:14px;">
+              <a class="btn btn-primary" href="{% url 'register' %}">Attiva Bronze</a>
             </div>
-            <div class="stat">
-              <div class="stat__value">1</div>
-              <div class="stat__label">Navbar</div>
+          </div>
+
+          <div class="card pad" style="border-color: rgba(59,120,64,0.35); background: rgba(255,255,255,0.78);">
+            <div class="badge success">Silver</div>
+            <div class="price">€ 499/mese</div>
+            <ul class="ul">
+              <li>Fino a 30 dipendenti</li>
+              <li>Città generabili: 3</li>
+            </ul>
+            <div class="btn-row" style="margin-top:14px;">
+              <a class="btn btn-primary" href="{% url 'register' %}">Attiva Silver</a>
             </div>
-            <div class="stat">
-              <div class="stat__value">2</div>
-              <div class="stat__label">Modali</div>
+          </div>
+
+          <div class="card pad" style="border-color: rgba(59,120,64,0.35); background: rgba(255,255,255,0.78);">
+            <div class="badge success">Gold</div>
+            <div class="price">€ 999/mese</div>
+            <ul class="ul">
+              <li>Fino a 100 dipendenti</li>
+              <li>Città generabili: 5</li>
+            </ul>
+            <div class="btn-row" style="margin-top:14px;">
+              <a class="btn btn-primary" href="{% url 'register' %}">Attiva Gold</a>
+            </div>
+          </div>
+
+          <div class="card pad" style="border-color: rgba(59,120,64,0.35); background: rgba(255,255,255,0.78);">
+            <div class="badge success">Platinum</div>
+            <div class="price">€ 1999/mese</div>
+            <ul class="ul">
+              <li>Dipendenti illimitati</li>
+              <li>Città generabili: illimitate</li>
+            </ul>
+            <div class="btn-row" style="margin-top:14px;">
+              <a class="btn btn-primary" href="{% url 'register' %}">Attiva Platinum</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="prezzi" data-section="prezzi">
-      <div class="container stack">
-        <header class="section__head">
-          <h2>Prezzi</h2>
-          <p>Piani esempio. Cambia tutto liberamente.</p>
-        </header>
+    <!-- RECENSIONI -->
+    <section id="recensioni" class="section compact">
+      <div class="container">
+        <h2 class="h2">Recensioni</h2>
+        <p class="p">Cosa dicono aziende e privati dopo aver provato UrbanKnowledge.</p>
 
-        <div class="pricing">
-          <article class="plan">
-            <h3 class="plan__name">Starter</h3>
-            <p class="plan__price">€0 <span>/ mese</span></p>
-            <ul class="plan__list">
-              <li>Funzioni base</li>
-              <li>1 progetto</li>
-              <li>Supporto community</li>
-            </ul>
-            <button class="btn btn--ghost w-100" type="button" data-open-modal="signin">Sign In</button>
-          </article>
+        <div class="grid cols-3">
+          <div class="card pad" style="background: rgba(255,255,255,0.72); box-shadow:none;">
+            <div class="badge success">Azienda</div>
+            <p class="p" style="margin-top:10px;">
+              “Formazione più coinvolgente: i dipendenti tornano a giocare e i progressi sono chiari.”
+            </p>
+            <div style="display:flex; justify-content:space-between; gap:10px; align-items:center;">
+              <strong style="color: rgba(42,28,20,0.88);">HR Manager</strong>
+              <span class="badge">★★★★★</span>
+            </div>
+          </div>
 
-          <article class="plan plan--featured" aria-label="Piano Pro in evidenza">
-            <div class="badge">Consigliato</div>
-            <h3 class="plan__name">Pro</h3>
-            <p class="plan__price">€9 <span>/ mese</span></p>
-            <ul class="plan__list">
-              <li>Progetti illimitati</li>
-              <li>Export</li>
-              <li>Supporto prioritario</li>
-            </ul>
-            <button class="btn btn--primary w-100" type="button" data-open-modal="login">Log In</button>
-          </article>
+          <div class="card pad" style="background: rgba(255,255,255,0.72); box-shadow:none;">
+            <div class="badge success">Privato</div>
+            <p class="p" style="margin-top:10px;">
+              “Finalmente studio senza annoiarmi: la progressione a livelli mi motiva ogni giorno.”
+            </p>
+            <div style="display:flex; justify-content:space-between; gap:10px; align-items:center;">
+              <strong style="color: rgba(42,28,20,0.88);">Studente</strong>
+              <span class="badge">★★★★★</span>
+            </div>
+          </div>
 
-          <article class="plan">
-            <h3 class="plan__name">Business</h3>
-            <p class="plan__price">€29 <span>/ mese</span></p>
-            <ul class="plan__list">
-              <li>Team & ruoli</li>
-              <li>Audit</li>
-              <li>SLA</li>
-            </ul>
-            <button class="btn btn--ghost w-100" type="button" data-open-modal="login">Contatta</button>
-          </article>
+          <div class="card pad" style="background: rgba(255,255,255,0.72); box-shadow:none;">
+            <div class="badge success">Azienda</div>
+            <p class="p" style="margin-top:10px;">
+              “L’editor città è perfetto: abbiamo creato percorsi su misura per team diversi.”
+            </p>
+            <div style="display:flex; justify-content:space-between; gap:10px; align-items:center;">
+              <strong style="color: rgba(42,28,20,0.88);">Team Lead</strong>
+              <span class="badge">★★★★☆</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card pad" style="margin-top:16px; background: rgba(255,255,255,0.62); box-shadow:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+            <div>
+              <strong>Vuoi lasciare una recensione?</strong>
+              <p class="p" style="margin-top:6px;">Faccelo sapere dopo aver provato UrbanKnowledge.</p>
+            </div>
+            <div class="btn-row">
+              <a class="btn btn-outline" href="{% url 'login' %}">Accedi</a>
+              <a class="btn btn-primary" href="{% url 'register' %}">Scrivi recensione</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section compact">
+      <div class="container">
+        <h2 class="h2">FAQ</h2>
+        <div class="grid cols-2">
+          <div class="card pad">
+            <h3 style="margin:0 0 6px;">È davvero gratuito per i privati?</h3>
+            <p class="p">Sì, puoi giocare con account free. (Potete aggiungere upgrade più avanti.)</p>
+          </div>
+          <div class="card pad">
+            <h3 style="margin:0 0 6px;">Come funziona per le aziende?</h3>
+            <p class="p">L’azienda sceglie un piano, invita i dipendenti e monitora progressi e contenuti.</p>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container footer__row">
-      <span>© <span id="year"></span> DarkTemplate</span>
-      <a class="footer__link" href="#top">Torna su</a>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div><strong>UrbanKnowledge</strong> — © 2025</div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Termini</a>
+        <a href="#">Cookie</a>
+        <a href="#">Supporto</a>
+      </div>
     </div>
   </footer>
-
-  <!-- MODAL: SIGN IN -->
-  <div class="modal" id="modal-signin" role="dialog" aria-modal="true" aria-labelledby="signinTitle" aria-hidden="true">
-    <div class="modal__backdrop" data-close-modal></div>
-    <div class="modal__panel" role="document">
-      <div class="modal__head">
-        <h3 id="signinTitle">Sign In</h3>
-        <button class="iconbtn" type="button" data-close-modal aria-label="Chiudi">✕</button>
-      </div>
-
-      <form class="form" data-auth-form="signin">
-        <label class="field">
-          <span>Email</span>
-          <input type="email" name="email" autocomplete="email" required />
-        </label>
-
-        <label class="field">
-          <span>Password</span>
-          <input type="password" name="password" autocomplete="new-password" minlength="6" required />
-        </label>
-
-        <button class="btn btn--primary w-100" type="submit">Crea account</button>
-        <p class="hint">Placeholder UI. Collega al backend quando serve.</p>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL: LOG IN -->
-  <div class="modal" id="modal-login" role="dialog" aria-modal="true" aria-labelledby="loginTitle" aria-hidden="true">
-    <div class="modal__backdrop" data-close-modal></div>
-    <div class="modal__panel" role="document">
-      <div class="modal__head">
-        <h3 id="loginTitle">Log In</h3>
-        <button class="iconbtn" type="button" data-close-modal aria-label="Chiudi">✕</button>
-      </div>
-
-      <form class="form" data-auth-form="login">
-        <label class="field">
-          <span>Email</span>
-          <input type="email" name="email" autocomplete="email" required />
-        </label>
-
-        <label class="field">
-          <span>Password</span>
-          <input type="password" name="password" autocomplete="current-password" required />
-        </label>
-
-        <button class="btn btn--primary w-100" type="submit">Accedi</button>
-        <p class="hint">Placeholder UI. Collega al backend quando serve.</p>
-      </form>
-    </div>
-  </div>
 </body>
 </html>

@@ -1,7 +1,67 @@
-<h1>Login</h1>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Entra</button>
-</form>
-<a href="{% url 'register' %}">Registrati</a>
+<!doctype html>
+{% load static %}
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UrbanKnowledge — Login</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+
+<body class="auth">
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">
+        <img src="{% static 'img/logo.png' %}" alt="Logo UrbanKnowledge">
+        <span>UrbanKnowledge</span>
+      </a>
+
+      <nav class="nav">
+        <a class="btn btn-ghost" href="{% url 'register' %}">Registrati</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container auth-main">
+    <section class="card auth-card">
+      <h1 class="auth-title">Accedi</h1>
+      <p class="auth-subtitle">Inserisci email e password per entrare.</p>
+
+      <form class="form" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="username" type="email" placeholder="nome@azienda.it" autocomplete="email" required />
+        </div>
+
+        <div class="field">
+          <label for="pass">Password</label>
+          <input id="pass" name="password" type="password" placeholder="••••••••" autocomplete="current-password" required />
+        </div>
+
+        {% if form.errors %}
+        <p class="form-error" style="margin:8px 0 0 0;">Email o password non valide.</p>
+        {% endif %}
+
+        <div class="btn-row" style="margin-top:6px;">
+          <button class="btn btn-primary" type="submit">Accedi</button>
+        </div>
+      </form>
+
+      <div class="auth-foot">
+        <p>Non hai un account? <a href="{% url 'register' %}">Registrati</a></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <small>© UrbanKnowledge</small>
+    </div>
+  </footer>
+</body>
+</html>

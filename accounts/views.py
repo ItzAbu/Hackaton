@@ -19,5 +19,8 @@ def register(request):
 def after_login(request):
     profile = Profile.objects.get(user=request.user)
     if profile.user_type == Profile.Type.COMPANY:
-        return redirect("/company/")   # metti la tua pagina azienda
-    return redirect("/private/")       # metti la tua pagina privato
+        return redirect("/company/")   # cambia con la tua pagina
+    return redirect("/private/")       # cambia con la tua pagina
+
+def home(request):
+    return render(request, "home.html")
