@@ -789,3 +789,105 @@ hr.sep{
   opacity: 1;
 }
 
+/* =========================
+   Private Area additions
+   ========================= */
+
+.avatar-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+}
+
+.tile{
+  display:block;
+  text-decoration:none;
+  color: inherit;
+}
+
+.tile:hover{
+  transform: translateY(-1px);
+}
+
+.tile .card{
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.tile:hover .card{
+  box-shadow: 0 14px 40px rgba(17, 12, 8, 0.18);
+}
+
+.private-actions{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.game-card{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 14px;
+}
+
+.game-card .meta{
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+}
+
+.game-card .tag{
+  display:inline-flex;
+  align-items:center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.65);
+  border: 1px solid rgba(42,28,20,0.12);
+  font-weight: 700;
+}
+
+.search-form{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.search-form input{
+  min-width: 260px;
+}
+
+.profile-grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 900px){
+  .profile-grid{
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+}
+
+.eu-list{
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+}
+.eu-item{
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(42,28,20,0.12);
+}
+.eu-item .title{
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.eu-item .value{
+  font-weight: 800;
+  opacity: .85;
+}

@@ -1,0 +1,70 @@
+<!doctype html>
+{% load static %}
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UrbanKnowledge — Area Privati</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/">
+        <div class="logo" aria-hidden="true">
+          <img src="{% static 'imgs/logo.png' %}" alt="Logo UrbanKnowledge">
+        </div>
+        <div>UrbanKnowledge</div>
+      </a>
+
+      <div class="topbar-right">
+        <span class="badge">Privato</span>
+        <a class="btn btn-ghost" href="{% url 'private_search' %}">Search</a>
+        <a class="btn btn-outline" href="{% url 'logout' %}">Logout</a>
+
+        <a class="avatar-link" href="{% url 'private_profile' %}" title="Profilo">
+          <div class="avatar-dot"></div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="app">
+    <section class="container" style="margin-top:18px;">
+      <div class="card pad">
+        <h2 class="h3" style="margin:0 0 6px 0;">
+          Ciao{% if profile.first_name %}, {{ profile.first_name }}{% endif %} 👋
+        </h2>
+        <p class="p" style="margin:0;">Scegli dove vuoi andare.</p>
+      </div>
+    </section>
+
+    <section class="container" style="margin-top:16px;">
+      <div class="grid cols-3">
+        <a class="tile" href="{% url 'private_companies' %}">
+          <div class="card pad">
+            <h3 class="h3" style="margin:0 0 6px 0;">Aziende</h3>
+            <p class="p" style="margin:0;">Vedi i giochi dell’azienda di cui fai parte.</p>
+          </div>
+        </a>
+
+        <a class="tile" href="{% url 'private_discovery' %}">
+          <div class="card pad">
+            <h3 class="h3" style="margin:0 0 6px 0;">Discovery</h3>
+            <p class="p" style="margin:0;">Tutti i giochi disponibili (demo inclusa).</p>
+          </div>
+        </a>
+
+        <a class="tile" href="{% url 'private_search' %}">
+          <div class="card pad">
+            <h3 class="h3" style="margin:0 0 6px 0;">Search</h3>
+            <p class="p" style="margin:0;">Inserisci un codice per aprire una mappa.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

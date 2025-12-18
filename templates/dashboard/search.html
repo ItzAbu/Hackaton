@@ -1,0 +1,52 @@
+<!doctype html>
+{% load static %}
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UrbanKnowledge — Search</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="{% url 'private_page' %}">
+        <div class="logo" aria-hidden="true">
+          <img src="{% static 'imgs/logo.png' %}" alt="Logo UrbanKnowledge">
+        </div>
+        <div>UrbanKnowledge</div>
+      </a>
+
+      <div class="topbar-right">
+        <a class="btn btn-ghost" href="{% url 'private_page' %}">← Indietro</a>
+        <a class="btn btn-outline" href="{% url 'logout' %}">Logout</a>
+        <a class="avatar-link" href="{% url 'private_profile' %}" title="Profilo">
+          <div class="avatar-dot"></div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="app">
+    <section class="container" style="margin-top:18px;">
+      <div class="card pad">
+        <h2 class="h2" style="margin:0 0 8px 0;">Search</h2>
+        <p class="p" style="margin:0;">
+          Inserisci un codice per aprire una mappa. (Per ora è solo UI, non funziona.)
+        </p>
+
+        <form class="search-form" method="get" action="#">
+          <input class="input" type="text" name="code" placeholder="Es. CITY-1234" />
+          <button class="btn btn-primary" type="submit">Apri</button>
+        </form>
+
+        <p class="p" style="margin-top:10px; opacity:.8;">
+          Suggerimento: in futuro qui potrai incollare un codice fornito dall’azienda o da un QR.
+        </p>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

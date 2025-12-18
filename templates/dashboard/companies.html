@@ -1,0 +1,48 @@
+<!doctype html>
+{% load static %}
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UrbanKnowledge — Aziende</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="{% url 'private_page' %}">
+        <div class="logo" aria-hidden="true">
+          <img src="{% static 'imgs/logo.png' %}" alt="Logo UrbanKnowledge">
+        </div>
+        <div>UrbanKnowledge</div>
+      </a>
+
+      <div class="topbar-right">
+        <a class="btn btn-ghost" href="{% url 'private_page' %}">← Indietro</a>
+        <a class="btn btn-outline" href="{% url 'logout' %}">Logout</a>
+        <a class="avatar-link" href="{% url 'private_profile' %}" title="Profilo">
+          <div class="avatar-dot"></div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="app">
+    <section class="container" style="margin-top:18px;">
+      <div class="card pad">
+        <h2 class="h2" style="margin:0 0 8px 0;">Aziende</h2>
+        <p class="p" style="margin:0;">
+          Al momento <b>non fai parte di nessuna azienda</b>.
+        </p>
+
+        <div class="private-actions">
+          <a class="btn btn-primary" href="{% url 'private_search' %}">Inserisci codice (Search)</a>
+          <a class="btn btn-ghost" href="{% url 'private_discovery' %}">Vai a Discovery</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

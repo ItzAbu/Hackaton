@@ -24,7 +24,7 @@
         <div class="pill">Piano: {{ company_plan|default:"Gold" }}</div>
         <a class="btn btn-ghost" href="/">Home</a>
         <a class="btn btn-outline" href="{% url 'logout' %}">Logout</a>
-        <div class="avatar-dot" title="{{ user.username|default:'Admin' }}"></div>
+        <div class="avatar-dot" title="{{ user.username|default:'Admin' }}"><img src="imgs/mail.jpg"></div>
       </div>
     </div>
   </header>
@@ -149,22 +149,22 @@
             </div>
 
             <div style="margin-top:14px;">
-              <div class="help"><strong>Matematica</strong></div>
+              <div class="help"><strong>Matematica</strong><strong>70%</strong></div>
               <div class="progress"><div style="width:{{ math_progress|default:'72' }}%"></div></div>
             </div>
 
             <div style="margin-top:12px;">
-              <div class="help"><strong>Informatica</strong></div>
+              <div class="help"><strong>Informatica</strong><strong>60%</strong></div>
               <div class="progress"><div style="width:{{ cs_progress|default:'58' }}%"></div></div>
             </div>
 
             <div style="margin-top:12px;">
-              <div class="help"><strong>Economia</strong></div>
+              <div class="help"><strong>Economia</strong><strong>65%</strong></div>
               <div class="progress"><div style="width:{{ econ_progress|default:'64' }}%"></div></div>
             </div>
 
             <div style="margin-top:12px;">
-              <div class="help"><strong>Lingue</strong></div>
+              <div class="help"><strong>Lingue</strong><strong>50%</strong></div>
               <div class="progress"><div style="width:{{ lang_progress|default:'49' }}%"></div></div>
             </div>
           </div>

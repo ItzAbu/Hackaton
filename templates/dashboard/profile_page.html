@@ -1,0 +1,102 @@
+<!doctype html>
+{% load static %}
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UrbanKnowledge — Profilo</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="{% url 'private_page' %}">
+        <div class="logo" aria-hidden="true">
+          <img src="{% static 'imgs/logo.png' %}" alt="Logo UrbanKnowledge">
+        </div>
+        <div>UrbanKnowledge</div>
+      </a>
+
+      <div class="topbar-right">
+        <a class="btn btn-ghost" href="{% url 'private_page' %}">← Indietro</a>
+        <a class="btn btn-outline" href="{% url 'logout' %}">Logout</a>
+        <div class="avatar-dot" title="Profilo"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="app">
+    <section class="container" style="margin-top:18px;">
+      <div class="card pad">
+        <h2 class="h2" style="margin:0 0 8px 0;">Profilo</h2>
+        <p class="p" style="margin:0;">Dati base e competenze EU Standard (solo visualizzazione).</p>
+      </div>
+    </section>
+
+    <section class="container" style="margin-top:16px;">
+      <div class="profile-grid">
+        <div class="card pad">
+          <h3 class="h3" style="margin:0 0 10px 0;">Informazioni base</h3>
+
+          <div class="grid cols-2">
+            <div>
+              <div class="pill" style="display:inline-block;">Nome</div>
+              <div style="margin-top:6px; font-weight:800;">
+                {{ profile.first_name|default:"—" }}
+              </div>
+            </div>
+            <div>
+              <div class="pill" style="display:inline-block;">Cognome</div>
+              <div style="margin-top:6px; font-weight:800;">
+                {{ profile.last_name|default:"—" }}
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;">
+            <div class="pill" style="display:inline-block;">Email</div>
+            <div style="margin-top:6px; font-weight:800;">{{ user.email|default:user.username }}</div>
+          </div>
+
+          <div style="margin-top:14px;">
+            <div class="pill" style="display:inline-block;">Telefono</div>
+            <div style="margin-top:6px; font-weight:800;">{{ profile.phone|default:"—" }}</div>
+          </div>
+
+          <div class="private-actions">
+            <a class="btn btn-ghost" href="{% url 'private_discovery' %}">Vai a Discovery</a>
+            <a class="btn btn-ghost" href="{% url 'private_search' %}">Vai a Search</a>
+          </div>
+        </div>
+
+        <div class="card pad">
+          <h3 class="h3" style="margin:0 0 10px 0;">EU Standard</h3>
+
+          <div class="eu-list">
+            <div class="eu-item">
+              <div class="title">Matematica + scienze/tecnologie</div>
+              <div class="value">Livello: {{ profile.eu_math_science }}/5</div>
+            </div>
+
+            <div class="eu-item">
+              <div class="title">Competenza digitale</div>
+              <div class="value">Livello: {{ profile.eu_digital }}/5</div>
+            </div>
+
+            <div class="eu-item">
+              <div class="title">Personale/sociale + imparare ad imparare</div>
+              <div class="value">Livello: {{ profile.eu_personal_social_learning }}/5</div>
+            </div>
+          </div>
+
+          <p class="p" style="margin-top:12px; opacity:.8;">
+            (In futuro: qui aggiungiamo un form per aggiornare i livelli.)
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

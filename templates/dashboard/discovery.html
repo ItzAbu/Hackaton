@@ -1,0 +1,56 @@
+<!doctype html>
+{% load static %}
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UrbanKnowledge — Discovery</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="{% url 'private_page' %}">
+        <div class="logo" aria-hidden="true">
+          <img src="{% static 'imgs/logo.png' %}" alt="Logo UrbanKnowledge">
+        </div>
+        <div>UrbanKnowledge</div>
+      </a>
+
+      <div class="topbar-right">
+        <a class="btn btn-ghost" href="{% url 'private_page' %}">← Indietro</a>
+        <a class="btn btn-outline" href="{% url 'logout' %}">Logout</a>
+        <a class="avatar-link" href="{% url 'private_profile' %}" title="Profilo">
+          <div class="avatar-dot"></div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="app">
+    <section class="container" style="margin-top:18px;">
+      <div class="card pad">
+        <h2 class="h2" style="margin:0 0 8px 0;">Discovery</h2>
+        <p class="p" style="margin:0;">Per ora vedi solo la card di prova.</p>
+      </div>
+    </section>
+
+    <section class="container" style="margin-top:16px;">
+      <a class="tile" href="{% url 'kaboom' %}">
+        <div class="card pad game-card">
+          <div class="meta">
+            <div class="tag">Demo</div>
+            <h3 class="h3" style="margin:0;">Città Prova</h3>
+            <p class="p" style="margin:0;">Apri Kaboom (per ora è l’unico gioco visibile).</p>
+          </div>
+          <div>
+            <span class="btn btn-primary">Apri</span>
+          </div>
+        </div>
+      </a>
+    </section>
+  </main>
+
+</body>
+</html>
