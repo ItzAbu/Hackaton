@@ -9,7 +9,6 @@
 </head>
 
 <body class="auth">
-  <!-- HEADER -->
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="/">
@@ -19,8 +18,7 @@
         <div>UrbanKnowledge</div>
       </a>
 
-      <div class="btn-row">
-        <a class="btn btn-ghost" href="/">Torna alla Home</a>
+      <div class="header-cta">
         <a class="btn btn-primary" href="{% url 'login' %}">Accedi</a>
       </div>
     </div>
@@ -30,154 +28,125 @@
     <div class="container">
       <div class="card pad auth-card-wide">
         <h1 class="h2">Registrazione</h1>
-        <p class="p">Seleziona il tipo di account e completa i dati richiesti.</p>
+        <p class="p">Crea un account. Puoi scegliere <b>Privato</b> o <b>Azienda</b>.</p>
 
-        <!-- Toggle (radio) + slider -->
-        <div class="reg-switch">
-          <input type="radio" name="tipo-account" id="acc-privato" checked>
-          <input type="radio" name="tipo-account" id="acc-azienda">
+        <form class="form" method="post" action="{% url 'register' %}" style="margin-top:10px;">
+          {% csrf_token %}
 
-          <div class="reg-tabs">
-            <label for="acc-privato" class="reg-tab">Privato</label>
-            <label for="acc-azienda" class="reg-tab">Azienda</label>
-            <span class="reg-indicator" aria-hidden="true"></span>
+          {% if form.non_field_errors %}
+            <div class="alert error" style="margin-bottom:10px;">{{ form.non_field_errors }}</div>
+          {% endif %}
+
+          <!-- Tipo account -->
+          <div class="field">
+            <label>Tipo account</label>
+            <div class="grid cols-2" style="align-items:center;">
+              <label style="display:flex; gap:10px; align-items:center; font-weight:700;">
+                <input type="radio" name="user_type" value="PRIVATE"
+                       {% if form.user_type.value == "PRIVATE" or not form.user_type.value %}checked{% endif %}>
+                Privato
+              </label>
+              <label style="display:flex; gap:10px; align-items:center; font-weight:700;">
+                <input type="radio" name="user_type" value="COMPANY"
+                       {% if form.user_type.value == "COMPANY" %}checked{% endif %}>
+                Azienda
+              </label>
+            </div>
+            {% for err in form.user_type.errors %}
+              <div class="help" style="color:#b00020;">{{ err }}</div>
+            {% endfor %}
           </div>
 
-          <div class="reg-viewport">
-            <div class="reg-panels">
-
-              <!-- PANEL 1: PRIVATO -->
-              <section class="reg-panel">
-                <div class="badge success">Privato</div>
-
-                <form class="form" style="margin-top:10px;">
-                  <div class="grid cols-2">
-                    <div class="field">
-                      <label for="p-nome">Nome</label>
-                      <input id="p-nome" required placeholder="Mario" autocomplete="given-name" />
-                    </div>
-                    <div class="field">
-                      <label for="p-cognome">Cognome</label>
-                      <input id="p-cognome" required placeholder="Rossi" autocomplete="family-name" />
-                    </div>
-                  </div>
-
-                  <div class="grid cols-2">
-                    <div class="field">
-                      <label for="p-mail">Email</label>
-                      <input id="p-mail" type="email" required placeholder="mario@email.it" autocomplete="email" />
-                    </div>
-                    <div class="field">
-                      <label for="p-tel">Telefono (facoltativo)</label>
-                      <input id="p-tel" type="tel" placeholder="+39 3xx xxx xxxx" autocomplete="tel" />
-                    </div>
-                  </div>
-
-                  <div class="grid cols-2">
-                    <div class="field">
-                      <label for="p-pass">Password</label>
-                      <input id="p-pass" type="password" required placeholder="••••••••" autocomplete="new-password" />
-                    </div>
-                    <div class="field">
-                      <label for="p-pass2">Conferma password</label>
-                      <input id="p-pass2" type="password" required placeholder="••••••••" autocomplete="new-password" />
-                    </div>
-                  </div>
-
-                  <div class="btn-row" style="margin-top:6px;">
-                    <button class="btn btn-primary" type="submit">Crea account privato</button>
-                    <a class="btn btn-ghost" href="{% url 'login' %}">Hai già un account?</a>
-                  </div>
-                </form>
-              </section>
-
-              <!-- PANEL 2: AZIENDA -->
-              <section class="reg-panel">
-                <div class="badge success">Azienda</div>
-
-                <form class="form" style="margin-top:10px;">
-                  <div class="grid cols-2">
-                    <div class="field">
-                      <label for="a-nome">Nome azienda</label>
-                      <input id="a-nome" required placeholder="Acme S.p.A." />
-                    </div>
-                    <div class="field">
-                      <label for="a-piva">Partita IVA</label>
-                      <input id="a-piva" required placeholder="IT12345678901" />
-                    </div>
-                  </div>
-
-                  <div class="grid cols-2">
-                    <div class="field">
-                      <label for="a-mail">Email</label>
-                      <input id="a-mail" type="email" required placeholder="admin@acme.it" autocomplete="email" />
-                    </div>
-                    <div class="field">
-                      <label for="a-tel">Telefono</label>
-                      <input id="a-tel" type="tel" required placeholder="+39 0xx xxx xxxx" autocomplete="tel" />
-                    </div>
-                  </div>
-
-                  <div class="grid cols-2">
-                    <div class="field">
-                      <label for="a-citta">Città</label>
-                      <input id="a-citta" required placeholder="Milano" />
-                    </div>
-                  </div>
-
-                  <div class="grid cols-2">
-                    <div class="field">
-                      <label for="a-pass">Password</label>
-                      <input id="a-pass" type="password" required placeholder="••••••••" autocomplete="new-password" />
-                    </div>
-                    <div class="field">
-                      <label for="a-pass2">Conferma password</label>
-                      <input id="a-pass2" type="password" required placeholder="••••••••" autocomplete="new-password" />
-                    </div>
-                  </div>
-
-                  <div class="btn-row" style="margin-top:6px;">
-                    <button class="btn btn-primary" type="submit">Crea account azienda</button>
-                    <a class="btn btn-ghost" href="{% url 'login' %}">Hai già un account?</a>
-                    <a class="btn btn-outline" href="/#aziende">Rivedi piani</a>
-                  </div>
-                </form>
-              </section>
-
+          <!-- Dati comuni -->
+          <div class="grid cols-2">
+            <div class="field">
+              <label for="{{ form.email.id_for_label }}">Email</label>
+              {{ form.email }}
+              {% for err in form.email.errors %}
+                <div class="help" style="color:#b00020;">{{ err }}</div>
+              {% endfor %}
+            </div>
+            <div class="field">
+              <label for="{{ form.phone.id_for_label }}">Telefono (facoltativo)</label>
+              {{ form.phone }}
+              {% for err in form.phone.errors %}
+                <div class="help" style="color:#b00020;">{{ err }}</div>
+              {% endfor %}
             </div>
           </div>
-        </div>
 
+          <!-- Sezione PRIVATO -->
+          <div id="privateFields">
+            <div class="grid cols-2">
+              <div class="field">
+                <label for="{{ form.first_name.id_for_label }}">Nome</label>
+                {{ form.first_name }}
+              </div>
+              <div class="field">
+                <label for="{{ form.last_name.id_for_label }}">Cognome</label>
+                {{ form.last_name }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Sezione AZIENDA -->
+          <div id="companyFields" style="display:none;">
+            <div class="grid cols-2">
+              <div class="field">
+                <label for="{{ form.company_name.id_for_label }}">Nome azienda</label>
+                {{ form.company_name }}
+              </div>
+              <div class="field">
+                <label for="{{ form.piva.id_for_label }}">P.IVA</label>
+                {{ form.piva }}
+              </div>
+            </div>
+            <div class="field">
+              <label for="{{ form.city.id_for_label }}">Città</label>
+              {{ form.city }}
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="grid cols-2">
+            <div class="field">
+              <label for="{{ form.password1.id_for_label }}">Password</label>
+              {{ form.password1 }}
+              {% for err in form.password1.errors %}
+                <div class="help" style="color:#b00020;">{{ err }}</div>
+              {% endfor %}
+            </div>
+            <div class="field">
+              <label for="{{ form.password2.id_for_label }}">Conferma password</label>
+              {{ form.password2 }}
+              {% for err in form.password2.errors %}
+                <div class="help" style="color:#b00020;">{{ err }}</div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="btn-row" style="margin-top:12px;">
+            <button class="btn btn-primary" type="submit">Crea account</button>
+            <a class="btn btn-ghost" href="{% url 'login' %}">Ho già un account</a>
+          </div>
+
+          <p class="help" style="margin-top:12px;">
+            Creando un account accetti i Termini e l’Informativa Privacy.
+          </p>
+        </form>
       </div>
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>
-        <strong>UrbanKnowledge</strong> — © 2025<br>
-        <a href="#">Privacy</a> - <a href="#">Termini</a> - <a href="#">Supporto</a>
-      </div>
-
-      <div class="footer-links">
-        <p><b>Contatti</b><br>
-          <a href="mailto:info@urbanknowledge.it">info@urbanknowledge.it</a><br>
-          <a href="tel:+393456789012">+39 345 678 9012</a><br>
-          Via Esino 36, Ancona, Italia
-        </p>
-      </div>
-
-      <div class="footer-links">
-        <p><b>Team</b><br>
-          Mattia Fermani<br>
-          Abu Shahid Islam<br>
-          Gabriele Papa<br>
-          Samuel Sanchez<br>
-          Matteo Scoccianti<br>
-          Simone Vescovo
-        </p>
-      </div>
-    </div>
-  </footer>
+  <script>
+    function syncRegisterFields(){
+      const selected = document.querySelector('input[name="user_type"]:checked');
+      const isCompany = selected && selected.value === "COMPANY";
+      document.getElementById("companyFields").style.display = isCompany ? "" : "none";
+      document.getElementById("privateFields").style.display = isCompany ? "none" : "";
+    }
+    document.querySelectorAll('input[name="user_type"]').forEach(r => r.addEventListener('change', syncRegisterFields));
+    syncRegisterFields();
+  </script>
 </body>
 </html>

@@ -30,6 +30,20 @@
   </header>
 
   <main class="app">
+    <section class="container" style="margin-top:18px;">
+      <div class="card pad">
+        <h2 class="h3" style="margin:0 0 6px 0;">Benvenuto, {{ user.username }}</h2>
+        <p class="p" style="margin:0 0 14px 0;">
+          Tipo account: <b>{{ profile.get_user_type_display }}</b>
+          {% if profile.user_type == "COMPANY" and profile.company_name %} — {{ profile.company_name }}{% endif %}
+        </p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="{% url 'kaboom' %}">Avvia gioco (Kaboom)</a>
+          <a class="btn btn-ghost" href="{% url 'logout' %}">Logout</a>
+        </div>
+      </div>
+    </section>
+
     <div class="container app-body">
       <!-- SIDEBAR -->
       <aside class="card sidebar">

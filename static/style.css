@@ -638,7 +638,7 @@ hr.sep{
 
 .reg-panels{
   display: flex;
-  width: 200%;
+  width: 100%;
   transform: translateX(0%);
   transition: transform .45s cubic-bezier(.2,.8,.2,1);
 }
