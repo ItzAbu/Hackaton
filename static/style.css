@@ -241,11 +241,12 @@ img{ max-width:100%; display:block; }
   padding: 44px 0 18px;
 }
 .hero-wrap{
-  display:fixed; /* ✅ prima era display:fixed (bug) */
+  display: grid;        /* <- giusto */
   grid-template-columns: 1.25fr 0.75fr;
   gap: 18px;
   align-items: stretch;
 }
+
 @media (max-width: 900px){
   .hero-wrap{ grid-template-columns: 1fr; }
 }
