@@ -1,0 +1,288 @@
+<!doctype html>
+{% load static %}
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UrbanKnowledge — Dashboard Azienda</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+
+<body>
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/">
+        <div class="logo" aria-hidden="true">
+          <img src="{% static 'imgs/logo.png' %}" alt="Logo UrbanKnowledge">
+        </div>
+        <div>UrbanKnowledge</div>
+      </a>
+
+      <div class="topbar-right">
+        <span class="badge success">Azienda</span>
+        <div class="pill">Piano: {{ company_plan|default:"Gold" }}</div>
+        <a class="btn btn-ghost" href="/">Home</a>
+        <a class="btn btn-outline" href="{% url 'logout' %}">Logout</a>
+        <div class="avatar-dot" title="{{ user.username|default:'Admin' }}"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="app">
+    <div class="container app-body">
+      <!-- SIDEBAR -->
+      <aside class="card sidebar">
+        <div class="panel-title">Pannello aziendale</div>
+
+        <nav class="side-nav" aria-label="Menu azienda">
+          <a class="side-link active" href="{% url 'dashboard' %}">
+            Dashboard <span class="badge">↗</span>
+          </a>
+
+          <!-- Le URL qui sotto sono placeholder: aggiornale con i tuoi name= nelle urls.py -->
+          <a class="side-link" href="#">
+            Dipendenti <span class="badge">{{ employees_active|default:"24" }}</span>
+          </a>
+          <a class="side-link" href="#">
+            Corsi <span class="badge">{{ courses_active|default:"3" }}</span>
+          </a>
+          <a class="side-link" href="#">
+            Città <span class="badge">{{ cities_count|default:"2" }}</span>
+          </a>
+          <a class="side-link" href="#">
+            Progressi <span class="badge">📈</span>
+          </a>
+          <a class="side-link" href="#">
+            Impostazioni <span class="badge">⚙</span>
+          </a>
+        </nav>
+
+        <hr class="sep" />
+
+        <div class="help">
+          <strong>Azioni rapide</strong><br>
+          • Invita dipendenti<br>
+          • Crea un corso<br>
+          • Genera una città
+        </div>
+      </aside>
+
+      <!-- CONTENT -->
+      <section class="card content">
+        <div class="kpi">
+          <div>
+            <div class="kicker">📊 Overview</div>
+            <h1 class="h2" style="margin-top:10px;">Dashboard Azienda</h1>
+            <p class="p">Monitoraggio rapido di utilizzo, progressi e corsi attivi.</p>
+          </div>
+          <div style="text-align:right;">
+            <span class="help">Ultimo aggiornamento</span><br>
+            <strong>{{ last_update|default:"Oggi" }}</strong>
+          </div>
+        </div>
+
+        <!-- KPI CARDS -->
+        <div class="grid cols-4" style="margin-top:14px;">
+          <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.72);">
+            <div class="badge success">Dipendenti</div>
+            <div class="kpi" style="margin-top:10px;">
+              <strong>{{ employees_active|default:"24" }}</strong>
+              <span>attivi</span>
+            </div>
+            <div class="help">su {{ employees_limit|default:"100" }} disponibili</div>
+          </div>
+
+          <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.72);">
+            <div class="badge success">Completamento</div>
+            <div class="kpi" style="margin-top:10px;">
+              <strong>{{ completion_rate|default:"68" }}%</strong>
+              <span>medio</span>
+            </div>
+            <div class="progress" style="margin-top:10px;">
+              <div style="width: {{ completion_rate|default:'68' }}%"></div>
+            </div>
+          </div>
+
+          <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.72);">
+            <div class="badge success">Corsi</div>
+            <div class="kpi" style="margin-top:10px;">
+              <strong>{{ courses_active|default:"3" }}</strong>
+              <span>attivi</span>
+            </div>
+            <div class="help">max: {{ courses_limit|default:"5" }}</div>
+          </div>
+
+          <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.72);">
+            <div class="badge success">Città</div>
+            <div class="kpi" style="margin-top:10px;">
+              <strong>{{ cities_count|default:"2" }}</strong>
+              <span>generate</span>
+            </div>
+            <div class="help">max: {{ cities_limit|default:"5" }}</div>
+          </div>
+        </div>
+
+        <hr class="sep" />
+
+        <!-- SPLIT: progress + azioni -->
+        <div class="split">
+          <!-- Progressi -->
+          <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
+            <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+              <div>
+                <strong>Progressi per area</strong>
+                <div class="help">Media aziendale (demo)</div>
+              </div>
+              <div class="btn-row">
+                <a class="btn btn-outline" href="#">Esporta</a>
+                <a class="btn btn-primary" href="#">Dettagli</a>
+              </div>
+            </div>
+
+            <div style="margin-top:14px;">
+              <div class="help"><strong>Matematica</strong></div>
+              <div class="progress"><div style="width:{{ math_progress|default:'72' }}%"></div></div>
+            </div>
+
+            <div style="margin-top:12px;">
+              <div class="help"><strong>Informatica</strong></div>
+              <div class="progress"><div style="width:{{ cs_progress|default:'58' }}%"></div></div>
+            </div>
+
+            <div style="margin-top:12px;">
+              <div class="help"><strong>Economia</strong></div>
+              <div class="progress"><div style="width:{{ econ_progress|default:'64' }}%"></div></div>
+            </div>
+
+            <div style="margin-top:12px;">
+              <div class="help"><strong>Lingue</strong></div>
+              <div class="progress"><div style="width:{{ lang_progress|default:'49' }}%"></div></div>
+            </div>
+          </div>
+
+          <!-- Azioni / Attività -->
+          <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
+            <strong>Attività recente</strong>
+            <div class="help">Ultime azioni (demo)</div>
+
+            <table class="table" style="margin-top:12px;">
+              <thead>
+                <tr>
+                  <th>Quando</th>
+                  <th>Evento</th>
+                  <th>Dettaglio</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for a in activities %}
+                <tr>
+                  <td>{{ a.when }}</td>
+                  <td>{{ a.event }}</td>
+                  <td>{{ a.detail }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td>Oggi</td>
+                  <td>Nuovo dipendente</td>
+                  <td>Invitato: m.rossi@azienda.it</td>
+                </tr>
+                <tr>
+                  <td>Ieri</td>
+                  <td>Corso aggiornato</td>
+                  <td>“Onboarding IT” (nuove quest)</td>
+                </tr>
+                <tr>
+                  <td>2 gg fa</td>
+                  <td>Città generata</td>
+                  <td>“Milano — Base”</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+            <div class="btn-row" style="margin-top:12px;">
+              <a class="btn btn-primary" href="#">Invita dipendenti</a>
+              <a class="btn btn-outline" href="#">Crea corso</a>
+            </div>
+          </div>
+        </div>
+
+        <hr class="sep" />
+
+        <!-- Dipendenti (preview) -->
+        <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
+          <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:center;">
+            <div>
+              <strong>Dipendenti</strong>
+              <div class="help">Top progressi (demo)</div>
+            </div>
+            <div class="btn-row">
+              <a class="btn btn-ghost" href="#">Gestisci</a>
+              <a class="btn btn-outline" href="#">Filtra</a>
+            </div>
+          </div>
+
+          <table class="table" style="margin-top:12px;">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Livello</th>
+                <th>XP</th>
+                <th>Stato</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for e in employees %}
+              <tr>
+                <td>{{ e.name }}</td>
+                <td>{{ e.level }}</td>
+                <td>{{ e.xp }}</td>
+                <td>
+                  {% if e.active %}
+                    <span class="badge success">Attivo</span>
+                  {% else %}
+                    <span class="badge warn">Inattivo</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td>Mario Rossi</td>
+                <td>12</td>
+                <td>3.240</td>
+                <td><span class="badge success">Attivo</span></td>
+              </tr>
+              <tr>
+                <td>Giulia Bianchi</td>
+                <td>10</td>
+                <td>2.850</td>
+                <td><span class="badge success">Attivo</span></td>
+              </tr>
+              <tr>
+                <td>Luca Verdi</td>
+                <td>7</td>
+                <td>1.640</td>
+                <td><span class="badge warn">Inattivo</span></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div><strong>UrbanKnowledge</strong> — © 2025</div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Termini</a>
+        <a href="#">Supporto</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

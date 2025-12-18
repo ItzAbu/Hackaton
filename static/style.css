@@ -648,6 +648,11 @@ hr.sep{
   padding: 18px;
 }
 
+.reg-panel .field{
+  margin-bottom: 12px;
+  width: 200px;
+}
+
 #acc-azienda:checked ~ .reg-viewport .reg-panels{
   transform: translateX(-50%);
 }
