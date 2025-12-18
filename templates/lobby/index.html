@@ -12,7 +12,9 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="/">
-        <div class="logo" aria-hidden="true"><img src="{% static 'imgs/logo.png' %}" alt="Logo"></div>
+        <div class="logo" aria-hidden="true">
+          <img src="{% static 'imgs/logo.png' %}" alt="Logo">
+        </div>
         <div>UrbanKnowledge</div>
       </a>
 
@@ -46,7 +48,7 @@
 
           <div class="btn-row">
             <a class="btn btn-primary" href="{% url 'register' %}">Crea account</a>
-            <a class="btn btn-outline" href="#prezzi">Vedi abbonamenti per aziende</a>
+            <a class="btn btn-outline" href="#aziende">Vedi abbonamenti per aziende</a>
           </div>
 
           <hr class="sep" />
@@ -66,7 +68,7 @@
           </div>
         </div>
 
-        <!-- mock rimosso (come nel tuo html) -->
+        <!-- mock rimosso -->
       </div>
     </section>
 
@@ -99,7 +101,6 @@
           <p class="p">Account gratuito per giocare, migliorare le competenze e personalizzare il personaggio.</p>
           <div class="btn-row">
             <a class="btn btn-primary" href="{% url 'register' %}">Registrati gratis</a>
-            <a class="btn btn-ghost" href="/demo/">Vai alla demo gioco</a>
           </div>
         </div>
       </div>
@@ -109,64 +110,134 @@
     <section id="aziende" class="section">
       <div class="container hero-wrap hero-card">
         <h2 class="h2">Per aziende</h2>
-        <p class="p">Scegli un abbonamento in base al numero di dipendenti e al numero di città generabili.</p>
+        <p class="p">Scegli un abbonamento in base al numero di dipendenti e al numero di corsi attivabili.</p>
 
-        <!-- PRICING -->
-        <div id="prezzi" class="grid cols-2">
-          <div class="card pad" style="border-color: rgba(59,120,64,0.35); background: rgba(255,255,255,0.78);">
-            <div class="badge success">Bronze</div>
-            <div class="price">€ 199/mese</div>
-            <ul class="ul">
-              <li>Fino a 10 dipendenti</li>
-              <li>Città generabili: 1</li>
-            </ul>
-            <div class="btn-row" style="margin-top:14px;">
-              <a class="btn btn-primary" href="{% url 'register' %}">Attiva Bronze</a>
-            </div>
+        <!-- PRICING TABLE -->
+        <div class="pricing-wrap" id="prezzi">
+          <div class="pricing-table-wrap">
+            <table class="pricing-table" aria-label="Tabella abbonamenti aziende">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Bronze</th>
+                  <th>Silver</th>
+                  <th>Gold</th>
+                  <th>Platinum</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <!-- RIGA 1: PERSONE -->
+                <tr>
+                  <th scope="row">Persone</th>
+
+                  <td>
+                    <label class="plan-cell">
+                      <input type="radio" name="peoplePlan" value="300" checked>
+                      <div class="plan-title">Bronze</div>
+                      <div class="plan-text">Fino a 10 dipendenti</div>
+                      <div class="plan-price">300€</div>
+                    </label>
+                  </td>
+
+                  <td>
+                    <label class="plan-cell">
+                      <input type="radio" name="peoplePlan" value="550">
+                      <div class="plan-title">Silver</div>
+                      <div class="plan-text">Fino a 25 dipendenti</div>
+                      <div class="plan-price">550€</div>
+                    </label>
+                  </td>
+
+                  <td>
+                    <label class="plan-cell">
+                      <input type="radio" name="peoplePlan" value="750">
+                      <div class="plan-title">Gold</div>
+                      <div class="plan-text">Fino a 100 dipendenti</div>
+                      <div class="plan-price">750€</div>
+                    </label>
+                  </td>
+
+                  <td>
+                    <label class="plan-cell">
+                      <input type="radio" name="peoplePlan" value="1000">
+                      <div class="plan-title">Platinum</div>
+                      <div class="plan-text">Dipendenti illimitati</div>
+                      <div class="plan-price">1000€</div>
+                    </label>
+                  </td>
+                </tr>
+
+                <!-- RIGA 2: CORSI -->
+                <tr>
+                  <th scope="row">Corsi</th>
+
+                  <td>
+                    <label class="plan-cell">
+                      <input type="radio" name="coursePlan" value="300" checked>
+                      <div class="plan-title">Bronze</div>
+                      <div class="plan-text">1 corso</div>
+                      <div class="plan-price">300€</div>
+                    </label>
+                  </td>
+
+                  <td>
+                    <label class="plan-cell">
+                      <input type="radio" name="coursePlan" value="450">
+                      <div class="plan-title">Silver</div>
+                      <div class="plan-text">3 corsi</div>
+                      <div class="plan-price">450€</div>
+                    </label>
+                  </td>
+
+                  <td>
+                    <label class="plan-cell">
+                      <input type="radio" name="coursePlan" value="600">
+                      <div class="plan-title">Gold</div>
+                      <div class="plan-text">5 corsi</div>
+                      <div class="plan-price">600€</div>
+                    </label>
+                  </td>
+
+                  <td>
+                    <label class="plan-cell">
+                      <input type="radio" name="coursePlan" value="750">
+                      <div class="plan-title">Platinum</div>
+                      <div class="plan-text">Corsi illimitati</div>
+                      <div class="plan-price">750€</div>
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
-          <div class="card pad" style="border-color: rgba(59,120,64,0.35); background: rgba(255,255,255,0.78);">
-            <div class="badge success">Silver</div>
-            <div class="price">€ 499/mese</div>
-            <ul class="ul">
-              <li>Fino a 30 dipendenti</li>
-              <li>Città generabili: 3</li>
-            </ul>
-            <div class="btn-row" style="margin-top:14px;">
-              <a class="btn btn-primary" href="{% url 'register' %}">Attiva Silver</a>
+          <!-- Totale -->
+          <div class="card pad pricing-total" style="margin-top:16px; background: rgba(255,255,255,0.62); box-shadow:none;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:14px; flex-wrap:wrap;">
+              <div>
+                <strong>Totale selezionato</strong>
+                <div class="help">
+                  Persone: <span id="peoplePrice">—</span> • Corsi: <span id="coursePrice">—</span>
+                </div>
+              </div>
+              <div class="price" style="margin:0;">
+                <span id="totalPrice">—</span>
+              </div>
             </div>
-          </div>
 
-          <div class="card pad" style="border-color: rgba(59,120,64,0.35); background: rgba(255,255,255,0.78);">
-            <div class="badge success">Gold</div>
-            <div class="price">€ 999/mese</div>
-            <ul class="ul">
-              <li>Fino a 100 dipendenti</li>
-              <li>Città generabili: 5</li>
-            </ul>
-            <div class="btn-row" style="margin-top:14px;">
-              <a class="btn btn-primary" href="{% url 'register' %}">Attiva Gold</a>
-            </div>
-          </div>
-
-          <div class="card pad" style="border-color: rgba(59,120,64,0.35); background: rgba(255,255,255,0.78);">
-            <div class="badge success">Platinum</div>
-            <div class="price">€ 1999/mese</div>
-            <ul class="ul">
-              <li>Dipendenti illimitati</li>
-              <li>Città generabili: illimitate</li>
-            </ul>
-            <div class="btn-row" style="margin-top:14px;">
-              <a class="btn btn-primary" href="{% url 'register' %}">Attiva Platinum</a>
+            <div class="btn-row" style="margin-top:12px;">
+              <a class="btn btn-primary" href="{% url 'register' %}">Continua</a>
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
     <!-- RECENSIONI -->
     <section id="recensioni" class="section compact">
-      <div class="container">
+      <div class="container hero-wrap hero-card">
         <h2 class="h2">Recensioni</h2>
         <p class="p">Cosa dicono aziende e privati dopo aver provato UrbanKnowledge.</p>
 
@@ -222,7 +293,7 @@
 
     <!-- FAQ -->
     <section id="faq" class="section compact">
-      <div class="container">
+      <div class="container hero-card hero-wrap">
         <h2 class="h2">FAQ</h2>
         <div class="grid cols-2">
           <div class="card pad">
@@ -241,14 +312,65 @@
   <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div><strong>UrbanKnowledge</strong> — © 2025</div>
+      <div>
+        <strong>UrbanKnowledge</strong> — © 2025<br>
+        <a href="#">Privacy</a> - <a href="#">Termini</a> - <a href="#">Supporto</a>
+      </div>
+
       <div class="footer-links">
-        <a href="#">Privacy</a>
-        <a href="#">Termini</a>
-        <a href="#">Cookie</a>
-        <a href="#">Supporto</a>
+        <p><b>Contatti</b><br>
+          <a href="mailto:info@urbanknowledge.it">info@urbanknowledge.it</a><br>
+          <a href="tel:+393456789012">+39 345 678 9012</a><br>
+          Via Esino 36, Ancona, Italia
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <p><b>Team</b><br>
+          Mattia Fermani<br>
+          Abu Shahid Islam<br>
+          Gabriele Papa<br>
+          Samuel Sanchez<br>
+          Matteo Scoccianti<br>
+          Simone Vescovo
+        </p>
       </div>
     </div>
   </footer>
+
+  <script>
+    // Stato (variabili) aggiornate ad ogni selezione
+    const pricingState = { people: 0, courses: 0, total: 0 };
+
+    const elPeople = document.getElementById("peoplePrice");
+    const elCourses = document.getElementById("coursePrice");
+    const elTotal = document.getElementById("totalPrice");
+
+    function readSelectedPrice(groupName){
+      const selected = document.querySelector(`input[name="${groupName}"]:checked`);
+      return selected ? Number(selected.value) : 0;
+    }
+
+    function renderPrices(){
+      pricingState.total = pricingState.people + pricingState.courses;
+      elPeople.textContent = pricingState.people + "€";
+      elCourses.textContent = pricingState.courses + "€";
+      elTotal.textContent = pricingState.total + "€";
+    }
+
+    function updateStateFromDOM(){
+      pricingState.people = readSelectedPrice("peoplePlan");
+      pricingState.courses = readSelectedPrice("coursePlan");
+      renderPrices();
+    }
+
+    document.addEventListener("change", (e) => {
+      if (e.target && (e.target.name === "peoplePlan" || e.target.name === "coursePlan")) {
+        updateStateFromDOM();
+      }
+    });
+
+    updateStateFromDOM();
+  </script>
 </body>
 </html>
