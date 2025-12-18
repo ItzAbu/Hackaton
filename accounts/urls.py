@@ -15,7 +15,7 @@ urlpatterns = [
     path("after-login/", views.after_login, name="after_login"),
 
     
-    path("", views.home, name="home"),
-    path("/home", views.home, name="home"),
+    path("", views.home, name="lobby"),
+    path("/home", views.home, name="lobby"),
     
 ]
