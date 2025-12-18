@@ -1,23 +1,26 @@
 <!doctype html>
+{% load static %}
 <html lang="it">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>UrbanKnowledge — Login</title>
-  <link rel="stylesheet" href="stile.css" />
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
 </head>
 
 <body class="auth">
   <!-- HEADER -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="home.html">
-        <div class="logo" aria-hidden="true"><img src="img/logo.png" alt="Logo UrbanKnowledge"></div>
+      <a class="brand" href="/">
+        <div class="logo" aria-hidden="true">
+          <img src="{% static 'imgs/logo.png' %}" alt="Logo UrbanKnowledge">
+        </div>
         <div>UrbanKnowledge</div>
       </a>
       <div class="btn-row">
-        <a class="btn btn-ghost" href="home.html">Torna alla Home</a>
-        <a class="btn btn-primary" href="registrazione.html">Registrati</a>
+        <a class="btn btn-ghost" href="/">Torna alla Home</a>
+        <a class="btn btn-primary" href="{% url 'register' %}">Registrati</a>
       </div>
     </div>
   </header>
@@ -28,15 +31,16 @@
         <h1 class="h2">Accedi</h1>
         <p class="p">Inserisci le credenziali per accedere al tuo account.</p>
 
-        <form class="form">
+        <form class="form" method="post" action="">
+          {% csrf_token %}
           <div class="field">
             <label for="email">Email</label>
-            <input id="email" type="email" placeholder="nome@azienda.it" autocomplete="email" required />
+            <input id="email" name="email" type="email" placeholder="nome@azienda.it" autocomplete="email" required />
           </div>
 
           <div class="field">
             <label for="pass">Password</label>
-            <input id="pass" type="password" placeholder="••••••••" autocomplete="current-password" required />
+            <input id="pass" name="password" type="password" placeholder="••••••••" autocomplete="current-password" required />
           </div>
 
           <div class="btn-row" style="margin-top:6px;">
@@ -49,20 +53,30 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div><strong>UrbanKnowledge</strong> — © 2025<br><a href="#">Privacy</a> - <a href="#">Termini</a> - <a href="#">Supporto</a></div>
+      <div>
+        <strong>UrbanKnowledge</strong> — © 2025<br>
+        <a href="#">Privacy</a> - <a href="#">Termini</a> - <a href="#">Supporto</a>
+      </div>
+
       <div class="footer-links">
         <p><b>Contatti</b><br>
-          <a href="info@urbanknowledge.it">info@urbanknowledge.it</a><br>
-          <a href="tel:+39 345 678 9012">+39 345 678 9012</a><br>
+          <a href="mailto:info@urbanknowledge.it">info@urbanknowledge.it</a><br>
+          <a href="tel:+393456789012">+39 345 678 9012</a><br>
           Via Esino 36, Ancona, Italia
         </p>
       </div>
+
       <div class="footer-links">
-        <p><b>Team</b><br>Mattia Fermani<br>Abu Shahid Islam<br>Gabriele Papa<br>Samuel Sanchez<br>Matteo Scoccianti<br>Simone Vescovo</p>
+        <p><b>Team</b><br>
+          Mattia Fermani<br>
+          Abu Shahid Islam<br>
+          Gabriele Papa<br>
+          Samuel Sanchez<br>
+          Matteo Scoccianti<br>
+          Simone Vescovo
+        </p>
       </div>
-
-      
-
+    </div>
   </footer>
 
   <!-- Auth tweaks (compatta i campi) -->
