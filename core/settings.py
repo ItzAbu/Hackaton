@@ -26,7 +26,12 @@ SECRET_KEY = 'django-insecure-7c0)!%m0^1kmz7yt4ahp9ftr4!qv8wz=%#)-l0*@op(8--ld7=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+ALLOWED_HOSTS = [
+    "hackaton-production-5e82.up.railway.app",
+    ".up.railway.app",
+    "localhost",
+    "127.0.0.1",
+]
 
 
 # Application definition
