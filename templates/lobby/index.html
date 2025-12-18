@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Template Dark - Home / Prezzi</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/app.js"></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#home">Salta al contenuto</a>
+
+  <header class="topbar" id="top">
+    <nav class="nav" aria-label="Navigazione principale">
+      <a class="brand" href="#home" aria-label="Vai alla Home">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__text">DarkTemplate</span>
+      </a>
+
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="navMenu">
+        <span class="nav__toggle-lines" aria-hidden="true"></span>
+        <span class="sr-only">Apri menu</span>
+      </button>
+
+      <div class="nav__menu" id="navMenu">
+        <ul class="nav__links" role="list">
+          <li><a class="nav__link is-active" href="#home" data-nav="home">Home</a></li>
+          <li><a class="nav__link" href="#prezzi" data-nav="prezzi">Prezzi</a></li>
+        </ul>
+
+        <div class="nav__actions">
+          <button class="btn btn--ghost" type="button" data-open-modal="signin">Sign In</button>
+          <button class="btn btn--primary" type="button" data-open-modal="login">Log In</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section hero" id="home" data-section="home">
+      <div class="container grid-2">
+        <div class="stack">
+          <h1 class="hero__title">Tema scuro, layout pulito, pronto da estendere.</h1>
+          <p class="hero__subtitle">
+            Navbar con Home/Prezzi + bottoni Sign In / Log In. CSS e JS separati.
+          </p>
+
+          <div class="row">
+            <a class="btn btn--primary" href="#prezzi">Vedi prezzi</a>
+            <button class="btn btn--ghost" type="button" data-open-modal="login">Accedi</button>
+          </div>
+
+          <div class="meta">
+            <div class="pill">Responsive</div>
+            <div class="pill">Accessibile</div>
+            <div class="pill">Vanilla JS</div>
+          </div>
+        </div>
+
+        <div class="card card--glow">
+          <h2 class="card__title">Preview</h2>
+          <p class="card__text">
+            Sostituisci testi e sezioni. Aggiungi pagine o routing quando vuoi.
+          </p>
+          <div class="stats">
+            <div class="stat">
+              <div class="stat__value">2</div>
+              <div class="stat__label">Sezioni</div>
+            </div>
+            <div class="stat">
+              <div class="stat__value">1</div>
+              <div class="stat__label">Navbar</div>
+            </div>
+            <div class="stat">
+              <div class="stat__value">2</div>
+              <div class="stat__label">Modali</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prezzi" data-section="prezzi">
+      <div class="container stack">
+        <header class="section__head">
+          <h2>Prezzi</h2>
+          <p>Piani esempio. Cambia tutto liberamente.</p>
+        </header>
+
+        <div class="pricing">
+          <article class="plan">
+            <h3 class="plan__name">Starter</h3>
+            <p class="plan__price">€0 <span>/ mese</span></p>
+            <ul class="plan__list">
+              <li>Funzioni base</li>
+              <li>1 progetto</li>
+              <li>Supporto community</li>
+            </ul>
+            <button class="btn btn--ghost w-100" type="button" data-open-modal="signin">Sign In</button>
+          </article>
+
+          <article class="plan plan--featured" aria-label="Piano Pro in evidenza">
+            <div class="badge">Consigliato</div>
+            <h3 class="plan__name">Pro</h3>
+            <p class="plan__price">€9 <span>/ mese</span></p>
+            <ul class="plan__list">
+              <li>Progetti illimitati</li>
+              <li>Export</li>
+              <li>Supporto prioritario</li>
+            </ul>
+            <button class="btn btn--primary w-100" type="button" data-open-modal="login">Log In</button>
+          </article>
+
+          <article class="plan">
+            <h3 class="plan__name">Business</h3>
+            <p class="plan__price">€29 <span>/ mese</span></p>
+            <ul class="plan__list">
+              <li>Team & ruoli</li>
+              <li>Audit</li>
+              <li>SLA</li>
+            </ul>
+            <button class="btn btn--ghost w-100" type="button" data-open-modal="login">Contatta</button>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__row">
+      <span>© <span id="year"></span> DarkTemplate</span>
+      <a class="footer__link" href="#top">Torna su</a>
+    </div>
+  </footer>
+
+  <!-- MODAL: SIGN IN -->
+  <div class="modal" id="modal-signin" role="dialog" aria-modal="true" aria-labelledby="signinTitle" aria-hidden="true">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__panel" role="document">
+      <div class="modal__head">
+        <h3 id="signinTitle">Sign In</h3>
+        <button class="iconbtn" type="button" data-close-modal aria-label="Chiudi">✕</button>
+      </div>
+
+      <form class="form" data-auth-form="signin">
+        <label class="field">
+          <span>Email</span>
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+
+        <label class="field">
+          <span>Password</span>
+          <input type="password" name="password" autocomplete="new-password" minlength="6" required />
+        </label>
+
+        <button class="btn btn--primary w-100" type="submit">Crea account</button>
+        <p class="hint">Placeholder UI. Collega al backend quando serve.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: LOG IN -->
+  <div class="modal" id="modal-login" role="dialog" aria-modal="true" aria-labelledby="loginTitle" aria-hidden="true">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__panel" role="document">
+      <div class="modal__head">
+        <h3 id="loginTitle">Log In</h3>
+        <button class="iconbtn" type="button" data-close-modal aria-label="Chiudi">✕</button>
+      </div>
+
+      <form class="form" data-auth-form="login">
+        <label class="field">
+          <span>Email</span>
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+
+        <label class="field">
+          <span>Password</span>
+          <input type="password" name="password" autocomplete="current-password" required />
+        </label>
+
+        <button class="btn btn--primary w-100" type="submit">Accedi</button>
+        <p class="hint">Placeholder UI. Collega al backend quando serve.</p>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
