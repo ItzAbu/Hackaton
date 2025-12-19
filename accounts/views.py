@@ -29,60 +29,59 @@ class CustomLoginView(LoginView):
             return reverse("private_page")
         return reverse("dashboard")
 
+    def register(request):
+        if request.method == "POST":
+            email = request.POST.get("email","").strip().lower()
+            password = request.POST.get("password1","")
+            password2 = request.POST.get("password2","")
 
-def register(request):
-    if request.method == "POST":
-        email = request.POST.get("email","").strip().lower()
-        password = request.POST.get("password1","")
-        password2 = request.POST.get("password2","")
+            if password != password2:
+                messages.error(request, "Le password non coincidono.")
+                return render(request, "register.html")
 
-        if password != password2:
-            messages.error(request, "Le password non coincidono.")
-            return render(request, "register.html")
+            if User.objects.filter(username=email).exists():
+                messages.error(request, "Email già registrata.")
+                return render(request, "register.html")
 
-        if User.objects.filter(username=email).exists():
-            messages.error(request, "Email già registrata.")
-            return render(request, "register.html")
+            user = User(username=email, email=email)
+            user.set_password(password)
+            user.save()
 
-        user = User(username=email, email=email)
-        user.set_password(password)
-        user.save()
+            profile = getattr(user, "profile", None)
+            if profile and profile.user_type == Profile.Type.PRIVATE:
+                return redirect("private_page")
+            return redirect("dashboard")
 
-        profile = getattr(user, "profile", None)
-        if profile and profile.user_type == Profile.Type.PRIVATE:
+        return render(request, "register.html")
+
+
+    @login_required
+    def after_login(request):
+        profile, _ = Profile.objects.get_or_create(
+            user=request.user,
+            defaults={"user_type": Profile.Type.PRIVATE},
+        )
+        if profile.user_type == Profile.Type.PRIVATE:
             return redirect("private_page")
         return redirect("dashboard")
 
-    return render(request, "register.html")
 
+    def home(request):
+        return render(request, "lobby/index.html")
 
-@login_required
-def after_login(request):
-    profile, _ = Profile.objects.get_or_create(
-        user=request.user,
-        defaults={"user_type": Profile.Type.PRIVATE},
-    )
-    if profile.user_type == Profile.Type.PRIVATE:
-        return redirect("private_page")
-    return redirect("dashboard")
+    def lobby(request):
+        if request.method == "POST":
+            email = request.POST.get("email","").strip().lower()
+            password = request.POST.get("password","")
 
+            user = authenticate(request, username=email, password=password)
+            if user is None:
+                messages.error(request, "Credenziali non valide.")
+                return render(request, "login.html")
 
-def home(request):
-    return render(request, "lobby/index.html")
+            profile = getattr(user, "profile", None)
+            if profile and profile.user_type == Profile.Type.PRIVATE:
+                return redirect("private_page")
+            return redirect("dashboard")
 
-def lobby(request):
-    if request.method == "POST":
-        email = request.POST.get("email","").strip().lower()
-        password = request.POST.get("password","")
-
-        user = authenticate(request, username=email, password=password)
-        if user is None:
-            messages.error(request, "Credenziali non valide.")
-            return render(request, "login.html")
-
-        profile = getattr(user, "profile", None)
-        if profile and profile.user_type == Profile.Type.PRIVATE:
-            return redirect("private_page")
-        return redirect("dashboard")
-
-    return render(request, "login.html")
+        return render(request, "login.html")
