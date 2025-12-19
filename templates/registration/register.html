@@ -49,25 +49,6 @@
               <span class="reg-indicator" aria-hidden="true"></span>
             </div>
 
-            <!-- ✅ Email + Telefono DENTRO il blocco -->
-            <div class="grid cols-2" style="margin-top:12px;">
-              <div class="field">
-                <label for="{{ form.email.id_for_label }}">E-Mail</label>
-                {{ form.email }}
-                {% for err in form.email.errors %}
-                <div class="help" style="color:#b00020;">{{ err }}</div>
-                {% endfor %}
-              </div>
-
-              <div class="field">
-                <label for="{{ form.phone.id_for_label }}">Telefono</label>
-                {{ form.phone }}
-                {% for err in form.phone.errors %}
-                <div class="help" style="color:#b00020;">{{ err }}</div>
-                {% endfor %}
-              </div>
-            </div>
-
             <div class="reg-viewport" style="margin-top:12px;">
               <div class="reg-panels">
 
@@ -102,49 +83,29 @@
                     <label for="{{ form.city.id_for_label }}">Città</label>
                     {{ form.city }}
                   </div>
-                  <div class="grid cols-2" style="margin-top:12px;">
-                    <div class="field">
-                      <label for="{{ form.email.id_for_label }}">E-Mail</label>
-                      {{ form.email }}
-                      {% for err in form.email.errors %}
-                      <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
-                    </div>
-
-                    <div class="field">
-                      <label for="{{ form.phone.id_for_label }}">Telefono</label>
-                      {{ form.phone }}
-                      {% for err in form.phone.errors %}
-                      <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
-                    </div>
-                    <div class="field" style="margin-top:12px;">
-                      <label for="{{ form.city.id_for_label }}">Città</label>
-                      {{ form.city }}
-                    </div>
-                  </div>
-
                 </div>
               </div>
             </div>
 
+            <!-- ✅ Campi COMUNI a entrambi i tipi di account -->
             <div class="grid cols-2" style="margin-top:12px;">
-                    <div class="field">
-                      <label for="{{ form.email.id_for_label }}">E-Mail</label>
-                      {{ form.email }}
-                      {% for err in form.email.errors %}
-                      <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
-                    </div>
+              <div class="field">
+                <label for="{{ form.email.id_for_label }}">E-Mail</label>
+                {{ form.email }}
+                {% for err in form.email.errors %}
+                <div class="help" style="color:#b00020;">{{ err }}</div>
+                {% endfor %}
+              </div>
 
-                    <div class="field">
-                      <label for="{{ form.phone.id_for_label }}">Telefono</label>
-                      {{ form.phone }}
-                      {% for err in form.phone.errors %}
-                      <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
-                    </div>
-                  </div>
+              <div class="field">
+                <label for="{{ form.phone.id_for_label }}">Telefono</label>
+                {{ form.phone }}
+                {% for err in form.phone.errors %}
+                <div class="help" style="color:#b00020;">{{ err }}</div>
+                {% endfor %}
+              </div>
+            </div>
+
             <!-- Password -->
             <div class="grid cols-2" style="margin-top:12px;">
               <div class="field">
@@ -170,8 +131,9 @@
             </div>
 
             <p class="help" style="margin-top:12px;">
-              Creando un account accetti i Termini e l’Informativa Privacy.
+              Creando un account accetti i Termini e l'Informativa Privacy.
             </p>
+          </div>
         </form>
       </div>
     </div>
@@ -189,13 +151,30 @@
     function syncRegisterFields() {
       const isCompany = document.getElementById("acc-azienda").checked;
       document.getElementById("id_user_type").value = isCompany ? "COMPANY" : "PRIVATE";
-      setDisabled(document.getElementById("companyFields"), !isCompany);
-      setDisabled(document.getElementById("privateFields"), isCompany);
+      
+      // Disabilita i campi non attivi
+      const companyFields = document.getElementById("companyFields");
+      const privateFields = document.getElementById("privateFields");
+      
+      if (companyFields) setDisabled(companyFields, !isCompany);
+      if (privateFields) setDisabled(privateFields, isCompany);
     }
 
-    document.getElementById("acc-privato").addEventListener("change", syncRegisterFields);
-    document.getElementById("acc-azienda").addEventListener("change", syncRegisterFields);
-    syncRegisterFields();
+    // Assicurati che gli elementi esistano prima di aggiungere event listener
+    document.addEventListener('DOMContentLoaded', function() {
+      const privatoRadio = document.getElementById("acc-privato");
+      const aziendaRadio = document.getElementById("acc-azienda");
+      
+      if (privatoRadio) {
+        privatoRadio.addEventListener("change", syncRegisterFields);
+      }
+      if (aziendaRadio) {
+        aziendaRadio.addEventListener("change", syncRegisterFields);
+      }
+      
+      // Imposta lo stato iniziale
+      syncRegisterFields();
+    });
   </script>
 </body>
 
