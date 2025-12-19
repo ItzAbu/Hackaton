@@ -408,23 +408,10 @@
   }
 
   function toggleMenu(){
-  const isOpen = !mobileMenu.hidden;
-  mobileMenu.hidden = isOpen;
-  hamburger.setAttribute("aria-expanded", String(!isOpen));
-  
-  // Aggiungi questa parte per gestire il display
-  if (mobileMenu.hidden) {
-    mobileMenu.style.display = "none";
-  } else {
-    mobileMenu.style.display = "block";
+    const isOpen = !mobileMenu.hidden;
+    mobileMenu.hidden = isOpen;
+    hamburger.setAttribute("aria-expanded", String(!isOpen));
   }
-}
-
-function closeMenu(){
-  mobileMenu.hidden = true;
-  mobileMenu.style.display = "none"; // Aggiungi questa
-  hamburger.setAttribute("aria-expanded", "false");
-}
 
   hamburger.addEventListener("click", toggleMenu);
 
