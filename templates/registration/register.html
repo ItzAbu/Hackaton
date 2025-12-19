@@ -1,7 +1,6 @@
 <!doctype html>
 {% load static %}
 <html lang="it">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -35,168 +34,119 @@
           {% csrf_token %}
 
           {% if form.non_field_errors %}
-          <div class="alert error" style="margin-bottom:10px;">{{ form.non_field_errors }}</div>
+            <div class="alert error" style="margin-bottom:10px;">{{ form.non_field_errors }}</div>
           {% endif %}
 
-          <div class="reg-switch">
-            <input type="radio" name="tipo-account-ui" id="acc-privato" checked>
-            <input type="radio" name="tipo-account-ui" id="acc-azienda">
-            <input type="hidden" name="user_type" id="id_user_type" value="PRIVATE">
-
-            <div class="reg-tabs">
-              <label for="acc-privato" class="reg-tab">Privato</label>
-              <label for="acc-azienda" class="reg-tab">Azienda</label>
-              <span class="reg-indicator" aria-hidden="true"></span>
+          <!-- Tipo account -->
+          <div class="field">
+            <label>Tipo account</label>
+            <div class="grid cols-2" style="align-items:center;">
+              <label style="display:flex; gap:10px; align-items:center; font-weight:700;">
+                <input type="radio" name="user_type" value="PRIVATE"
+                       {% if form.user_type.value == "PRIVATE" or not form.user_type.value %}checked{% endif %}>
+                Privato
+              </label>
+              <label style="display:flex; gap:10px; align-items:center; font-weight:700;">
+                <input type="radio" name="user_type" value="COMPANY"
+                       {% if form.user_type.value == "COMPANY" %}checked{% endif %}>
+                Azienda
+              </label>
             </div>
+            {% for err in form.user_type.errors %}
+              <div class="help" style="color:#b00020;">{{ err }}</div>
+            {% endfor %}
+          </div>
 
-            <!-- ✅ Email + Telefono DENTRO il blocco -->
-            <div class="grid cols-2" style="margin-top:12px;">
-              <div class="field">
-                <label for="{{ form.email.id_for_label }}">E-Mail</label>
-                {{ form.email }}
-                {% for err in form.email.errors %}
+          <!-- Dati comuni -->
+          <div class="grid cols-2">
+            <div class="field">
+              <label for="{{ form.email.id_for_label }}">Email</label>
+              {{ form.email }}
+              {% for err in form.email.errors %}
                 <div class="help" style="color:#b00020;">{{ err }}</div>
-                {% endfor %}
-              </div>
-
-              <div class="field">
-                <label for="{{ form.phone.id_for_label }}">Telefono</label>
-                {{ form.phone }}
-                {% for err in form.phone.errors %}
+              {% endfor %}
+            </div>
+            <div class="field">
+              <label for="{{ form.phone.id_for_label }}">Telefono (facoltativo)</label>
+              {{ form.phone }}
+              {% for err in form.phone.errors %}
                 <div class="help" style="color:#b00020;">{{ err }}</div>
-                {% endfor %}
-              </div>
+              {% endfor %}
             </div>
+          </div>
 
-            <div class="reg-viewport" style="margin-top:12px;">
-              <div class="reg-panels">
-
-                <!-- PRIVATO -->
-                <div class="reg-panel" id="privateFields">
-                  <div class="grid cols-2">
-                    <div class="field">
-                      <label for="{{ form.first_name.id_for_label }}">Nome</label>
-                      {{ form.first_name }}
-                    </div>
-                    <div class="field">
-                      <label for="{{ form.last_name.id_for_label }}">Cognome</label>
-                      {{ form.last_name }}
-                    </div>
-                  </div>
-                </div>
-
-                <!-- AZIENDA -->
-                <div class="reg-panel" id="companyFields">
-                  <div class="grid cols-2">
-                    <div class="field">
-                      <label for="{{ form.company_name.id_for_label }}">Nome azienda</label>
-                      {{ form.company_name }}
-                    </div>
-                    <div class="field">
-                      <label for="{{ form.piva.id_for_label }}">P.IVA</label>
-                      {{ form.piva }}
-                    </div>
-                  </div>
-
-                  <div class="field" style="margin-top:12px;">
-                    <label for="{{ form.city.id_for_label }}">Città</label>
-                    {{ form.city }}
-                  </div>
-                  <div class="grid cols-2" style="margin-top:12px;">
-                    <div class="field">
-                      <label for="{{ form.email.id_for_label }}">E-Mail</label>
-                      {{ form.email }}
-                      {% for err in form.email.errors %}
-                      <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
-                    </div>
-
-                    <div class="field">
-                      <label for="{{ form.phone.id_for_label }}">Telefono</label>
-                      {{ form.phone }}
-                      {% for err in form.phone.errors %}
-                      <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
-                    </div>
-                    <div class="field" style="margin-top:12px;">
-                      <label for="{{ form.city.id_for_label }}">Città</label>
-                      {{ form.city }}
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-            <div class="grid cols-2" style="margin-top:12px;">
-                    <div class="field">
-                      <label for="{{ form.email.id_for_label }}">E-Mail</label>
-                      {{ form.email }}
-                      {% for err in form.email.errors %}
-                      <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
-                    </div>
-
-                    <div class="field">
-                      <label for="{{ form.phone.id_for_label }}">Telefono</label>
-                      {{ form.phone }}
-                      {% for err in form.phone.errors %}
-                      <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
-                    </div>
-                  </div>
-            <!-- Password -->
-            <div class="grid cols-2" style="margin-top:12px;">
+          <!-- Sezione PRIVATO -->
+          <div id="privateFields">
+            <div class="grid cols-2">
               <div class="field">
-                <label for="{{ form.password1.id_for_label }}">Password</label>
-                {{ form.password1 }}
-                {% for err in form.password1.errors %}
-                <div class="help" style="color:#b00020;">{{ err }}</div>
-                {% endfor %}
+                <label for="{{ form.first_name.id_for_label }}">Nome</label>
+                {{ form.first_name }}
               </div>
-
               <div class="field">
-                <label for="{{ form.password2.id_for_label }}">Conferma password</label>
-                {{ form.password2 }}
-                {% for err in form.password2.errors %}
-                <div class="help" style="color:#b00020;">{{ err }}</div>
-                {% endfor %}
+                <label for="{{ form.last_name.id_for_label }}">Cognome</label>
+                {{ form.last_name }}
               </div>
             </div>
+          </div>
 
-            <div class="btn-row" style="margin-top:12px;">
-              <button class="btn btn-primary" type="submit">Crea account</button>
-              <a class="btn btn-ghost" href="{% url 'login' %}">Ho già un account</a>
+          <!-- Sezione AZIENDA -->
+          <div id="companyFields" style="display:none;">
+            <div class="grid cols-2">
+              <div class="field">
+                <label for="{{ form.company_name.id_for_label }}">Nome azienda</label>
+                {{ form.company_name }}
+              </div>
+              <div class="field">
+                <label for="{{ form.piva.id_for_label }}">P.IVA</label>
+                {{ form.piva }}
+              </div>
             </div>
+            <div class="field">
+              <label for="{{ form.city.id_for_label }}">Città</label>
+              {{ form.city }}
+            </div>
+          </div>
 
-            <p class="help" style="margin-top:12px;">
-              Creando un account accetti i Termini e l’Informativa Privacy.
-            </p>
+          <!-- Password -->
+          <div class="grid cols-2">
+            <div class="field">
+              <label for="{{ form.password1.id_for_label }}">Password</label>
+              {{ form.password1 }}
+              {% for err in form.password1.errors %}
+                <div class="help" style="color:#b00020;">{{ err }}</div>
+              {% endfor %}
+            </div>
+            <div class="field">
+              <label for="{{ form.password2.id_for_label }}">Conferma password</label>
+              {{ form.password2 }}
+              {% for err in form.password2.errors %}
+                <div class="help" style="color:#b00020;">{{ err }}</div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="btn-row" style="margin-top:12px;">
+            <button class="btn btn-primary" type="submit">Crea account</button>
+            <a class="btn btn-ghost" href="{% url 'login' %}">Ho già un account</a>
+          </div>
+
+          <p class="help" style="margin-top:12px;">
+            Creando un account accetti i Termini e l’Informativa Privacy.
+          </p>
         </form>
       </div>
     </div>
   </main>
 
   <script>
-    function setDisabled(container, disabled) {
-      if (!container) return;
-      container.querySelectorAll("input, select, textarea, button").forEach(el => {
-        el.disabled = disabled;
-      });
-      container.setAttribute("aria-hidden", disabled ? "true" : "false");
+    function syncRegisterFields(){
+      const selected = document.querySelector('input[name="user_type"]:checked');
+      const isCompany = selected && selected.value === "COMPANY";
+      document.getElementById("companyFields").style.display = isCompany ? "" : "none";
+      document.getElementById("privateFields").style.display = isCompany ? "none" : "";
     }
-
-    function syncRegisterFields() {
-      const isCompany = document.getElementById("acc-azienda").checked;
-      document.getElementById("id_user_type").value = isCompany ? "COMPANY" : "PRIVATE";
-      setDisabled(document.getElementById("companyFields"), !isCompany);
-      setDisabled(document.getElementById("privateFields"), isCompany);
-    }
-
-    document.getElementById("acc-privato").addEventListener("change", syncRegisterFields);
-    document.getElementById("acc-azienda").addEventListener("change", syncRegisterFields);
+    document.querySelectorAll('input[name="user_type"]').forEach(r => r.addEventListener('change', syncRegisterFields));
     syncRegisterFields();
   </script>
 </body>
-
 </html>
