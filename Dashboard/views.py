@@ -1,4 +1,5 @@
 
+from queue import Full
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -93,14 +94,12 @@ def remove_employee_email(request):
     return redirect("dashboard")
 
 
-@login_required
+
 def dashboard(request):
-    profile, redir = _company_required(request)
-    if redir:
-        return redir
+
     employee_emails = _get_company_emails_session(request)
     return render(request, "dashboard/dashboard.html", {
-        "profile": profile,
+        "profile": Full,
         "employee_emails": employee_emails,
     })
 
