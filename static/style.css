@@ -1004,3 +1004,7 @@ hr.sep{
   font-weight: 800;
   opacity: .75;
 }
+
+.auth-card-wide{
+  max-width: 880px;
+}

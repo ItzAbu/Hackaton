@@ -1,13 +1,15 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 from .models import Profile
 
+User = get_user_model()
+
 
 class EmailLoginForm(AuthenticationForm):
-    """Login form che usa il campo 'username' ma lo presenta come Email."""
+    """Login usando username, ma lo trattiamo come email (username=email)."""
 
     username = forms.EmailField(
         label="Email",
@@ -15,6 +17,7 @@ class EmailLoginForm(AuthenticationForm):
             attrs={
                 "placeholder": "nome@email.it",
                 "autocomplete": "email",
+                "class": "input",
             }
         ),
     )
@@ -25,20 +28,24 @@ class EmailLoginForm(AuthenticationForm):
             attrs={
                 "placeholder": "••••••••",
                 "autocomplete": "current-password",
+                "class": "input",
             }
         ),
     )
 
+    def clean_username(self):
+        # ✅ normalizza per combaciare con user.username salvato in lowercase
+        return (self.cleaned_data.get("username") or "").strip().lower()
+
 
 class RegisterForm(UserCreationForm):
-    """Registrazione con email + profilo (privato/azienda)."""
-
     email = forms.EmailField(
         required=True,
         widget=forms.EmailInput(
             attrs={
                 "placeholder": "nome@email.it",
                 "autocomplete": "email",
+                "class": "input",
             }
         ),
     )
@@ -46,16 +53,16 @@ class RegisterForm(UserCreationForm):
     user_type = forms.ChoiceField(choices=Profile.Type.choices)
 
     # Privato
-    first_name = forms.CharField(required=False)
-    last_name = forms.CharField(required=False)
+    first_name = forms.CharField(required=False, widget=forms.TextInput(attrs={"class": "input"}))
+    last_name = forms.CharField(required=False, widget=forms.TextInput(attrs={"class": "input"}))
 
     # Azienda
-    company_name = forms.CharField(required=False)
-    piva = forms.CharField(required=False)
-    city = forms.CharField(required=False)
+    company_name = forms.CharField(required=False, widget=forms.TextInput(attrs={"class": "input"}))
+    piva = forms.CharField(required=False, widget=forms.TextInput(attrs={"class": "input"}))
+    city = forms.CharField(required=False, widget=forms.TextInput(attrs={"class": "input"}))
 
     # Comune
-    phone = forms.CharField(required=False)
+    phone = forms.CharField(required=False, widget=forms.TextInput(attrs={"class": "input"}))
 
     class Meta:
         model = User
@@ -73,8 +80,6 @@ class RegisterForm(UserCreationForm):
         user = super().save(commit=False)
 
         email = self.cleaned_data["email"].strip().lower()
-
-        # Usiamo l'email anche come username così il login funziona subito.
         user.username = email
         user.email = email
 

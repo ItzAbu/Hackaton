@@ -1,7 +1,6 @@
 <!doctype html>
 {% load static %}
 <html lang="it">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -35,28 +34,12 @@
           {% csrf_token %}
 
           {% if form.non_field_errors %}
-          <div class="alert error" style="margin-bottom:10px;">{{ form.non_field_errors }}</div>
+            <div class="alert error" style="margin-bottom:10px;">{{ form.non_field_errors }}</div>
           {% endif %}
 
-          <!-- CAMPI COMUNI (sempre visibili) -->
-          <div class="grid cols-2">
-            <div class="field">
-              <label for="{{ form.email.id_for_label }}">E-Mail</label>
-              {{ form.email }}
-            </div>
-
-            <div class="field">
-              <label for="{{ form.phone.id_for_label }}">Telefono</label>
-              {{ form.phone }}
-            </div>
-          </div>
-
-          <!-- SLIDER: solo campi specifici -->
           <div class="reg-switch">
-
             <input type="radio" name="tipo-account-ui" id="acc-privato" checked>
             <input type="radio" name="tipo-account-ui" id="acc-azienda">
-
             <input type="hidden" name="user_type" id="id_user_type" value="PRIVATE">
 
             <div class="reg-tabs">
@@ -65,7 +48,26 @@
               <span class="reg-indicator" aria-hidden="true"></span>
             </div>
 
-            <div class="reg-viewport">
+            <!-- ✅ Email + Telefono DENTRO il blocco -->
+            <div class="grid cols-2" style="margin-top:12px;">
+              <div class="field">
+                <label for="{{ form.email.id_for_label }}">E-Mail</label>
+                {{ form.email }}
+                {% for err in form.email.errors %}
+                  <div class="help" style="color:#b00020;">{{ err }}</div>
+                {% endfor %}
+              </div>
+
+              <div class="field">
+                <label for="{{ form.phone.id_for_label }}">Telefono</label>
+                {{ form.phone }}
+                {% for err in form.phone.errors %}
+                  <div class="help" style="color:#b00020;">{{ err }}</div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="reg-viewport" style="margin-top:12px;">
               <div class="reg-panels">
 
                 <!-- PRIVATO -->
@@ -105,14 +107,13 @@
             </div>
           </div>
 
-
           <!-- Password -->
-          <div class="grid cols-2">
+          <div class="grid cols-2" style="margin-top:12px;">
             <div class="field">
               <label for="{{ form.password1.id_for_label }}">Password</label>
               {{ form.password1 }}
               {% for err in form.password1.errors %}
-              <div class="help" style="color:#b00020;">{{ err }}</div>
+                <div class="help" style="color:#b00020;">{{ err }}</div>
               {% endfor %}
             </div>
 
@@ -120,7 +121,7 @@
               <label for="{{ form.password2.id_for_label }}">Conferma password</label>
               {{ form.password2 }}
               {% for err in form.password2.errors %}
-              <div class="help" style="color:#b00020;">{{ err }}</div>
+                <div class="help" style="color:#b00020;">{{ err }}</div>
               {% endfor %}
             </div>
           </div>
@@ -149,20 +150,14 @@
 
     function syncRegisterFields() {
       const isCompany = document.getElementById("acc-azienda").checked;
-
-      // Valore che Django usa
       document.getElementById("id_user_type").value = isCompany ? "COMPANY" : "PRIVATE";
-
-      // Disabilito i campi non usati
       setDisabled(document.getElementById("companyFields"), !isCompany);
       setDisabled(document.getElementById("privateFields"), isCompany);
     }
 
     document.getElementById("acc-privato").addEventListener("change", syncRegisterFields);
     document.getElementById("acc-azienda").addEventListener("change", syncRegisterFields);
-
     syncRegisterFields();
   </script>
 </body>
-
 </html>
