@@ -14,16 +14,16 @@ export default class WorldScene extends Phaser.Scene {
   }
 
   preload() {
-    // Map
-    this.load.image("world_map", "/assets/Asset_Mappa_Gioco.jpeg");
+    // Map 
+    this.load.image("world_map", "{% static '/assets/Asset_Mappa_Gioco.jpeg' %}");
 
     // NPC assets (immagini singole; evita di mostrare spritesheet interi)
-    this.load.image("npc_net", "/assets/npc/npc_net.png");
-    this.load.image("npc_sec", "/assets/npc/npc_sec.png");
-    this.load.image("npc_prog", "/assets/npc/npc_prog.png");
-    this.load.image("npc_db", "/assets/npc/npc_db.png");
-    this.load.image("npc_sys", "/assets/npc/npc_sys.png");
-    this.load.image("npc_cld", "/assets/npc/npc_cld.png");
+    this.load.image("npc_net", "{% static '/assets/npc/npc_net.png' %}");
+    this.load.image("npc_sec", "{% static '/assets/npc/npc_sec.png' %}");
+    this.load.image("npc_prog", "{% static '/assets/npc/npc_prog.png' %}");
+    this.load.image("npc_db", "{% static '/assets/npc/npc_db.png' %}");
+    this.load.image("npc_sys", "{% static '/assets/npc/npc_sys.png' %}");
+    this.load.image("npc_cld", "{% static '/assets/npc/npc_cld.png' %}");
   }
   create() {
     this.state = {
