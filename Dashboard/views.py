@@ -93,7 +93,6 @@ def remove_employee_email(request):
     return redirect("dashboard")
 
 
-@login_required
 def dashboard(request):
     profile, redir = _company_required(request)
     if redir:
