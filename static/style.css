@@ -1008,3 +1008,64 @@ hr.sep{
 .auth-card-wide{
   max-width: 880px;
 }
+
+.hamburger{
+  display:none;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(62,49,31,0.24);
+  background: rgba(255,255,255,0.45);
+  cursor: pointer;
+  align-items:center;
+  justify-content:center;
+  gap: 4px;
+  padding: 10px;
+}
+
+.hamburger span{
+  display:block;
+  height: 2px;
+  width: 18px;
+  background: rgba(42,28,20,0.85);
+  border-radius: 2px;
+}
+
+/* Dropdown menu */
+.mobile-menu{
+  border-top: 1px solid var(--border);
+  background: rgba(237,232,208,0.78);
+  backdrop-filter: blur(10px);
+}
+
+.mobile-menu .mobile-nav{
+  display:grid;
+  gap: 6px;
+  padding: 12px 20px 0;
+}
+
+.mobile-menu .mobile-nav a{
+  font-weight: 900;
+  color: rgba(42,28,20,0.85);
+  padding: 10px 12px;
+  border-radius: 14px;
+}
+
+.mobile-menu .mobile-nav a:hover{
+  background: rgba(255,255,255,0.55);
+  text-decoration:none;
+}
+
+.mobile-menu .mobile-cta{
+  padding: 12px 20px 16px;
+  display:flex;
+  gap: 10px;
+  flex-wrap:wrap;
+}
+
+/* Breakpoint: sotto 900px */
+@media (max-width: 900px){
+  .nav-desktop{ display:none; }
+  .cta-desktop{ display:none; }
+  .hamburger{ display:inline-flex; }
+}
