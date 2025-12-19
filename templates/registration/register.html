@@ -82,7 +82,25 @@
                       {{ form.last_name }}
                     </div>
                   </div>
-                </div>
+                  
+                <div class="grid cols-2" style="margin-top:12px;">
+            <div class="field">
+              <label for="{{ form.email.id_for_label }}">E-Mail</label>
+              {{ form.email }}
+              {% for err in form.email.errors %}
+                <div class="help" style="color:#b00020;">{{ err }}</div>
+              {% endfor %}
+            </div>
+
+            <div class="field">
+              <label for="{{ form.phone.id_for_label }}">Telefono</label>
+              {{ form.phone }}
+              {% for err in form.phone.errors %}
+                <div class="help" style="color:#b00020;">{{ err }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
 
                 <!-- AZIENDA -->
                 <div class="reg-panel" id="companyFields">
@@ -101,7 +119,27 @@
                     <label for="{{ form.city.id_for_label }}">Città</label>
                     {{ form.city }}
                   </div>
-                </div>
+                <div class="grid cols-2" style="margin-top:12px;">
+        <div class="field">
+          <label for="{{ form.email.id_for_label }}">E-Mail</label>
+          {{ form.email }}
+          {% for err in form.email.errors %}
+            <div class="help" style="color:#b00020;">{{ err }}</div>
+          {% endfor %}
+        </div>
+
+        <div class="field">
+          <label for="{{ form.phone.id_for_label }}">Telefono</label>
+          {{ form.phone }}
+          {% for err in form.phone.errors %}
+            <div class="help" style="color:#b00020;">{{ err }}</div>
+          {% endfor %}
+        </div>
+        <div class="field" style="margin-top:12px;">
+        <label for="{{ form.city.id_for_label }}">Città</label>
+        {{ form.city }}
+      </div>
+      </div>
 
               </div>
             </div>

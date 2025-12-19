@@ -20,7 +20,10 @@
 
       <div class="topbar-right">
         <a class="btn btn-ghost" href="{% url 'private_page' %}">← Indietro</a>
-        <a class="btn btn-outline" href="{% url 'logout' %}">Logout</a>
+        <form method="post" action="{% url 'logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button class="btn btn-outline" type="submit">Logout</button>
+        </form>
         <a class="avatar-link" href="{% url 'private_profile' %}" title="Profilo">
           <div class="avatar-dot"></div>
         </a>
