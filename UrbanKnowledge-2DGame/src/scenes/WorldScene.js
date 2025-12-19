@@ -25,7 +25,6 @@ export default class WorldScene extends Phaser.Scene {
     this.load.image("npc_sys", "{% static '/game_demo/assets/npc/npc_sys.png' %}");
     this.load.image("npc_cld", "{% static '/game_demo/assets/npc/npc_cld.png' %}");
   }
-
   create() {
     this.state = {
       dialogOpen: false,
