@@ -14,105 +14,206 @@
     /* =========================
        WIDE LAYOUT OVERRIDES (solo questa pagina)
        ========================= */
-    .container{
-      width: min(1400px, calc(100% - 32px)); /* era 1120px: ora più largo */
+    .container {
+      width: min(1400px, calc(100% - 32px));
+      /* era 1120px: ora più largo */
       margin: 0 auto;
     }
 
     /* allarga la sidebar rispetto al default (280px) */
-    .app-body{
-      grid-template-columns: 320px 1fr; /* sidebar più larga */
+    .app-body {
+      grid-template-columns: 320px 1fr;
+      /* sidebar più larga */
     }
 
     /* editor 3 colonne più ampie */
-    .editor{
-      grid-template-columns: 360px 1fr 440px; /* sx, centro, dx */
+    .editor {
+      grid-template-columns: 360px 1fr 440px;
+      /* sx, centro, dx */
     }
 
     /* breakpoint un po' più generoso */
-    @media (max-width: 1200px){
-      .editor{ grid-template-columns: 1fr; }
-      .app-body{ grid-template-columns: 1fr; }
+    @media (max-width: 1200px) {
+      .editor {
+        grid-template-columns: 1fr;
+      }
+
+      .app-body {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* Piccoli aggiustamenti locali (non toccano style.css) */
-    .sr-only{
-      position:absolute;
-      width:1px;height:1px;
-      padding:0;margin:-1px;
-      overflow:hidden;clip:rect(0,0,0,0);
-      white-space:nowrap;border:0;
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
-    .tab-pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+
+    .tab-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 8px 12px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.55);
+      background: rgba(255, 255, 255, 0.55);
       font-weight: 900;
     }
-    .mini{
+
+    .mini {
       font-size: 12px;
       color: var(--muted);
       font-weight: 800;
     }
-    .pill-input{
-      display:flex;
+
+    .pill-input {
+      display: flex;
       gap: 10px;
       flex-wrap: wrap;
       align-items: end;
     }
-    .pill-input .field{ flex: 1; min-width: 240px; }
-    .pill-input .field label{ display:block; font-size: 12px; font-weight: 900; margin: 0 0 6px; }
-    .toast{
-      display:none;
+
+    .pill-input .field {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .pill-input .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 900;
+      margin: 0 0 6px;
+    }
+
+    .toast {
+      display: none;
       padding: 10px 12px;
       border-radius: 16px;
-      border: 1px solid rgba(59,120,64,0.25);
-      background: rgba(59,120,64,0.12);
+      border: 1px solid rgba(59, 120, 64, 0.25);
+      background: rgba(59, 120, 64, 0.12);
       color: var(--g4);
       font-weight: 900;
     }
-    .toast.show{ display:block; }
-    .palazzi{
-      display:grid;
+
+    .toast.show {
+      display: block;
+    }
+
+    .palazzi {
+      display: grid;
       gap: 12px;
-      grid-template-columns: repeat(2, minmax(0,1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    @media (max-width: 900px){
-      .palazzi{ grid-template-columns: 1fr; }
+
+    @media (max-width: 900px) {
+      .palazzi {
+        grid-template-columns: 1fr;
+      }
     }
-    .palazzo-card{
+
+    .palazzo-card {
       border-radius: 18px;
-      border: 1px solid rgba(62,49,31,0.18);
-      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(62, 49, 31, 0.18);
+      background: rgba(255, 255, 255, 0.55);
       padding: 12px;
     }
-    .palazzo-card header{
-      display:flex;
-      align-items:center;
+
+    .palazzo-card header {
+      display: flex;
+      align-items: center;
       justify-content: space-between;
       gap: 10px;
       margin-bottom: 8px;
     }
-    .palazzo-card header strong{ font-weight: 900; }
-    .palazzo-grid{
-      display:grid;
+
+    .palazzo-card header strong {
+      font-weight: 900;
+    }
+
+    .palazzo-grid {
+      display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
-    @media (max-width: 520px){
-      .palazzo-grid{ grid-template-columns: 1fr; }
+
+    @media (max-width: 520px) {
+      .palazzo-grid {
+        grid-template-columns: 1fr;
+      }
     }
-    .palazzo-grid label{ display:block; font-size: 12px; font-weight: 900; margin: 0 0 6px; }
-    .codebox{
-      width:100%;
+
+    .palazzo-grid label {
+      display: block;
+      font-size: 12px;
+      font-weight: 900;
+      margin: 0 0 6px;
+    }
+
+    .codebox {
+      width: 100%;
       min-height: 180px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 12px;
       line-height: 1.5;
+    }
+
+    /* ===== Editor tabs (3 tasti) ===== */
+    .editor-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .editor-tab {
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.55);
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+
+    .editor-tab:hover {
+      transform: translateY(-1px);
+      border-color: rgba(59, 120, 64, 0.55);
+    }
+
+    .editor-tab.is-active {
+      background: linear-gradient(135deg, rgba(59, 120, 64, 0.95), rgba(74, 103, 39, 0.95));
+      border-color: rgba(34, 106, 37, 0.95);
+      color: #fff;
+    }
+
+    /* Mobile/tablet: mostra 1 pannello alla volta */
+    @media (max-width: 1200px) {
+      .editor {
+        grid-template-columns: 1fr;
+        /* già lo fai, qui ribadisco */
+      }
+
+      .editor-panel {
+        display: none;
+      }
+
+      .editor-panel.is-active {
+        display: block;
+      }
+    }
+
+    /* Desktop: sempre visibili tutti i pannelli */
+    @media (min-width: 1201px) {
+      .editor-panel {
+        display: block;
+      }
     }
   </style>
 </head>
@@ -177,7 +278,8 @@
           <div>
             <div class="kicker">🏢 Dashboard Azienda</div>
             <h1 class="h2" style="margin-top:12px;">Gestione Dipendenti, Corsi e Mappe</h1>
-            <p class="p">Questa pagina è pensata per aziende: qui gestisci dipendenti, visualizzi i corsi e prepari una bozza di mappa (senza salvarla).</p>
+            <p class="p">Questa pagina è pensata per aziende: qui gestisci dipendenti, visualizzi i corsi e prepari una
+              bozza di mappa (senza salvarla).</p>
           </div>
           <div style="text-align:right;">
             <span class="mini">Account</span><br>
@@ -186,13 +288,13 @@
         </div>
 
         {% if messages %}
-          <div style="margin-top:12px; display:grid; gap:10px;">
-            {% for message in messages %}
-              <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
-                <strong>{{ message }}</strong>
-              </div>
-            {% endfor %}
+        <div style="margin-top:12px; display:grid; gap:10px;">
+          {% for message in messages %}
+          <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
+            <strong>{{ message }}</strong>
           </div>
+          {% endfor %}
+        </div>
         {% endif %}
 
         <hr class="sep" />
@@ -212,7 +314,8 @@
             <div class="pill-input">
               <div class="field">
                 <label for="employee_email">Email dipendente</label>
-                <input id="employee_email" name="email" type="email" required placeholder="nome.cognome@esempio.it" autocomplete="email" />
+                <input id="employee_email" name="email" type="email" required placeholder="nome.cognome@esempio.it"
+                  autocomplete="email" />
                 <div class="mini">Viene aggiunta solo se l’utente esiste già ed è un account dipendente.</div>
               </div>
               <button class="btn btn-primary" type="submit">Aggiungi</button>
@@ -229,20 +332,20 @@
               </thead>
               <tbody>
                 {% for e in employee_emails %}
-                  <tr>
-                    <td><strong>{{ e }}</strong></td>
-                    <td>
-                      <form method="post" action="{% url 'company_remove_employee' %}" style="display:inline;">
-                        {% csrf_token %}
-                        <input type="hidden" name="email" value="{{ e }}" />
-                        <button class="btn btn-ghost" type="submit">Rimuovi</button>
-                      </form>
-                    </td>
-                  </tr>
+                <tr>
+                  <td><strong>{{ e }}</strong></td>
+                  <td>
+                    <form method="post" action="{% url 'company_remove_employee' %}" style="display:inline;">
+                      {% csrf_token %}
+                      <input type="hidden" name="email" value="{{ e }}" />
+                      <button class="btn btn-ghost" type="submit">Rimuovi</button>
+                    </form>
+                  </td>
+                </tr>
                 {% empty %}
-                  <tr>
-                    <td colspan="2">Nessun dipendente aggiunto. Inserisci un’email qui sopra.</td>
-                  </tr>
+                <tr>
+                  <td colspan="2">Nessun dipendente aggiunto. Inserisci un’email qui sopra.</td>
+                </tr>
                 {% endfor %}
               </tbody>
             </table>
@@ -274,6 +377,7 @@
         <hr class="sep" />
 
         <!-- 3) EDITOR MAPPE (BOZZA) -->
+        <!-- 3) EDITOR MAPPE (BOZZA) -->
         <section id="editor" class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
           <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-end;">
             <div>
@@ -286,9 +390,23 @@
             <span class="badge warn">Non salva e non crea nulla</span>
           </div>
 
+          <!-- ✅ TAB BUTTONS -->
+          <div class="editor-tabs" role="tablist" aria-label="Sezioni editor mappe">
+            <button type="button" class="editor-tab is-active" data-editor-tab="settings" aria-selected="true">
+              Impostazioni mappa
+            </button>
+            <button type="button" class="editor-tab" data-editor-tab="preview" aria-selected="false">
+              Anteprima mappa
+            </button>
+            <button type="button" class="editor-tab" data-editor-tab="choices" aria-selected="false">
+              Scelte per palazzo
+            </button>
+          </div>
+
           <div class="editor" style="margin-top:14px;">
             <!-- Colonna sinistra: impostazioni -->
-            <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.62);">
+            <div class="card pad editor-panel is-active" data-editor-panel="settings" id="editor-settings"
+              style="box-shadow:none; background: rgba(255,255,255,0.62);">
               <div class="panel-title">Impostazioni mappa</div>
               <div class="field" style="margin-bottom:10px;">
                 <label for="mapName">Nome mappa</label>
@@ -327,7 +445,8 @@
             </div>
 
             <!-- Centro: canvas / preview -->
-            <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.62);">
+            <div class="card pad editor-panel" data-editor-panel="preview" id="editor-preview"
+              style="box-shadow:none; background: rgba(255,255,255,0.62);">
               <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:12px; flex-wrap:wrap;">
                 <div>
                   <div class="panel-title" style="margin:0;">Anteprima mappa</div>
@@ -340,7 +459,8 @@
             </div>
 
             <!-- Destra: configurazione palazzi + JSON -->
-            <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.62);">
+            <div class="card pad editor-panel" data-editor-panel="choices" id="editor-choices"
+              style="box-shadow:none; background: rgba(255,255,255,0.62);">
               <div class="panel-title">Scelte per palazzo</div>
               <div class="help">Queste opzioni sono modulari: scegli il tipo di domanda e qualche dettaglio.</div>
 
@@ -349,19 +469,22 @@
               <hr class="sep" />
 
               <div class="panel-title" style="margin-bottom:8px;">Bozza (JSON)</div>
-              <textarea id="output" class="codebox" readonly aria-label="Output bozza JSON" placeholder="Qui comparirà una bozza JSON..."></textarea>
+              <textarea id="output" class="codebox" readonly aria-label="Output bozza JSON"
+                placeholder="Qui comparirà una bozza JSON..."></textarea>
               <div class="mini" style="margin-top:8px;">
-                Nota: il pulsante “Crea bozza” <b>non salva</b>. Serve solo per mostrarti che struttura verrebbe generata.
+                Nota: il pulsante “Crea bozza” <b>non salva</b>. Serve solo per mostrarti che struttura verrebbe
+                generata.
               </div>
             </div>
           </div>
         </section>
+
       </section>
     </div>
   </main>
 
   <script>
-    (function(){
+    (function () {
       const $ = (id) => document.getElementById(id);
       const toast = $('toast');
       const canvas = $('canvas');
@@ -383,33 +506,33 @@
         { value: 'lang', label: 'Lingue' },
       ];
 
-      function showToast(msg){
+      function showToast(msg) {
         toast.textContent = msg;
         toast.classList.add('show');
         window.clearTimeout(showToast._t);
         showToast._t = window.setTimeout(() => toast.classList.remove('show'), 2400);
       }
 
-      function makeSelect(options, value){
+      function makeSelect(options, value) {
         const sel = document.createElement('select');
-        for(const o of options){
+        for (const o of options) {
           const opt = document.createElement('option');
           opt.value = o.value;
           opt.textContent = o.label;
-          if(o.value === value) opt.selected = true;
+          if (o.value === value) opt.selected = true;
           sel.appendChild(opt);
         }
         return sel;
       }
 
-      function clear(node){ while(node.firstChild) node.removeChild(node.firstChild); }
+      function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
 
-      function generatePalazzi(){
+      function generatePalazzi() {
         const n = parseInt($('palazziCount').value, 10);
         clear(palazziWrap);
         clear(canvas);
 
-        for(let i=1;i<=n;i++){
+        for (let i = 1; i <= n; i++) {
           const card = document.createElement('div');
           card.className = 'palazzo-card';
           card.dataset.index = String(i);
@@ -429,7 +552,7 @@
           const f1 = document.createElement('div');
           const l1 = document.createElement('label');
           l1.textContent = 'Tipo domanda';
-          const s1 = makeSelect(TYPES, TYPES[(i-1) % TYPES.length].value);
+          const s1 = makeSelect(TYPES, TYPES[(i - 1) % TYPES.length].value);
           s1.name = `p${i}_type`;
           f1.appendChild(l1);
           f1.appendChild(s1);
@@ -437,7 +560,7 @@
           const f2 = document.createElement('div');
           const l2 = document.createElement('label');
           l2.textContent = 'Materia';
-          const s2 = makeSelect(SUBJECTS, SUBJECTS[(i-1) % SUBJECTS.length].value);
+          const s2 = makeSelect(SUBJECTS, SUBJECTS[(i - 1) % SUBJECTS.length].value);
           s2.name = `p${i}_subject`;
           f2.appendChild(l2);
           f2.appendChild(s2);
@@ -446,9 +569,9 @@
           const l3 = document.createElement('label');
           l3.textContent = 'Difficoltà';
           const s3 = makeSelect([
-            {value:'easy', label:'Facile'},
-            {value:'medium', label:'Media'},
-            {value:'hard', label:'Difficile'},
+            { value: 'easy', label: 'Facile' },
+            { value: 'medium', label: 'Media' },
+            { value: 'hard', label: 'Difficile' },
           ], 'medium');
           s3.name = `p${i}_difficulty`;
           f3.appendChild(l3);
@@ -458,9 +581,9 @@
           const l4 = document.createElement('label');
           l4.textContent = 'Moduli (bozza)';
           const s4 = makeSelect([
-            {value:'core', label:'Core'},
-            {value:'timed', label:'A tempo'},
-            {value:'hint', label:'Con suggerimenti'},
+            { value: 'core', label: 'Core' },
+            { value: 'timed', label: 'A tempo' },
+            { value: 'hint', label: 'Con suggerimenti' },
           ], 'core');
           s4.name = `p${i}_module`;
           f4.appendChild(l4);
@@ -481,30 +604,30 @@
         const blockW = 140;
         const blockH = 92;
 
-        for(let i=1;i<=n;i++){
+        for (let i = 1; i <= n; i++) {
           const b = document.createElement('div');
           b.className = 'block';
           b.setAttribute('role', 'group');
           b.setAttribute('aria-label', `Palazzo ${i}`);
           b.innerHTML = `Palazzo ${i}<em>Configura a destra</em>`;
 
-          const r = Math.floor((i-1)/cols);
-          const c = (i-1)%cols;
-          b.style.left = `${gap + c*(blockW + gap)}px`;
-          b.style.top = `${gap + r*(blockH + gap)}px`;
+          const r = Math.floor((i - 1) / cols);
+          const c = (i - 1) % cols;
+          b.style.left = `${gap + c * (blockW + gap)}px`;
+          b.style.top = `${gap + r * (blockH + gap)}px`;
           canvas.appendChild(b);
         }
 
         hint.textContent = `Palazzi generati: ${n}`;
         showToast('Palazzi generati (solo preview).');
       }
-      function collectDraft(){
+      function collectDraft() {
         const n = palazziWrap.children.length;
         const mapName = $('mapName').value || 'Nuova mappa';
         const theme = $('mapTheme').value;
 
         const palazzi = [];
-        for(const card of palazziWrap.children){
+        for (const card of palazziWrap.children) {
           const i = parseInt(card.dataset.index, 10);
           const type = card.querySelector(`select[name="p${i}_type"]`)?.value || 'fill_gap';
           const subject = card.querySelector(`select[name="p${i}_subject"]`)?.value || 'math';
@@ -527,20 +650,20 @@
         { id: 'corsi', link: $('link-corsi') },
         { id: 'editor', link: $('link-editor') },
       ];
-      function setActive(sectionId){
-        for(const l of links){
-          if(!l.link) continue;
+      function setActive(sectionId) {
+        for (const l of links) {
+          if (!l.link) continue;
           l.link.classList.toggle('active', l.id === sectionId);
         }
       }
-      function onScroll(){
+      function onScroll() {
         const y = window.scrollY;
         let current = 'dipendenti';
-        for(const l of links){
+        for (const l of links) {
           const el = document.getElementById(l.id);
-          if(!el) continue;
+          if (!el) continue;
           const top = el.getBoundingClientRect().top + window.scrollY;
-          if(y + 140 >= top) current = l.id;
+          if (y + 140 >= top) current = l.id;
         }
         setActive(current);
       }
@@ -552,15 +675,16 @@
       });
 
       $('btn-bozza').addEventListener('click', () => {
-        if(palazziWrap.children.length === 0) generatePalazzi();
+        if (palazziWrap.children.length === 0) generatePalazzi();
         const draft = collectDraft();
         output.value = JSON.stringify(draft, null, 2);
         showToast('Bozza creata ✅ (non salvata)');
       });
 
-      try{ generatePalazzi(); } catch(e) {}
+      try { generatePalazzi(); } catch (e) { }
       onScroll();
     })();
   </script>
 </body>
+
 </html>
