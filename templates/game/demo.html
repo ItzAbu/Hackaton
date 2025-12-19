@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>UrbanKnowledge — Demo</title>
+
+    <link rel="stylesheet" crossorigin href="/static/game_demo/assets/index-hYv7tc_F.css">
+    <script type="module" crossorigin src="/static/game_demo/assets/index-elI4D6rn.js"></script>
+
+    <style>
+      .ukg-topbar {
+        position: fixed;
+        top: 14px;
+        left: 14px;
+        z-index: 9999;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .ukg-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(15, 22, 36, 0.65);
+        color: rgba(232, 238, 252, 0.92);
+        text-decoration: none;
+        font-weight: 900;
+        font-size: 12px;
+        backdrop-filter: blur(6px);
+      }
+      .ukg-btn:hover {
+        background: rgba(15, 22, 36, 0.82);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ukg-topbar">
+      <a class="ukg-btn" href="/dashboard/">← Dashboard</a>
+      <a class="ukg-btn" href="/game/demo/" aria-current="page">Demo</a>
+    </div>
+
+    <div id="app">
+      <div id="game"></div>
+    </div>
+  </body>
+</html>
