@@ -684,6 +684,39 @@
       try { generatePalazzi(); } catch (e) { }
       onScroll();
     })();
+
+    // ===== Tabs editor (settings / preview / choices) =====
+    const tabButtons = document.querySelectorAll('[data-editor-tab]');
+    const tabPanels = document.querySelectorAll('[data-editor-panel]');
+
+    function activateEditorTab(key) {
+      tabButtons.forEach(b => {
+        const active = b.getAttribute('data-editor-tab') === key;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+
+      tabPanels.forEach(p => {
+        const active = p.getAttribute('data-editor-panel') === key;
+        p.classList.toggle('is-active', active);
+      });
+
+      // se sono su mobile/tablet, porto a vista il pannello
+      const panel = document.querySelector(`[data-editor-panel="${key}"]`);
+      if (panel) {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    tabButtons.forEach(b => {
+      b.addEventListener('click', () => {
+        activateEditorTab(b.getAttribute('data-editor-tab'));
+      });
+    });
+
+    // default
+    activateEditorTab('settings');
+
   </script>
 </body>
 
