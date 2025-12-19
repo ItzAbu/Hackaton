@@ -6,10 +6,35 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>UrbanKnowledge — Dashboard Azienda</title>
+
   <link rel="stylesheet" href="{% static 'style.css' %}" />
-  {% load static %}
   <link rel="icon" type="image/png" href="{% static 'imgs/logo.png' %}">
+
   <style>
+    /* =========================
+       WIDE LAYOUT OVERRIDES (solo questa pagina)
+       ========================= */
+    .container{
+      width: min(1400px, calc(100% - 32px)); /* era 1120px: ora più largo */
+      margin: 0 auto;
+    }
+
+    /* allarga la sidebar rispetto al default (280px) */
+    .app-body{
+      grid-template-columns: 320px 1fr; /* sidebar più larga */
+    }
+
+    /* editor 3 colonne più ampie */
+    .editor{
+      grid-template-columns: 360px 1fr 440px; /* sx, centro, dx */
+    }
+
+    /* breakpoint un po' più generoso */
+    @media (max-width: 1200px){
+      .editor{ grid-template-columns: 1fr; }
+      .app-body{ grid-template-columns: 1fr; }
+    }
+
     /* Piccoli aggiustamenti locali (non toccano style.css) */
     .sr-only{
       position:absolute;
@@ -384,7 +409,6 @@
         clear(palazziWrap);
         clear(canvas);
 
-        // cards a destra
         for(let i=1;i<=n;i++){
           const card = document.createElement('div');
           card.className = 'palazzo-card';
@@ -402,7 +426,6 @@
           const grid = document.createElement('div');
           grid.className = 'palazzo-grid';
 
-          // tipo domanda
           const f1 = document.createElement('div');
           const l1 = document.createElement('label');
           l1.textContent = 'Tipo domanda';
@@ -411,7 +434,6 @@
           f1.appendChild(l1);
           f1.appendChild(s1);
 
-          // materia
           const f2 = document.createElement('div');
           const l2 = document.createElement('label');
           l2.textContent = 'Materia';
@@ -420,7 +442,6 @@
           f2.appendChild(l2);
           f2.appendChild(s2);
 
-          // difficoltà
           const f3 = document.createElement('div');
           const l3 = document.createElement('label');
           l3.textContent = 'Difficoltà';
@@ -433,7 +454,6 @@
           f3.appendChild(l3);
           f3.appendChild(s3);
 
-          // extra modulare (placeholder)
           const f4 = document.createElement('div');
           const l4 = document.createElement('label');
           l4.textContent = 'Moduli (bozza)';
@@ -456,7 +476,6 @@
           palazziWrap.appendChild(card);
         }
 
-        // blocks nel canvas (semplice layout)
         const cols = Math.min(3, Math.max(2, Math.ceil(n / 2)));
         const gap = 18;
         const blockW = 140;
@@ -479,7 +498,6 @@
         hint.textContent = `Palazzi generati: ${n}`;
         showToast('Palazzi generati (solo preview).');
       }
-
       function collectDraft(){
         const n = palazziWrap.children.length;
         const mapName = $('mapName').value || 'Nuova mappa';
@@ -492,13 +510,7 @@
           const subject = card.querySelector(`select[name="p${i}_subject"]`)?.value || 'math';
           const difficulty = card.querySelector(`select[name="p${i}_difficulty"]`)?.value || 'medium';
           const module = card.querySelector(`select[name="p${i}_module"]`)?.value || 'core';
-          palazzi.push({
-            index: i,
-            question_type: type,
-            subject,
-            difficulty,
-            module,
-          });
+          palazzi.push({ index: i, question_type: type, subject, difficulty, module });
         }
 
         return {
@@ -510,7 +522,6 @@
         };
       }
 
-      // highlight link on scroll (semplice)
       const links = [
         { id: 'dipendenti', link: $('link-dipendenti') },
         { id: 'corsi', link: $('link-corsi') },
@@ -547,7 +558,6 @@
         showToast('Bozza creata ✅ (non salvata)');
       });
 
-      // prima render: genera 4 palazzi come default (solo UI)
       try{ generatePalazzi(); } catch(e) {}
       onScroll();
     })();
