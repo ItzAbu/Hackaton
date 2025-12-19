@@ -39,11 +39,8 @@
           {% endif %}
 
           <div class="reg-switch">
-            <!-- Switch UI -->
             <input type="radio" name="tipo-account-ui" id="acc-privato" checked>
             <input type="radio" name="tipo-account-ui" id="acc-azienda">
-
-            <!-- valore reale inviato a Django -->
             <input type="hidden" name="user_type" id="id_user_type" value="PRIVATE">
 
             <div class="reg-tabs">
@@ -52,7 +49,7 @@
               <span class="reg-indicator" aria-hidden="true"></span>
             </div>
 
-            <!-- Email + Telefono (UNA SOLA VOLTA) -->
+            <!-- ✅ Email + Telefono DENTRO il blocco -->
             <div class="grid cols-2" style="margin-top:12px;">
               <div class="field">
                 <label for="{{ form.email.id_for_label }}">E-Mail</label>
@@ -71,7 +68,6 @@
               </div>
             </div>
 
-            <!-- Pannelli Privato / Azienda -->
             <div class="reg-viewport" style="margin-top:12px;">
               <div class="reg-panels">
 
@@ -81,50 +77,32 @@
                     <div class="field">
                       <label for="{{ form.first_name.id_for_label }}">Nome</label>
                       {{ form.first_name }}
-                      {% for err in form.first_name.errors %}
-                      <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
                     </div>
-
                     <div class="field">
                       <label for="{{ form.last_name.id_for_label }}">Cognome</label>
                       {{ form.last_name }}
-                      {% for err in form.last_name.errors %}
-                      <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
                     </div>
                   </div>
                 </div>
 
                 <!-- AZIENDA -->
-                <div class="reg-panel" id="companyFields">
+                <div class="reg-panel" id="companyFields" style="display:none;">
                   <div class="grid cols-2">
                     <div class="field">
                       <label for="{{ form.company_name.id_for_label }}">Nome azienda</label>
                       {{ form.company_name }}
-                      {% for err in form.company_name.errors %}
-                      <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
                     </div>
-
                     <div class="field">
                       <label for="{{ form.piva.id_for_label }}">P.IVA</label>
                       {{ form.piva }}
-                      {% for err in form.piva.errors %}
-                      <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
                     </div>
                   </div>
 
                   <div class="field" style="margin-top:12px;">
                     <label for="{{ form.city.id_for_label }}">Città</label>
                     {{ form.city }}
-                    {% for err in form.city.errors %}
-                    <div class="help" style="color:#b00020;">{{ err }}</div>
-                    {% endfor %}
                   </div>
                 </div>
-
               </div>
             </div>
 
@@ -153,29 +131,21 @@
             </div>
 
             <p class="help" style="margin-top:12px;">
-              Creando un account accetti i Termini e l’Informativa Privacy.
+              Creando un account accetti i Termini e l'Informativa Privacy.
             </p>
           </div>
         </form>
-
       </div>
     </div>
   </main>
 
   <script>
-    function setDisabled(container, disabled) {
-      if (!container) return;
-      container.querySelectorAll("input, select, textarea, button").forEach(el => {
-        el.disabled = disabled;
-      });
-      container.setAttribute("aria-hidden", disabled ? "true" : "false");
-    }
-
     function syncRegisterFields() {
       const isCompany = document.getElementById("acc-azienda").checked;
       document.getElementById("id_user_type").value = isCompany ? "COMPANY" : "PRIVATE";
-      setDisabled(document.getElementById("companyFields"), !isCompany);
-      setDisabled(document.getElementById("privateFields"), isCompany);
+      
+      document.getElementById("privateFields").style.display = isCompany ? "none" : "block";
+      document.getElementById("companyFields").style.display = isCompany ? "block" : "none";
     }
 
     document.getElementById("acc-privato").addEventListener("change", syncRegisterFields);
