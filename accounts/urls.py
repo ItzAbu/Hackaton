@@ -9,9 +9,9 @@ urlpatterns = [
     path("register/", views.CustomLoginView.register, name="register"),
 
     # compat / redirect
-    path("after-login/", views.CustomLoginView.after_login, name="after_login"),
+    path("after-login/", views.after_login, name="after_login"),
 
     # landing
-    path("", views.CustomLoginView.home, name="lobby"),
-    path("home/", views.CustomLoginView.home, name="home"),
+    path("", views.home, name="lobby"),
+    path("home/", views.home, name="home"),
 ]

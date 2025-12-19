@@ -55,33 +55,18 @@ class CustomLoginView(LoginView):
         return render(request, "register.html")
 
 
-    @login_required
-    def after_login(request):
-        profile, _ = Profile.objects.get_or_create(
-            user=request.user,
-            defaults={"user_type": Profile.Type.PRIVATE},
-        )
-        if profile.user_type == Profile.Type.PRIVATE:
-            return redirect("private_page")
-        return redirect("dashboard")
+@login_required
+def after_login(request):
+    profile, _ = Profile.objects.get_or_create(
+        user=request.user,
+        defaults={"user_type": Profile.Type.PRIVATE},
+    )
+    if profile.user_type == Profile.Type.PRIVATE:
+        return redirect("private_page")
+    return redirect("dashboard")
 
 
-    def home(request):
-        return render(request, "lobby/index.html")
+def home(request):
+    return render(request, "lobby/index.html")
 
-    def lobby(request):
-        if request.method == "POST":
-            email = request.POST.get("email","").strip().lower()
-            password = request.POST.get("password","")
-
-            user = authenticate(request, username=email, password=password)
-            if user is None:
-                messages.error(request, "Credenziali non valide.")
-                return render(request, "login.html")
-
-            profile = getattr(user, "profile", None)
-            if profile and profile.user_type == Profile.Type.PRIVATE:
-                return redirect("private_page")
-            return redirect("dashboard")
-
-        return render(request, "login.html")
+    
