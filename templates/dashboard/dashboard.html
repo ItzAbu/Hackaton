@@ -209,6 +209,10 @@
       }
     }
 
+    .editor {
+      grid-template-columns: 1fr !important;
+    }
+
     /* Desktop: sempre visibili tutti i pannelli */
     @media (min-width: 1201px) {
       .editor-panel {
@@ -701,11 +705,8 @@
         p.classList.toggle('is-active', active);
       });
 
-      // se sono su mobile/tablet, porto a vista il pannello
       const panel = document.querySelector(`[data-editor-panel="${key}"]`);
-      if (panel) {
-        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     tabButtons.forEach(b => {
@@ -714,8 +715,8 @@
       });
     });
 
-    // default
-    activateEditorTab('settings');
+    activateEditorTab('settings'); // default
+
 
   </script>
 </body>
