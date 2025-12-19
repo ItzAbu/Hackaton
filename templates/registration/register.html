@@ -1,6 +1,7 @@
 <!doctype html>
 {% load static %}
 <html lang="it">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -34,7 +35,7 @@
           {% csrf_token %}
 
           {% if form.non_field_errors %}
-            <div class="alert error" style="margin-bottom:10px;">{{ form.non_field_errors }}</div>
+          <div class="alert error" style="margin-bottom:10px;">{{ form.non_field_errors }}</div>
           {% endif %}
 
           <div class="reg-switch">
@@ -54,7 +55,7 @@
                 <label for="{{ form.email.id_for_label }}">E-Mail</label>
                 {{ form.email }}
                 {% for err in form.email.errors %}
-                  <div class="help" style="color:#b00020;">{{ err }}</div>
+                <div class="help" style="color:#b00020;">{{ err }}</div>
                 {% endfor %}
               </div>
 
@@ -62,7 +63,7 @@
                 <label for="{{ form.phone.id_for_label }}">Telefono</label>
                 {{ form.phone }}
                 {% for err in form.phone.errors %}
-                  <div class="help" style="color:#b00020;">{{ err }}</div>
+                <div class="help" style="color:#b00020;">{{ err }}</div>
                 {% endfor %}
               </div>
             </div>
@@ -82,25 +83,7 @@
                       {{ form.last_name }}
                     </div>
                   </div>
-                  
-                <div class="grid cols-2" style="margin-top:12px;">
-            <div class="field">
-              <label for="{{ form.email.id_for_label }}">E-Mail</label>
-              {{ form.email }}
-              {% for err in form.email.errors %}
-                <div class="help" style="color:#b00020;">{{ err }}</div>
-              {% endfor %}
-            </div>
-
-            <div class="field">
-              <label for="{{ form.phone.id_for_label }}">Telefono</label>
-              {{ form.phone }}
-              {% for err in form.phone.errors %}
-                <div class="help" style="color:#b00020;">{{ err }}</div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
+                </div>
 
                 <!-- AZIENDA -->
                 <div class="reg-panel" id="companyFields">
@@ -119,59 +102,76 @@
                     <label for="{{ form.city.id_for_label }}">Città</label>
                     {{ form.city }}
                   </div>
-                <div class="grid cols-2" style="margin-top:12px;">
-        <div class="field">
-          <label for="{{ form.email.id_for_label }}">E-Mail</label>
-          {{ form.email }}
-          {% for err in form.email.errors %}
-            <div class="help" style="color:#b00020;">{{ err }}</div>
-          {% endfor %}
-        </div>
+                  <div class="grid cols-2" style="margin-top:12px;">
+                    <div class="field">
+                      <label for="{{ form.email.id_for_label }}">E-Mail</label>
+                      {{ form.email }}
+                      {% for err in form.email.errors %}
+                      <div class="help" style="color:#b00020;">{{ err }}</div>
+                      {% endfor %}
+                    </div>
 
-        <div class="field">
-          <label for="{{ form.phone.id_for_label }}">Telefono</label>
-          {{ form.phone }}
-          {% for err in form.phone.errors %}
-            <div class="help" style="color:#b00020;">{{ err }}</div>
-          {% endfor %}
-        </div>
-        <div class="field" style="margin-top:12px;">
-        <label for="{{ form.city.id_for_label }}">Città</label>
-        {{ form.city }}
-      </div>
-      </div>
+                    <div class="field">
+                      <label for="{{ form.phone.id_for_label }}">Telefono</label>
+                      {{ form.phone }}
+                      {% for err in form.phone.errors %}
+                      <div class="help" style="color:#b00020;">{{ err }}</div>
+                      {% endfor %}
+                    </div>
+                    <div class="field" style="margin-top:12px;">
+                      <label for="{{ form.city.id_for_label }}">Città</label>
+                      {{ form.city }}
+                    </div>
+                  </div>
 
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Password -->
-          <div class="grid cols-2" style="margin-top:12px;">
-            <div class="field">
-              <label for="{{ form.password1.id_for_label }}">Password</label>
-              {{ form.password1 }}
-              {% for err in form.password1.errors %}
+            <div class="grid cols-2" style="margin-top:12px;">
+                    <div class="field">
+                      <label for="{{ form.email.id_for_label }}">E-Mail</label>
+                      {{ form.email }}
+                      {% for err in form.email.errors %}
+                      <div class="help" style="color:#b00020;">{{ err }}</div>
+                      {% endfor %}
+                    </div>
+
+                    <div class="field">
+                      <label for="{{ form.phone.id_for_label }}">Telefono</label>
+                      {{ form.phone }}
+                      {% for err in form.phone.errors %}
+                      <div class="help" style="color:#b00020;">{{ err }}</div>
+                      {% endfor %}
+                    </div>
+                  </div>
+            <!-- Password -->
+            <div class="grid cols-2" style="margin-top:12px;">
+              <div class="field">
+                <label for="{{ form.password1.id_for_label }}">Password</label>
+                {{ form.password1 }}
+                {% for err in form.password1.errors %}
                 <div class="help" style="color:#b00020;">{{ err }}</div>
-              {% endfor %}
+                {% endfor %}
+              </div>
+
+              <div class="field">
+                <label for="{{ form.password2.id_for_label }}">Conferma password</label>
+                {{ form.password2 }}
+                {% for err in form.password2.errors %}
+                <div class="help" style="color:#b00020;">{{ err }}</div>
+                {% endfor %}
+              </div>
             </div>
 
-            <div class="field">
-              <label for="{{ form.password2.id_for_label }}">Conferma password</label>
-              {{ form.password2 }}
-              {% for err in form.password2.errors %}
-                <div class="help" style="color:#b00020;">{{ err }}</div>
-              {% endfor %}
+            <div class="btn-row" style="margin-top:12px;">
+              <button class="btn btn-primary" type="submit">Crea account</button>
+              <a class="btn btn-ghost" href="{% url 'login' %}">Ho già un account</a>
             </div>
-          </div>
 
-          <div class="btn-row" style="margin-top:12px;">
-            <button class="btn btn-primary" type="submit">Crea account</button>
-            <a class="btn btn-ghost" href="{% url 'login' %}">Ho già un account</a>
-          </div>
-
-          <p class="help" style="margin-top:12px;">
-            Creando un account accetti i Termini e l’Informativa Privacy.
-          </p>
+            <p class="help" style="margin-top:12px;">
+              Creando un account accetti i Termini e l’Informativa Privacy.
+            </p>
         </form>
       </div>
     </div>
@@ -198,4 +198,5 @@
     syncRegisterFields();
   </script>
 </body>
+
 </html>
