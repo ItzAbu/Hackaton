@@ -29,45 +29,63 @@ class CustomLoginView(LoginView):
             return reverse("private_page")
         return reverse("dashboard")
 
-    def register(request):
-        if request.method == "POST":
-            email = request.POST.get("email","").strip().lower()
-            password = request.POST.get("password1","")
-            password2 = request.POST.get("password2","")
 
-            if password != password2:
-                messages.error(request, "Le password non coincidono.")
-                return render(request, "registration/register.html")
+def register(request):
+    # usa sempre lo stesso template path
+    template = "registration/register.html"
 
-            if User.objects.filter(username=email).exists():
-                messages.error(request, "Email già registrata.")
-                return render(request, "registration/register.html")
+    if request.method == "POST":
+        email = (request.POST.get("email") or "").strip().lower()
+        password = request.POST.get("password1") or ""
+        password2 = request.POST.get("password2") or ""
 
-            user = User(username=email, email=email)
-            user.set_password(password)
-            user.save()
+        if password != password2:
+            messages.error(request, "Le password non coincidono.")
+            return render(request, template)
 
-            profile = getattr(user, "profile", None)
-            if profile and profile.user_type == Profile.Type.PRIVATE:
-                return redirect("private_page")
-            return redirect("dashboard")
+        if not email:
+            messages.error(request, "Inserisci un'email.")
+            return render(request, template)
 
-        return render(request, "register.html")
-    
-    def user_login(request):
-        if request.method == "POST":
-            email = request.POST.get("email","").strip().lower()
-            password = request.POST.get("password","")
+        # username=email (così authenticate(username=email, ...) funziona)
+        if User.objects.filter(username=email).exists():
+            messages.error(request, "Email già registrata.")
+            return render(request, template)
 
-            user = authenticate(request, username=email, password=password)
-            if user is None:
-                messages.error(request, "Credenziali non valide.")
-                return render(request, "registration/login.html")
+        user = User(username=email, email=email)
+        user.set_password(password)   # IMPORTANTISSIMO (hash)
+        user.save()
 
-            login(request, user)
-            return redirect("dashboard")
+        # crea sempre Profile (così non hai None e redirect strani)
+        profile, _ = Profile.objects.get_or_create(
+            user=user,
+            defaults={"user_type": Profile.Type.PRIVATE},
+        )
 
-        return render(request, "registration/login.html")
+        # logga l'utente dopo la registrazione
+        login(request, user)
+
+        if profile.user_type == Profile.Type.PRIVATE:
+            return redirect("private_page")
+        return redirect("dashboard")
+
+    return render(request, template)
+
+
+def user_login(request):
+    if request.method == "POST":
+        email = (request.POST.get("email") or "").strip().lower()
+        password = request.POST.get("password") or ""
+
+        user = authenticate(request, username=email, password=password)
+        if user is None:
+            messages.error(request, "Credenziali non valide.")
+            return render(request, "registration/login.html")
+
+        login(request, user)
+        return redirect("dashboard")
+
+    return render(request, "registration/login.html")
 
 
 @login_required
@@ -77,11 +95,9 @@ def after_login(request):
         defaults={"user_type": Profile.Type.PRIVATE},
     )
     if profile.user_type == Profile.Type.PRIVATE:
-        return redirect("dashboard/private_page")
-    return redirect("dashboard/dashboard")
+        return redirect("private_page")
+    return redirect("dashboard")
 
 
 def home(request):
     return render(request, "lobby/index.html")
-
-    
