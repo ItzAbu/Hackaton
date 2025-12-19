@@ -1088,3 +1088,11 @@ hr.sep{
 .mobile-nav {
   font-size: 16px; /* o la dimensione che usi nel tuo .nav-desktop */
 }
+
+/* rende più “textbox” gli input dentro la viewport della registrazione */
+.reg-viewport input,
+.reg-viewport select,
+.reg-viewport textarea{
+  background: rgba(255,255,255,0.82);
+  border-color: rgba(62,49,31,0.30);
+}
