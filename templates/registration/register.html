@@ -37,98 +37,73 @@
             <div class="alert error" style="margin-bottom:10px;">{{ form.non_field_errors }}</div>
           {% endif %}
 
-          <!-- CAMPI COMUNI -->
-          <div class="grid cols-2">
-            <div class="field">
-              <label for="{{ form.email.id_for_label }}">Email</label>
-              {{ form.email }}
-              {% for err in form.email.errors %}
-                <div class="help" style="color:#b00020;">{{ err }}</div>
-              {% endfor %}
-            </div>
+          <!-- CAMPI COMUNI (sempre visibili) -->
+<div class="grid cols-2">
+  <div class="field">
+    <label for="{{ form.email.id_for_label }}">E-Mail</label>
+    {{ form.email }}
+  </div>
 
-            <div class="field">
-              <label for="{{ form.phone.id_for_label }}">Telefono (facoltativo)</label>
-              {{ form.phone }}
-              {% for err in form.phone.errors %}
-                <div class="help" style="color:#b00020;">{{ err }}</div>
-              {% endfor %}
-            </div>
+  <div class="field">
+    <label for="{{ form.phone.id_for_label }}">Telefono</label>
+    {{ form.phone }}
+  </div>
+</div>
+
+<!-- SLIDER: solo campi specifici -->
+<div class="reg-switch">
+
+  <input type="radio" name="tipo-account-ui" id="acc-privato" checked>
+  <input type="radio" name="tipo-account-ui" id="acc-azienda">
+
+  <input type="hidden" name="user_type" id="id_user_type" value="PRIVATE">
+
+  <div class="reg-tabs">
+    <label for="acc-privato" class="reg-tab">Privato</label>
+    <label for="acc-azienda" class="reg-tab">Azienda</label>
+    <span class="reg-indicator" aria-hidden="true"></span>
+  </div>
+
+  <div class="reg-viewport">
+    <div class="reg-panels">
+
+      <!-- PRIVATO -->
+      <div class="reg-panel" id="privateFields">
+        <div class="grid cols-2">
+          <div class="field">
+            <label for="{{ form.first_name.id_for_label }}">Nome</label>
+            {{ form.first_name }}
           </div>
-
-          <!-- Tipo account (UI) + valore reale per Django -->
-          <div class="reg-switch">
-
-            <!-- Radio UI per lo slider -->
-            <input type="radio" name="tipo-account-ui" id="acc-privato" checked>
-            <input type="radio" name="tipo-account-ui" id="acc-azienda">
-
-            <!-- Campo reale che Django leggerà -->
-            <input type="hidden" name="user_type" id="id_user_type" value="PRIVATE">
-
-            <div class="reg-tabs">
-              <label for="acc-privato" class="reg-tab">Privato</label>
-              <label for="acc-azienda" class="reg-tab">Azienda</label>
-              <span class="reg-indicator" aria-hidden="true"></span>
-            </div>
-
-            <!-- Qui scorrono SOLO i campi specifici -->
-            <div class="reg-viewport">
-              <div class="reg-panels">
-
-                <!-- PANEL PRIVATO -->
-                <div class="reg-panel" id="privateFields">
-                  <div class="grid cols-2">
-                    <div class="field">
-                      <label for="{{ form.first_name.id_for_label }}">Nome</label>
-                      {{ form.first_name }}
-                      {% for err in form.first_name.errors %}
-                        <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
-                    </div>
-
-                    <div class="field">
-                      <label for="{{ form.last_name.id_for_label }}">Cognome</label>
-                      {{ form.last_name }}
-                      {% for err in form.last_name.errors %}
-                        <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
-                    </div>
-                  </div>
-                </div>
-
-                <!-- PANEL AZIENDA -->
-                <div class="reg-panel" id="companyFields">
-                  <div class="grid cols-2">
-                    <div class="field">
-                      <label for="{{ form.company_name.id_for_label }}">Nome azienda</label>
-                      {{ form.company_name }}
-                      {% for err in form.company_name.errors %}
-                        <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
-                    </div>
-
-                    <div class="field">
-                      <label for="{{ form.piva.id_for_label }}">P.IVA</label>
-                      {{ form.piva }}
-                      {% for err in form.piva.errors %}
-                        <div class="help" style="color:#b00020;">{{ err }}</div>
-                      {% endfor %}
-                    </div>
-                  </div>
-
-                  <div class="field" style="margin-top:12px;">
-                    <label for="{{ form.city.id_for_label }}">Città</label>
-                    {{ form.city }}
-                    {% for err in form.city.errors %}
-                      <div class="help" style="color:#b00020;">{{ err }}</div>
-                    {% endfor %}
-                  </div>
-                </div>
-
-              </div>
-            </div>
+          <div class="field">
+            <label for="{{ form.last_name.id_for_label }}">Cognome</label>
+            {{ form.last_name }}
           </div>
+        </div>
+      </div>
+
+      <!-- AZIENDA -->
+      <div class="reg-panel" id="companyFields">
+        <div class="grid cols-2">
+          <div class="field">
+            <label for="{{ form.company_name.id_for_label }}">Nome azienda</label>
+            {{ form.company_name }}
+          </div>
+          <div class="field">
+            <label for="{{ form.piva.id_for_label }}">P.IVA</label>
+            {{ form.piva }}
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:12px;">
+          <label for="{{ form.city.id_for_label }}">Città</label>
+          {{ form.city }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
           <!-- Password -->
           <div class="grid cols-2">
