@@ -39,7 +39,7 @@
             <div class="alert error" style="margin-bottom:10px;">{{ error }}</div>
           {% endif %}
 
-          <div class="reg-switch">
+            <div class="reg-switch">
             <!-- Radio solo UI -->
             <input type="radio" name="tipo-account-ui" id="acc-privato" checked>
             <input type="radio" name="tipo-account-ui" id="acc-azienda">
@@ -56,92 +56,92 @@
             <div class="reg-viewport" style="margin-top:12px;">
               <div class="reg-panels">
 
-                <!-- ================= PRIVATO ================= -->
-                <div class="reg-panel" id="privateFields">
-                  <div class="grid cols-2">
-                    <div class="field">
-                      <label for="first_name">Nome</label>
-                      <input id="first_name" name="first_name" type="text" autocomplete="given-name" required>
-                    </div>
-
-                    <div class="field">
-                      <label for="last_name">Cognome</label>
-                      <input id="last_name" name="last_name" type="text" autocomplete="family-name" required>
-                    </div>
-                  </div>
-
-                  <div class="grid cols-2" style="margin-top:12px;">
-                    <div class="field">
-                      <label for="email_private">E-mail</label>
-                      <input id="email_private" name="email" type="email" autocomplete="email" required>
-                    </div>
-
-                    <div class="field">
-                      <label for="phone_private">Telefono</label>
-                      <input id="phone_private" name="phone" type="tel" autocomplete="tel" required>
-                    </div>
-                  </div>
-
-                  <div class="grid cols-2" style="margin-top:12px;">
-                    <div class="field">
-                      <label for="password1_private">Password</label>
-                      <input id="password1_private" name="password1" type="password" autocomplete="new-password" required>
-                    </div>
-
-                    <div class="field">
-                      <label for="password2_private">Conferma password</label>
-                      <input id="password2_private" name="password2" type="password" autocomplete="new-password" required>
-                    </div>
-                  </div>
+              <!-- ================= PRIVATO ================= -->
+              <div class="reg-panel" id="privateFields">
+                <div class="grid cols-2">
+                <div class="field">
+                  <label for="first_name">Nome</label>
+                  <input id="first_name" name="first_name" type="text" autocomplete="given-name" required>
                 </div>
 
-                <!-- ================= AZIENDA ================= -->
-                <div class="reg-panel" id="companyFields">
-                  <div class="grid cols-2">
-                    <div class="field">
-                      <label for="company_name">Nome azienda</label>
-                      <input id="company_name" name="company_name" type="text" autocomplete="organization" required>
-                    </div>
-
-                    <div class="field">
-                      <label for="piva">Partita IVA</label>
-                      <input id="piva" name="piva" type="text" inputmode="numeric" required>
-                    </div>
-                  </div>
-
-                  <div class="field" style="margin-top:12px;">
-                    <label for="city">Città</label>
-                    <input id="city" name="city" type="text" autocomplete="address-level2" required>
-                  </div>
-
-                  <div class="grid cols-2" style="margin-top:12px;">
-                    <div class="field">
-                      <label for="email_company">E-mail</label>
-                      <input id="email_company" name="email" type="email" autocomplete="email" required>
-                    </div>
-
-                    <div class="field">
-                      <label for="phone_company">Telefono</label>
-                      <input id="phone_company" name="phone" type="tel" autocomplete="tel" required>
-                    </div>
-                  </div>
-
-                  <div class="grid cols-2" style="margin-top:12px;">
-                    <div class="field">
-                      <label for="password1_company">Password</label>
-                      <input id="password1_company" name="password1" type="password" autocomplete="new-password" required>
-                    </div>
-
-                    <div class="field">
-                      <label for="password2_company">Conferma password</label>
-                      <input id="password2_company" name="password2" type="password" autocomplete="new-password" required>
-                    </div>
-                  </div>
+                <div class="field">
+                  <label for="last_name">Cognome</label>
+                  <input id="last_name" name="last_name" type="text" autocomplete="family-name" required>
                 </div>
+                </div>
+
+                <div class="grid cols-2" style="margin-top:12px;">
+                <div class="field">
+                  <label for="email_private">E-mail</label>
+                  <input id="email_private" name="email" type="email" autocomplete="email" required>
+                </div>
+
+                <div class="field">
+                  <label for="phone_private">Telefono</label>
+                  <input id="phone_private" name="phone" type="tel" autocomplete="tel" required>
+                </div>
+                </div>
+
+                <div class="grid cols-2" style="margin-top:12px;">
+                <div class="field">
+                  <label for="password1_private">Password</label>
+                  <input id="password1_private" name="password1" type="password" autocomplete="new-password" required>
+                </div>
+
+                <div class="field">
+                  <label for="password2_private">Conferma password</label>
+                  <input id="password2_private" name="password2" type="password" autocomplete="new-password" required>
+                </div>
+                </div>
+              </div>
+
+              <!-- ================= AZIENDA ================= -->
+              <div class="reg-panel" id="companyFields">
+                <div class="grid cols-2">
+                <div class="field">
+                  <label for="company_name">Nome azienda</label>
+                  <input id="company_name" name="company_name" type="text" autocomplete="organization" required>
+                </div>
+
+                <div class="field">
+                  <label for="piva">Partita IVA</label>
+                  <input id="piva" name="piva" type="text" inputmode="numeric" required>
+                </div>
+                </div>
+
+                <div class="field" style="margin-top:12px;">
+                <label for="city">Città</label>
+                <input id="city" name="city" type="text" autocomplete="address-level2" required>
+                </div>
+
+                <div class="grid cols-2" style="margin-top:12px;">
+                <div class="field">
+                  <label for="email_company">E-mail</label>
+                  <input id="email_company" name="email" type="email" autocomplete="email" required>
+                </div>
+
+                <div class="field">
+                  <label for="phone_company">Telefono</label>
+                  <input id="phone_company" name="phone" type="tel" autocomplete="tel" required>
+                </div>
+                </div>
+
+                <div class="grid cols-2" style="margin-top:12px;">
+                <div class="field">
+                  <label for="password1_company">Password</label>
+                  <input id="password1_company" name="password1" type="password" autocomplete="new-password" required>
+                </div>
+
+                <div class="field">
+                  <label for="password2_company">Conferma password</label>
+                  <input id="password2_company" name="password2" type="password" autocomplete="new-password" required>
+                </div>
+                </div>
+              </div>
 
               </div>
             </div>
-          </div>
+            </div>
 
           <div class="btn-row" style="margin-top:12px;">
             <button class="btn btn-primary" type="submit">Crea account</button>
