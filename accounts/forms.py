@@ -82,7 +82,6 @@ class RegisterForm(UserCreationForm):
         email = self.cleaned_data["email"].strip().lower()
         user.username = email
         user.email = email
-
         if commit:
             user.save()
             Profile.objects.create(
