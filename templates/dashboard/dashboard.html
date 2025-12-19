@@ -27,7 +27,7 @@
             {% csrf_token %}
             <button class="btn btn-outline" type="submit">Logout</button>
         </form>
-        <div class="avatar-dot" title="{{ user.username|default:'Admin' }}"><img src="imgs/mail.jpg"></div>
+        <div class="avatar-dot" title="{{ user.username|default:'Admin' }}"></div>
       </div>
     </div>
   </header>
