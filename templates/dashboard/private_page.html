@@ -20,10 +20,7 @@
 
       <div class="topbar-right">
         <span class="badge">Privato</span>
-
-        <!-- link rapido a search tab -->
         <a class="btn btn-ghost" href="{% url 'private_page' %}?tab=search">Search</a>
-
         <a class="btn btn-outline" href="{% url 'logout' %}">Logout</a>
 
         <a class="avatar-link" href="{% url 'private_profile' %}" title="Profilo">
@@ -33,23 +30,19 @@
     </div>
   </header>
 
-  <main class="app">
+  <main class="app private-app">
     <section class="container" style="margin-top:18px;">
       <div class="card pad">
-        <h2 class="h3" style="margin:0 0 6px 0;">
-          Ciao, {{ user.username }} 👋
-        </h2>
+        <h2 class="h3" style="margin:0 0 6px 0;">Ciao, {{ user.username }} 👋</h2>
         <p class="p" style="margin:0;">Scegli dove vuoi andare.</p>
       </div>
     </section>
 
-    <!-- ✅ “tab” -->
-    <section class="container" style="margin-top:16px;">
+    <!-- TAB -->
+    <section class="container" style="margin-top:14px;">
       <div class="grid cols-3">
-
         <a class="tile tab-tile {% if selected_tab == 'companies' %}is-active{% endif %}"
-           href="{% url 'private_page' %}?tab=companies"
-           data-tab="companies">
+           href="{% url 'private_page' %}?tab=companies" data-tab="companies">
           <div class="card pad">
             <h3 class="h3" style="margin:0 0 6px 0;">Aziende</h3>
             <p class="p" style="margin:0;">Vedi i giochi dell’azienda di cui fai parte.</p>
@@ -57,8 +50,7 @@
         </a>
 
         <a class="tile tab-tile {% if selected_tab == 'discovery' %}is-active{% endif %}"
-           href="{% url 'private_page' %}?tab=discovery"
-           data-tab="discovery">
+           href="{% url 'private_page' %}?tab=discovery" data-tab="discovery">
           <div class="card pad">
             <h3 class="h3" style="margin:0 0 6px 0;">Discovery</h3>
             <p class="p" style="margin:0;">Tutti i giochi disponibili (demo inclusa).</p>
@@ -66,29 +58,24 @@
         </a>
 
         <a class="tile tab-tile {% if selected_tab == 'search' %}is-active{% endif %}"
-           href="{% url 'private_page' %}?tab=search"
-           data-tab="search">
+           href="{% url 'private_page' %}?tab=search" data-tab="search">
           <div class="card pad">
             <h3 class="h3" style="margin:0 0 6px 0;">Search</h3>
             <p class="p" style="margin:0;">Inserisci un codice per aprire una mappa.</p>
           </div>
         </a>
-
       </div>
     </section>
 
-    <!-- ✅ contenuto che cambia sotto -->
-    <section class="container" style="margin-top:16px;">
+    <!-- ✅ CONTENUTO SUBITO SOTTO -->
+    <section class="container private-content">
 
       <!-- AZIENDE -->
-      <div class="card pad tab-panel"
-           data-panel="companies"
-           {% if selected_tab != 'companies' %}hidden{% endif %}>
+      <div class="card pad tab-panel" data-panel="companies" {% if selected_tab != 'companies' %}hidden{% endif %}>
         <h2 class="h2" style="margin:0 0 8px 0;">Aziende</h2>
         <p class="p" style="margin:0;">
           Al momento <b>non fai parte di nessuna azienda</b>.
         </p>
-
         <div class="private-actions">
           <a class="btn btn-primary" href="{% url 'private_page' %}?tab=search">Inserisci codice (Search)</a>
           <a class="btn btn-ghost" href="{% url 'private_page' %}?tab=discovery">Vai a Discovery</a>
@@ -96,50 +83,50 @@
       </div>
 
       <!-- DISCOVERY -->
-      <div class="card pad tab-panel"
-           data-panel="discovery"
-           {% if selected_tab != 'discovery' %}hidden{% endif %}>
-        <h2 class="h2" style="margin:0 0 8px 0;">Discovery</h2>
-        <p class="p" style="margin:0 0 12px 0;">Per ora vedi solo la card di prova.</p>
+      <div class="tab-panel" data-panel="discovery" {% if selected_tab != 'discovery' %}hidden{% endif %}>
+        <div class="card pad" style="margin-bottom:12px;">
+          <h2 class="h2" style="margin:0 0 8px 0;">Discovery</h2>
+          <p class="p" style="margin:0;">Per ora vedi solo la card di prova.</p>
+        </div>
 
-        <a class="tile" href="{% url 'kaboom' %}">
-          <div class="card pad game-card">
-            <div class="meta">
-              <div class="tag">Demo</div>
-              <h3 class="h3" style="margin:0;">Città Prova</h3>
-              <p class="p" style="margin:0;">Apri Kaboom (per ora è l’unico gioco visibile).</p>
-            </div>
-            <div>
-              <span class="btn btn-primary">Apri</span>
+        <!-- ✅ Game card “da gioco” -->
+        <a class="game-link" href="{% url 'kaboom' %}">
+          <div class="game-tile">
+            <div class="game-cover" aria-hidden="true"></div>
+
+            <div class="game-body">
+              <div class="game-badges">
+                <span class="game-badge">Demo</span>
+                <span class="game-badge subtle">Single Map</span>
+              </div>
+
+              <h3 class="game-title">Città Prova</h3>
+              <p class="game-desc">Entra nella mappa demo e prova l’esperienza.</p>
+
+              <div class="game-footer">
+                <span class="btn btn-primary">Gioca</span>
+                <span class="game-meta">Kaboom · 2D</span>
+              </div>
             </div>
           </div>
         </a>
       </div>
 
       <!-- SEARCH -->
-      <div class="card pad tab-panel"
-           data-panel="search"
-           {% if selected_tab != 'search' %}hidden{% endif %}>
+      <div class="card pad tab-panel" data-panel="search" {% if selected_tab != 'search' %}hidden{% endif %}>
         <h2 class="h2" style="margin:0 0 8px 0;">Search</h2>
-        <p class="p" style="margin:0;">
-          Inserisci un codice per aprire una mappa. (Per ora è solo UI, non funziona.)
-        </p>
+        <p class="p" style="margin:0;">Inserisci un codice per aprire una mappa. (Solo UI)</p>
 
         <form class="search-form" method="get" action="#">
           <input class="input" type="text" name="code" placeholder="Es. CITY-1234" />
           <button class="btn btn-primary" type="submit">Apri</button>
         </form>
-
-        <p class="p" style="margin-top:10px; opacity:.8;">
-          Suggerimento: in futuro qui potrai incollare un codice fornito dall’azienda o da un QR.
-        </p>
       </div>
 
     </section>
   </main>
 
   <script>
-    // ✅ Cambio tab senza ricaricare (ma mantiene anche ?tab=...)
     (function(){
       const tiles = document.querySelectorAll(".tab-tile[data-tab]");
       const panels = document.querySelectorAll(".tab-panel[data-panel]");
@@ -160,7 +147,6 @@
         });
       });
 
-      // inizializza
       const urlTab = new URLSearchParams(window.location.search).get("tab");
       setTab(urlTab || "{{ selected_tab|default:'companies' }}");
     })();

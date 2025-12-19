@@ -912,3 +912,95 @@ hr.sep{
 .tab-panel{
   margin-top: 0;
 }
+
+/* Mantieni tutto “attaccato” in alto (niente spinta in basso) */
+.private-app{
+  display:block; /* se .app aveva flex/space-between, lo neutralizzi qui */
+}
+
+.private-content{
+  margin-top: 12px; /* poco sotto le 3 selezioni */
+}
+
+/* Tab active */
+.tab-tile.is-active .card{
+  background: rgba(196, 240, 201, 0.55);
+  border: 1px solid rgba(58, 134, 75, 0.22);
+}
+
+/* Game card “da gioco” */
+.game-link{
+  display:block;
+  text-decoration:none;
+  color:inherit;
+}
+
+.game-tile{
+  overflow:hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(42,28,20,0.12);
+  background: rgba(255,255,255,0.92);
+  box-shadow: 0 14px 40px rgba(17, 12, 8, 0.10);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.game-link:hover .game-tile{
+  transform: translateY(-2px);
+  box-shadow: 0 18px 55px rgba(17, 12, 8, 0.16);
+}
+
+.game-cover{
+  height: 140px;
+  background: linear-gradient(135deg, rgba(34,112,72,0.35), rgba(49,16,71,0.35));
+}
+
+.game-body{
+  padding: 14px;
+}
+
+.game-badges{
+  display:flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.game-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  background: rgba(196, 240, 201, 0.55);
+  border: 1px solid rgba(58, 134, 75, 0.22);
+}
+
+.game-badge.subtle{
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(42,28,20,0.12);
+  font-weight: 700;
+}
+
+.game-title{
+  margin: 0 0 6px 0;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.game-desc{
+  margin: 0 0 12px 0;
+  opacity: .85;
+}
+
+.game-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+}
+
+.game-meta{
+  font-weight: 800;
+  opacity: .75;
+}
