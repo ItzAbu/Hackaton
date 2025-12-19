@@ -1069,3 +1069,20 @@ hr.sep{
   .cta-desktop{ display:none; }
   .hamburger{ display:inline-flex; }
 }
+
+/* Assicurati che il menu mobile abbia la stessa dimensione del desktop */
+.mobile-nav a {
+  font-size: 1rem !important; /* o la dimensione che preferisci, es: 16px */
+  font-weight: 500; /* oppure il peso del font che usi nel desktop */
+}
+
+/* Se il problema persiste, controlla anche questi stili */
+.mobile-menu .mobile-nav a {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* Se vuoi che sia esattamente come il desktop nav */
+.mobile-nav {
+  font-size: 16px; /* o la dimensione che usi nel tuo .nav-desktop */
+}
