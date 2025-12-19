@@ -37,11 +37,11 @@ class CustomLoginView(LoginView):
 
             if password != password2:
                 messages.error(request, "Le password non coincidono.")
-                return render(request, "register.html")
+                return render(request, "registration/register.html")
 
             if User.objects.filter(username=email).exists():
                 messages.error(request, "Email già registrata.")
-                return render(request, "register.html")
+                return render(request, "registration/register.html")
 
             user = User(username=email, email=email)
             user.set_password(password)
@@ -53,6 +53,21 @@ class CustomLoginView(LoginView):
             return redirect("dashboard")
 
         return render(request, "register.html")
+    
+    def user_login(request):
+        if request.method == "POST":
+            email = request.POST.get("email","").strip().lower()
+            password = request.POST.get("password","")
+
+            user = authenticate(request, username=email, password=password)
+            if user is None:
+                messages.error(request, "Credenziali non valide.")
+                return render(request, "registration/login.html")
+
+            login(request, user)
+            return redirect("dashboard")
+
+        return render(request, "registration/login.html")
 
 
 @login_required
@@ -62,8 +77,8 @@ def after_login(request):
         defaults={"user_type": Profile.Type.PRIVATE},
     )
     if profile.user_type == Profile.Type.PRIVATE:
-        return redirect("private_page")
-    return redirect("dashboard")
+        return redirect("dashboard/private_page")
+    return redirect("dashboard/dashboard")
 
 
 def home(request):
