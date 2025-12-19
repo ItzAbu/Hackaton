@@ -39,8 +39,8 @@
           {% endif %}
 
           <div class="reg-switch">
-            <input type="radio" name="account-type" id="acc-privato" value="PRIVATE" checked>
-            <input type="radio" name="account-type" id="acc-azienda" value="COMPANY">
+            <input type="radio" name="tipo-account-ui" id="acc-privato" checked>
+            <input type="radio" name="tipo-account-ui" id="acc-azienda">
             <input type="hidden" name="user_type" id="id_user_type" value="PRIVATE">
 
             <div class="reg-tabs">
@@ -161,10 +161,10 @@
   <script>
     function setDisabled(container, disabled) {
       if (!container) return;
-      container.querySelectorAll("input, select, textarea").forEach(el => {
+      container.querySelectorAll("input, select, textarea, button").forEach(el => {
         el.disabled = disabled;
       });
-      container.style.display = disabled ? "none" : "block";
+      container.setAttribute("aria-hidden", disabled ? "true" : "false");
     }
 
     function syncRegisterFields() {
