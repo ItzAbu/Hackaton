@@ -15,17 +15,15 @@ export default class WorldScene extends Phaser.Scene {
 
   preload() {
     // Map 
-    this.load.setPath(window.GAME_ASSET_BASE);
-    
-    this.load.image("world_map", window.WORLD_MAP_URL);
+    this.load.image("world_map", "assets/Asset_Mappa_Gioco.jpeg");
 
     // NPC assets (immagini singole; evita di mostrare spritesheet interi)
-    this.load.image("npc_net", window.NPC_NET_URL);
-    this.load.image("npc_sec", window.NPC_SEC_URL);
-    this.load.image("npc_prog", window.NPC_PROG_URL);
-    this.load.image("npc_db", window.NPC_DB_URL);
-    this.load.image("npc_sys", window.NPC_SYS_URL);
-    this.load.image("npc_cld", window.NPC_CLD_URL);
+    this.load.image("npc_net", "assets/npc/npc_net.png");
+    this.load.image("npc_sec", "assets/npc/npc_sec.png");
+    this.load.image("npc_prog", "assets/npc/npc_prog.png");
+    this.load.image("npc_db", "assets/npc/npc_db.png");
+    this.load.image("npc_sys", "assets/npc/npc_sys.png");
+    this.load.image("npc_cld", "assets/npc/npc_cld.png");
   }
   create() {
     this.state = {
