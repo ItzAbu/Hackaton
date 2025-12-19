@@ -1,5 +1,7 @@
-from django.contrib.auth import login
+from django.contrib import messages
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -29,17 +31,29 @@ class CustomLoginView(LoginView):
 
 
 def register(request):
-    form = RegisterForm(request.POST or None)
-    if request.method == "POST" and form.is_valid():
-        user = form.save()
-        login(request, user)
+    if request.method == "POST":
+        email = request.POST.get("email","").strip().lower()
+        password = request.POST.get("password1","")
+        password2 = request.POST.get("password2","")
+
+        if password != password2:
+            messages.error(request, "Le password non coincidono.")
+            return render(request, "register.html")
+
+        if User.objects.filter(username=email).exists():
+            messages.error(request, "Email già registrata.")
+            return render(request, "register.html")
+
+        user = User(username=email, email=email)
+        user.set_password(password)
+        user.save()
 
         profile = getattr(user, "profile", None)
         if profile and profile.user_type == Profile.Type.PRIVATE:
             return redirect("private_page")
         return redirect("dashboard")
 
-    return render(request, "registration/register.html", {"form": form})
+    return render(request, "register.html")
 
 
 @login_required
@@ -55,3 +69,20 @@ def after_login(request):
 
 def home(request):
     return render(request, "lobby/index.html")
+
+def lobby(request):
+    if request.method == "POST":
+        email = request.POST.get("email","").strip().lower()
+        password = request.POST.get("password","")
+
+        user = authenticate(request, username=email, password=password)
+        if user is None:
+            messages.error(request, "Credenziali non valide.")
+            return render(request, "login.html")
+
+        profile = getattr(user, "profile", None)
+        if profile and profile.user_type == Profile.Type.PRIVATE:
+            return redirect("private_page")
+        return redirect("dashboard")
+
+    return render(request, "login.html")
