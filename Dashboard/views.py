@@ -14,42 +14,40 @@ def _get_profile(user):
 @login_required
 def dashboard(request):
     profile = _get_profile(request.user)
-    # ✅ se è privato, niente dashboard azienda
     if profile.user_type == Profile.Type.PRIVATE:
         return redirect("private_page")
     return render(request, "dashboard/dashboard.html", {"profile": profile})
 
 
 @login_required
-def private_page(request):
+def private_page(request, tab=None):
     profile = _get_profile(request.user)
     if profile.user_type != Profile.Type.PRIVATE:
         return redirect("dashboard")
-    return render(request, "dashboard/private_page.html", {"profile": profile})
+
+    # tab da URL (kwargs) oppure querystring ?tab=
+    selected = tab or request.GET.get("tab") or "companies"
+    if selected not in ("companies", "discovery", "search"):
+        selected = "companies"
+
+    return render(request, "dashboard/private_page.html", {
+        "profile": profile,
+        "selected_tab": selected,
+    })
 
 
+# ✅ non più pagine separate: puntano tutte alla stessa
 @login_required
 def discovery(request):
-    profile = _get_profile(request.user)
-    if profile.user_type != Profile.Type.PRIVATE:
-        return redirect("dashboard")
-    return render(request, "dashboard/discovery.html", {"profile": profile})
-
+    return redirect("/dashboard/private/?tab=discovery")
 
 @login_required
 def companies(request):
-    profile = _get_profile(request.user)
-    if profile.user_type != Profile.Type.PRIVATE:
-        return redirect("dashboard")
-    return render(request, "dashboard/companies.html", {"profile": profile})
-
+    return redirect("/dashboard/private/?tab=companies")
 
 @login_required
 def search_page(request):
-    profile = _get_profile(request.user)
-    if profile.user_type != Profile.Type.PRIVATE:
-        return redirect("dashboard")
-    return render(request, "dashboard/search.html", {"profile": profile})
+    return redirect("/dashboard/private/?tab=search")
 
 
 @login_required

@@ -902,3 +902,13 @@ hr.sep{
   font-weight: 800;
   opacity: .85;
 }
+
+
+.tab-tile.is-active .card{
+  background: rgba(196, 240, 201, 0.55);  /* verde chiaro */
+  border: 1px solid rgba(58, 134, 75, 0.22);
+}
+
+.tab-panel{
+  margin-top: 0;
+}

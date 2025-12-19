@@ -4,10 +4,13 @@ from . import views
 urlpatterns = [
     path("", views.dashboard, name="dashboard"),
 
-    # ✅ area privati
+    # ✅ pagina unica privati
     path("private/", views.private_page, name="private_page"),
-    path("private/discovery/", views.discovery, name="private_discovery"),
-    path("private/companies/", views.companies, name="private_companies"),
-    path("private/search/", views.search_page, name="private_search"),
+
+    # ✅ compat: anche queste aprono la stessa pagina ma con tab diverso
+    path("private/companies/", views.private_page, {"tab": "companies"}, name="private_companies"),
+    path("private/discovery/", views.private_page, {"tab": "discovery"}, name="private_discovery"),
+    path("private/search/", views.private_page, {"tab": "search"}, name="private_search"),
+
     path("private/profile/", views.profile_page, name="private_profile"),
 ]
