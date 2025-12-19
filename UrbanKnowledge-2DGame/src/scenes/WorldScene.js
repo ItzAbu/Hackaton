@@ -14,16 +14,20 @@ export default class WorldScene extends Phaser.Scene {
   }
 
   preload() {
-    // Map 
-    this.load.image("world_map", "assets/Asset_Mappa_Gioco.jpeg");
+    // imposta base path dagli static di Django
+    this.load.setPath(window.GAME_ASSET_BASE);
 
-    // NPC assets (immagini singole; evita di mostrare spritesheet interi)
-    this.load.image("npc_net", "assets/npc/npc_net.png");
-    this.load.image("npc_sec", "assets/npc/npc_sec.png");
-    this.load.image("npc_prog", "assets/npc/npc_prog.png");
-    this.load.image("npc_db", "assets/npc/npc_db.png");
-    this.load.image("npc_sys", "assets/npc/npc_sys.png");
-    this.load.image("npc_cld", "assets/npc/npc_cld.png");
+    // Map
+    this.load.image("world_map", "Asset_Mappa_Gioco.jpeg");
+
+    // NPC assets
+    this.load.image("npc_net", "npc/npc_net.png");
+    this.load.image("npc_sec", "npc/npc_sec.png");
+    this.load.image("npc_prog", "npc/npc_prog.png");
+    this.load.image("npc_db", "npc/npc_db.png");
+    this.load.image("npc_sys", "npc/npc_sys.png");
+    
+    this.load.image("npc_cld", "npc/npc_cld.png");
   }
   create() {
     this.state = {

@@ -1,13 +1,8 @@
 <!doctype html>
 {% load static %}
 <script>
-  window.NPC_NET_URL = "{% static 'game_demo/assets/npc/npc_net.png' %}";
-  window.NPC_SEC_URL = "{% static 'game_demo/assets/npc/npc_sec.png' %}";
-  window.NPC_PROG_URL = "{% static 'game_demo/assets/npc/npc_prog.png' %}";
-  window.NPC_DB_URL = "{% static 'game_demo/assets/npc/npc_db.png' %}";
-  window.NPC_SYS_URL = "{% static 'game_demo/assets/npc/npc_sys.png' %}";
-  window.NPC_CLD_URL = "{% static 'game_demo/assets/npc/npc_cld.png' %}";
-  window.MAP_URL = "{% static 'game_demo/assets/Asset_Mappa_Gioco.jpeg' %}";
+  // imposta il percorso corretto per gli assets statici
+  window.GAME_ASSET_BASE = "{% static 'game_demo/assets/' %}";
 </script>
 <script src="{% static 'game_demo/index-B0grLTsQ.js' %}"></script>
 <html lang="it">
