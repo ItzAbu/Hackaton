@@ -45,7 +45,7 @@
             <input type="radio" name="tipo-account-ui" id="acc-azienda">
 
             <!-- Valore reale inviato al backend -->
-            <input type="hidden" name="user_type" id="id_user_type" value="PRIVATE">
+            
 
             <div class="reg-tabs">
               <label for="acc-privato" class="reg-tab">Privato</label>
@@ -57,6 +57,7 @@
               <div class="reg-panels">
 
               <!-- ================= PRIVATO ================= -->
+               <input type="hidden" name="user_type" id="id_user_type" value="PRIVATE">
               <div class="reg-panel" id="privateFields">
                 <div class="grid cols-2">
                 <div class="field">
@@ -96,6 +97,7 @@
               </div>
 
               <!-- ================= AZIENDA ================= -->
+                <input type="hidden" name="user_type" id="id_user_type" value="COMPANY">
               <div class="reg-panel" id="companyFields">
                 <div class="grid cols-2">
                 <div class="field">
