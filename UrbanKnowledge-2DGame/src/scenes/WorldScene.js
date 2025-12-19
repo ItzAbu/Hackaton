@@ -15,6 +15,8 @@ export default class WorldScene extends Phaser.Scene {
 
   preload() {
     // Map 
+    this.load.setPath(window.GAME_ASSET_BASE);
+    
     this.load.image("world_map", "assets/Asset_Mappa_Gioco.jpeg");
 
     // NPC assets (immagini singole; evita di mostrare spritesheet interi)
