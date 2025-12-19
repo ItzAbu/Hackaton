@@ -18,8 +18,8 @@
         <div>UrbanKnowledge</div>
       </a>
 
-
-      <nav class="nav" aria-label="Navigazione principale">
+      <!-- NAVIGAZIONE DESKTOP -->
+      <nav class="nav-desktop" aria-label="Navigazione principale">
         <a href="#come-funziona">Come funziona</a>
         <a href="#privati">Per privati</a>
         <a href="#aziende">Per aziende</a>
@@ -27,35 +27,38 @@
         <a href="#faq">FAQ</a>
       </nav>
 
-      <div class="btn-row">
+      <!-- BOTTONI DESKTOP -->
+      <div class="cta-desktop">
+        <a class="btn btn-ghost" href="{% url 'login' %}">Accedi</a>
+        <a class="btn btn-primary" href="{% url 'register' %}">Inizia gratis</a>
+      </div>
+
+      <!-- HAMBURGER MENU (solo mobile) -->
+      <button class="hamburger" type="button" aria-label="Apri menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div> <!-- Fine .header-inner -->
+
+    <!-- MENU MOBILE (dropdown) -->
+    <div id="mobileMenu" class="mobile-menu" hidden>
+      <nav class="mobile-nav" aria-label="Menu mobile">
+        <a href="#come-funziona">Come funziona</a>
+        <a href="#privati">Per privati</a>
+        <a href="#aziende">Per aziende</a>
+        <a href="#recensioni">Recensioni</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="mobile-cta">
         <a class="btn btn-ghost" href="{% url 'login' %}">Accedi</a>
         <a class="btn btn-primary" href="{% url 'register' %}">Inizia gratis</a>
       </div>
     </div>
+  </header> <!-- Chiusura corretta del header -->
 
-    <button class="hamburger" type="button" aria-label="Apri menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
-
-  <!-- MENU MOBILE (dropdown) -->
-  <div id="mobileMenu" class="mobile-menu" hidden>
-    <nav class="mobile-nav" aria-label="Menu mobile">
-      <a href="#come-funziona">Come funziona</a>
-      <a href="#privati">Per privati</a>
-      <a href="#aziende">Per aziende</a>
-      <a href="#recensioni">Recensioni</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-
-    <div class="mobile-cta">
-      <a class="btn btn-ghost" href="{% url 'login' %}">Accedi</a>
-      <a class="btn btn-primary" href="{% url 'register' %}">Inizia gratis</a>
-    </div>
-  </div>
-  </header>
+  <!-- Resto del tuo codice HTML rimane uguale -->
 
   <!-- MAIN -->
   <main>
