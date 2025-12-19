@@ -1036,6 +1036,7 @@ hr.sep{
   border-top: 1px solid var(--border);
   background: rgba(237,232,208,0.78);
   backdrop-filter: blur(10px);
+  display: none;
 }
 
 .mobile-menu .mobile-nav{
@@ -1068,6 +1069,7 @@ hr.sep{
   .nav-desktop{ display:none; }
   .cta-desktop{ display:none; }
   .hamburger{ display:inline-flex; }
+  .mobile-menu{ display: block; }
 }
 
 /* Assicurati che il menu mobile abbia la stessa dimensione del desktop */
