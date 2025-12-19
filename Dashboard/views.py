@@ -111,13 +111,6 @@ def _get_profile(user):
     return profile
 
 
-@login_required
-def dashboard(request):
-    profile = _get_profile(request.user)
-    if profile.user_type == Profile.Type.PRIVATE:
-        return redirect("private_page")
-    return render(request, "dashboard/dashboard.html", {"profile": profile})
-
 
 @login_required
 def private_page(request, tab=None):
