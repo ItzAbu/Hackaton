@@ -1,18 +1,100 @@
 <!doctype html>
 {% load static %}
 <html lang="it">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>UrbanKnowledge — Dashboard Azienda</title>
   <link rel="stylesheet" href="{% static 'style.css' %}" />
+  <style>
+    /* Piccoli aggiustamenti locali (non toccano style.css) */
+    .sr-only{
+      position:absolute;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;clip:rect(0,0,0,0);
+      white-space:nowrap;border:0;
+    }
+    .tab-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.55);
+      font-weight: 900;
+    }
+    .mini{
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 800;
+    }
+    .pill-input{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: end;
+    }
+    .pill-input .field{ flex: 1; min-width: 240px; }
+    .pill-input .field label{ display:block; font-size: 12px; font-weight: 900; margin: 0 0 6px; }
+    .toast{
+      display:none;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(59,120,64,0.25);
+      background: rgba(59,120,64,0.12);
+      color: var(--g4);
+      font-weight: 900;
+    }
+    .toast.show{ display:block; }
+    .palazzi{
+      display:grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+    @media (max-width: 900px){
+      .palazzi{ grid-template-columns: 1fr; }
+    }
+    .palazzo-card{
+      border-radius: 18px;
+      border: 1px solid rgba(62,49,31,0.18);
+      background: rgba(255,255,255,0.55);
+      padding: 12px;
+    }
+    .palazzo-card header{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .palazzo-card header strong{ font-weight: 900; }
+    .palazzo-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 520px){
+      .palazzo-grid{ grid-template-columns: 1fr; }
+    }
+    .palazzo-grid label{ display:block; font-size: 12px; font-weight: 900; margin: 0 0 6px; }
+    .codebox{
+      width:100%;
+      min-height: 180px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+  </style>
 </head>
 
 <body>
   <!-- TOPBAR -->
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="/">
+      <a class="brand" href="{% url 'dashboard' %}" aria-label="Torna alla dashboard">
         <div class="logo" aria-hidden="true">
           <img src="{% static 'imgs/logo.png' %}" alt="Logo UrbanKnowledge">
         </div>
@@ -21,297 +103,452 @@
 
       <div class="topbar-right">
         <span class="badge success">Azienda</span>
-        <div class="pill">Piano: {{ company_plan|default:"Gold" }}</div>
-        <a class="btn btn-ghost" href="/">Home</a>
+        <div class="pill">{{ profile.company_name|default:"Azienda" }}</div>
+        <a class="btn btn-ghost" href="{% url 'private_page' %}">Area privata</a>
         <form method="post" action="{% url 'logout' %}" style="display:inline;">
-            {% csrf_token %}
-            <button class="btn btn-outline" type="submit">Logout</button>
+          {% csrf_token %}
+          <button class="btn btn-outline" type="submit">Logout</button>
         </form>
-        <div class="avatar-dot" title="{{ user.username|default:'Admin' }}"></div>
+        <a class="avatar-link" href="{% url 'private_profile' %}" title="Profilo">
+          <div class="avatar-dot" aria-hidden="true"></div>
+          <span class="sr-only">Apri profilo</span>
+        </a>
       </div>
     </div>
   </header>
 
-  <main>
-    <section class="container" style="margin-top:18px;">
-      <div class="card pad">
-        <h2 class="h3" style="margin:0 0 6px 0;">Benvenuto, {{ user.username }}</h2>
-        <p class="p" style="margin:0 0 14px 0;">
-          Tipo account: <b>{{ profile.get_user_type_display }}</b>
-          {% if profile.user_type == "COMPANY" and profile.company_name %} — {{ profile.company_name }}{% endif %}
-        </p>
-        <div class="btn-row">
-          <a class="btn btn-primary" href="{% url 'kaboom' %}">Avvia gioco (Kaboom)</a>
-          <a class="btn btn-ghost" href="{% url 'logout' %}">Logout</a>
-        </div>
-      </div>
-    </section>
-
+  <main class="app">
     <div class="container app-body">
-      <!-- SIDEBAR -->
-      <aside class="card sidebar">
+      <!-- SIDEBAR (MENU) -->
+      <aside class="card sidebar" aria-label="Menu azienda">
         <div class="panel-title">Pannello aziendale</div>
-
-        <nav class="side-nav" aria-label="Menu azienda">
-          <a class="side-link active" href="{% url 'dashboard' %}">
-            Dashboard <span class="badge">↗</span>
+        <nav class="side-nav">
+          <a class="side-link" href="#dipendenti" id="link-dipendenti">
+            Dipendenti <span class="badge">{{ employee_emails|length|default:"0" }}</span>
           </a>
-
-          <!-- Le URL qui sotto sono placeholder: aggiornale con i tuoi name= nelle urls.py -->
-          <a class="side-link" href="#dipendenti">
-            Dipendenti <span class="badge">{{ employees_active|default:"24" }}</span>
+          <a class="side-link" href="#corsi" id="link-corsi">
+            Corsi <span class="badge">0</span>
           </a>
-          <a class="side-link" href="#">
-            Corsi <span class="badge">{{ courses_active|default:"3" }}</span>
-          </a>
-          <a class="side-link" href="#">
-            Impostazioni <span class="badge">⚙</span>
+          <a class="side-link" href="#editor" id="link-editor">
+            Editor mappe <span class="badge">✎</span>
           </a>
         </nav>
 
         <hr class="sep" />
 
         <div class="help">
-          <strong>Azioni rapide</strong><br>
-          • Invita dipendenti<br>
-          • Crea un corso<br>
-          • Monitora i progressi
+          <strong>Come funziona</strong><br>
+          • Aggiungi le email dei dipendenti già iscritti<br>
+          • Le mappe (corsi) al momento sono 0 (statico)<br>
+          • Nell’editor scegli per ogni palazzo il tipo di domanda (bozza)
         </div>
       </aside>
 
       <!-- CONTENT -->
       <section class="card content">
-        <div class="kpi">
+        <div class="kpi" style="align-items:flex-start;">
           <div>
-            <div class="kicker">📊 Overview</div>
-            <h1 class="h2" style="margin-top:10px;">Dashboard Azienda</h1>
-            <p class="p">Monitoraggio rapido di utilizzo, progressi e corsi attivi.</p>
+            <div class="kicker">🏢 Dashboard Azienda</div>
+            <h1 class="h2" style="margin-top:12px;">Gestione Dipendenti, Corsi e Mappe</h1>
+            <p class="p">Questa pagina è pensata per aziende: qui gestisci dipendenti, visualizzi i corsi e prepari una bozza di mappa (senza salvarla).</p>
           </div>
           <div style="text-align:right;">
-            <span class="help">Ultimo aggiornamento</span><br>
-            <strong>{{ last_update|default:"Oggi" }}</strong>
+            <span class="mini">Account</span><br>
+            <span class="tab-pill">{{ user.username|default:"Admin" }}</span>
           </div>
         </div>
 
-        <!-- KPI CARDS -->
-        <div class="grid cols-4" style="margin-top:14px;">
-          <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.72);">
-            <div class="badge success">Dipendenti</div>
-            <div class="kpi" style="margin-top:10px;">
-              <strong>{{ employees_active|default:"24" }}</strong>
-              <span>attivi</span>
-            </div>
-            <div class="help">su {{ employees_limit|default:"100" }} disponibili</div>
+        {% if messages %}
+          <div style="margin-top:12px; display:grid; gap:10px;">
+            {% for message in messages %}
+              <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
+                <strong>{{ message }}</strong>
+              </div>
+            {% endfor %}
           </div>
-
-          <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.72);">
-            <div class="badge success">Completamento</div>
-            <div class="kpi" style="margin-top:10px;">
-              <strong>{{ completion_rate|default:"68" }}%</strong>
-              <span>medio</span>
-            </div>
-            <div class="progress" style="margin-top:10px;">
-              <div style="width: {{ completion_rate|default:'68' }}%"></div>
-            </div>
-          </div>
-
-          <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.72);">
-            <div class="badge success">Corsi</div>
-            <div class="kpi" style="margin-top:10px;">
-              <strong>{{ courses_active|default:"3" }}</strong>
-              <span>attivi</span>
-            </div>
-            <div class="help">max: {{ courses_limit|default:"5" }}</div>
-          </div>
-
-          <!-- <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.72);">
-            <div class="badge success">Città</div>
-            <div class="kpi" style="margin-top:10px;">
-              <strong>{{ cities_count|default:"2" }}</strong>
-              <span>generate</span>
-            </div>
-            <div class="help">max: {{ cities_limit|default:"5" }}</div>
-          </div> -->
-        </div>
+        {% endif %}
 
         <hr class="sep" />
 
-        <!-- SPLIT: progress + azioni -->
-        <div class="split">
-          <!-- Progressi -->
-          <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
-            <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-              <div>
-                <strong>Progressi per area</strong>
-                <div class="help">Media aziendale</div>
-              </div>
-              <div class="btn-row">
-                <a class="btn btn-outline" href="#">Esporta</a>
-                <a class="btn btn-primary" href="#">Dettagli</a>
-              </div>
+        <!-- 1) DIPENDENTI -->
+        <section id="dipendenti" class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
+          <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+            <div>
+              <strong>Dipendenti</strong>
+              <div class="help">Aggiungi le email dei dipendenti <b>già iscritti</b> alla piattaforma.</div>
             </div>
-
-            <div style="margin-top:14px;">
-              <div class="help"><strong>Matematica</strong><strong>70%</strong></div>
-              <div class="progress"><div style="width:{{ math_progress|default:'72' }}%"></div></div>
-            </div>
-
-            <div style="margin-top:12px;">
-              <div class="help"><strong>Informatica</strong><strong>60%</strong></div>
-              <div class="progress"><div style="width:{{ cs_progress|default:'58' }}%"></div></div>
-            </div>
-
-            <div style="margin-top:12px;">
-              <div class="help"><strong>Economia</strong><strong>65%</strong></div>
-              <div class="progress"><div style="width:{{ econ_progress|default:'64' }}%"></div></div>
-            </div>
-
-            <div style="margin-top:12px;">
-              <div class="help"><strong>Lingue</strong><strong>50%</strong></div>
-              <div class="progress"><div style="width:{{ lang_progress|default:'49' }}%"></div></div>
-            </div>
+            <span class="badge success">Gestione inviti (bozza)</span>
           </div>
 
-          <!-- Azioni / Attività -->
-          <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
-            <strong>Attività recente</strong>
-            <div class="help">Ultime azioni</div>
+          <form method="post" action="{% url 'company_add_employee' %}" style="margin-top:14px;">
+            {% csrf_token %}
+            <div class="pill-input">
+              <div class="field">
+                <label for="employee_email">Email dipendente</label>
+                <input id="employee_email" name="email" type="email" required placeholder="nome.cognome@esempio.it" autocomplete="email" />
+                <div class="mini">Viene aggiunta solo se l’utente esiste già ed è un account dipendente.</div>
+              </div>
+              <button class="btn btn-primary" type="submit">Aggiungi</button>
+            </div>
+          </form>
 
-            <table class="table" style="margin-top:12px;">
+          <div style="margin-top:14px;">
+            <table class="table" aria-label="Elenco dipendenti">
               <thead>
                 <tr>
-                  <th>Quando</th>
-                  <th>Evento</th>
-                  <th>Dettaglio</th>
+                  <th>Email</th>
+                  <th style="width: 160px;">Azioni</th>
                 </tr>
               </thead>
               <tbody>
-                {% for a in activities %}
-                <tr>
-                  <td>{{ a.when }}</td>
-                  <td>{{ a.event }}</td>
-                  <td>{{ a.detail }}</td>
-                </tr>
+                {% for e in employee_emails %}
+                  <tr>
+                    <td><strong>{{ e }}</strong></td>
+                    <td>
+                      <form method="post" action="{% url 'company_remove_employee' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="email" value="{{ e }}" />
+                        <button class="btn btn-ghost" type="submit">Rimuovi</button>
+                      </form>
+                    </td>
+                  </tr>
                 {% empty %}
-                <tr>
-                  <td>Oggi</td>
-                  <td>Nuovo dipendente</td>
-                  <td>Invitato: m.rossi@azienda.it</td>
-                </tr>
-                <tr>
-                  <td>Ieri</td>
-                  <td>Corso aggiornato</td>
-                  <td>“Onboarding IT” (nuove quest)</td>
-                </tr>
-                <tr>
-                  <td>2 gg fa</td>
-                  <td>Città generata</td>
-                  <td>“Milano — Base”</td>
-                </tr>
+                  <tr>
+                    <td colspan="2">Nessun dipendente aggiunto. Inserisci un’email qui sopra.</td>
+                  </tr>
                 {% endfor %}
               </tbody>
             </table>
-
-            <div class="btn-row" style="margin-top:12px;">
-              <a class="btn btn-primary" href="#">Invita dipendenti</a>
-              <a class="btn btn-outline" href="#">Crea corso</a>
-            </div>
           </div>
-        </div>
+        </section>
 
         <hr class="sep" />
 
-        <!-- Dipendenti (preview) -->
-        <div id="dipendenti" class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
-          <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:center;">
+        <!-- 2) CORSI / MAPPE -->
+        <section id="corsi" class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
+          <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-end;">
             <div>
-              <strong>Dipendenti</strong>
-              <div class="help">Top progressi</div>
+              <strong>Corsi</strong>
+              <div class="help">I corsi corrispondono alle <b>mappe di gioco</b>. Al momento è tutto statico.</div>
             </div>
-            <div class="btn-row">
-              <a class="btn btn-ghost" href="#">Gestisci</a>
-              <a class="btn btn-outline" href="#">Filtra</a>
-            </div>
+            <span class="tab-pill">Mappe: <b>0</b></span>
           </div>
 
-          <table class="table" style="margin-top:12px;">
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Livello</th>
-                <th>XP</th>
-                <th>Stato</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for e in employees %}
-              <tr>
-                <td>{{ e.name }}</td>
-                <td>{{ e.level }}</td>
-                <td>{{ e.xp }}</td>
-                <td>
-                  {% if e.active %}
-                    <span class="badge success">Attivo</span>
-                  {% else %}
-                    <span class="badge warn">Inattivo</span>
-                  {% endif %}
-                </td>
-              </tr>
-              {% empty %}
-              <tr>
-                <td>Mario Rossi</td>
-                <td>12</td>
-                <td>3.240</td>
-                <td><span class="badge success">Attivo</span></td>
-              </tr>
-              <tr>
-                <td>Giulia Bianchi</td>
-                <td>10</td>
-                <td>2.850</td>
-                <td><span class="badge success">Attivo</span></td>
-              </tr>
-              <tr>
-                <td>Luca Verdi</td>
-                <td>7</td>
-                <td>1.640</td>
-                <td><span class="badge warn">Inattivo</span></td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
+          <div style="margin-top:12px;" class="help">
+            Nessuna mappa disponibile.
+          </div>
 
+          <div class="btn-row" style="margin-top:12px;">
+            <a class="btn btn-primary" href="#editor">Apri editor mappe</a>
+            <a class="btn btn-outline" href="#" onclick="return false;">Gestisci corsi (coming soon)</a>
+          </div>
+        </section>
+
+        <hr class="sep" />
+
+        <!-- 3) EDITOR MAPPE (BOZZA) -->
+        <section id="editor" class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.66);">
+          <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+            <div>
+              <strong>Editor mappe (bozza)</strong>
+              <div class="help">
+                Una mappa è un gioco arcade: il giocatore risolve problemi in ogni <b>palazzo</b>.
+                Qui scegli che tipo di domanda mettere in ogni palazzo (riempi il buco, riscrivi da 0, ecc.).
+              </div>
+            </div>
+            <span class="badge warn">Non salva e non crea nulla</span>
+          </div>
+
+          <div class="editor" style="margin-top:14px;">
+            <!-- Colonna sinistra: impostazioni -->
+            <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.62);">
+              <div class="panel-title">Impostazioni mappa</div>
+              <div class="field" style="margin-bottom:10px;">
+                <label for="mapName">Nome mappa</label>
+                <input id="mapName" type="text" placeholder="Es. Onboarding Matematica" />
+              </div>
+              <div class="field" style="margin-bottom:10px;">
+                <label for="mapTheme">Tema</label>
+                <select id="mapTheme">
+                  <option value="city">Città</option>
+                  <option value="factory">Fabbrica</option>
+                  <option value="office">Uffici</option>
+                </select>
+              </div>
+              <div class="field" style="margin-bottom:10px;">
+                <label for="palazziCount">Numero palazzi</label>
+                <select id="palazziCount">
+                  <option value="3">3</option>
+                  <option value="4" selected>4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+                <div class="mini">Genera i palazzi e le relative scelte.</div>
+              </div>
+
+              <div class="btn-row" style="margin-top:12px;">
+                <button class="btn btn-outline" type="button" id="btn-genera">Genera palazzi</button>
+                <button class="btn btn-primary" type="button" id="btn-bozza">Crea bozza</button>
+              </div>
+
+              <div id="toast" class="toast" role="status" aria-live="polite" style="margin-top:12px;"></div>
+
+              <hr class="sep" />
+              <div class="help">
+                Suggerimento: usa la bozza come base per poi salvare su DB/API in futuro.
+              </div>
+            </div>
+
+            <!-- Centro: canvas / preview -->
+            <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.62);">
+              <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:12px; flex-wrap:wrap;">
+                <div>
+                  <div class="panel-title" style="margin:0;">Anteprima mappa</div>
+                  <div class="help">Palazzi posizionati in modo semplice (solo preview)</div>
+                </div>
+                <span class="mini" id="previewHint">Premi “Genera palazzi”.</span>
+              </div>
+
+              <div class="canvas" id="canvas" aria-label="Anteprima mappa" style="margin-top:12px;"></div>
+            </div>
+
+            <!-- Destra: configurazione palazzi + JSON -->
+            <div class="card pad" style="box-shadow:none; background: rgba(255,255,255,0.62);">
+              <div class="panel-title">Scelte per palazzo</div>
+              <div class="help">Queste opzioni sono modulari: scegli il tipo di domanda e qualche dettaglio.</div>
+
+              <div id="palazzi" class="palazzi" style="margin-top:12px;"></div>
+
+              <hr class="sep" />
+
+              <div class="panel-title" style="margin-bottom:8px;">Bozza (JSON)</div>
+              <textarea id="output" class="codebox" readonly aria-label="Output bozza JSON" placeholder="Qui comparirà una bozza JSON..."></textarea>
+              <div class="mini" style="margin-top:8px;">
+                Nota: il pulsante “Crea bozza” <b>non salva</b>. Serve solo per mostrarti che struttura verrebbe generata.
+              </div>
+            </div>
+          </div>
+        </section>
       </section>
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>
-        <strong>UrbanKnowledge</strong> — © 2025<br>
-        <a href="#">Privacy</a> - <a href="#">Termini</a> - <a href="#">Supporto</a>
-      </div>
+  <script>
+    (function(){
+      const $ = (id) => document.getElementById(id);
+      const toast = $('toast');
+      const canvas = $('canvas');
+      const palazziWrap = $('palazzi');
+      const output = $('output');
+      const hint = $('previewHint');
 
-      <div class="footer-links">
-        <p><b>Contatti</b><br>
-          <a href="mailto:info@urbanknowledge.it">info@urbanknowledge.it</a><br>
-          <a href="tel:+393456789012">+39 345 678 9012</a><br>
-          Via Esino 36, Ancona, Italia
-        </p>
-      </div>
+      const TYPES = [
+        { value: 'fill_gap', label: 'Riempi il buco' },
+        { value: 'rewrite', label: 'Riscrivi da 0' },
+        { value: 'multiple', label: 'Scelta multipla' },
+        { value: 'true_false', label: 'Vero/Falso' },
+        { value: 'short', label: 'Risposta breve' },
+      ];
+      const SUBJECTS = [
+        { value: 'math', label: 'Matematica' },
+        { value: 'it', label: 'Informatica' },
+        { value: 'econ', label: 'Economia' },
+        { value: 'lang', label: 'Lingue' },
+      ];
 
-      <div class="footer-links">
-        <p><b>Team</b><br>
-          Mattia Fermani<br>
-          Abu Shahid Islam<br>
-          Gabriele Papa<br>
-          Samuel Sanchez<br>
-          Matteo Scoccianti<br>
-          Simone Vescovo
-        </p>
-      </div>
-    </div>
-  </footer>
+      function showToast(msg){
+        toast.textContent = msg;
+        toast.classList.add('show');
+        window.clearTimeout(showToast._t);
+        showToast._t = window.setTimeout(() => toast.classList.remove('show'), 2400);
+      }
 
+      function makeSelect(options, value){
+        const sel = document.createElement('select');
+        for(const o of options){
+          const opt = document.createElement('option');
+          opt.value = o.value;
+          opt.textContent = o.label;
+          if(o.value === value) opt.selected = true;
+          sel.appendChild(opt);
+        }
+        return sel;
+      }
+
+      function clear(node){ while(node.firstChild) node.removeChild(node.firstChild); }
+
+      function generatePalazzi(){
+        const n = parseInt($('palazziCount').value, 10);
+        clear(palazziWrap);
+        clear(canvas);
+
+        // cards a destra
+        for(let i=1;i<=n;i++){
+          const card = document.createElement('div');
+          card.className = 'palazzo-card';
+          card.dataset.index = String(i);
+
+          const header = document.createElement('header');
+          const title = document.createElement('strong');
+          title.textContent = `Palazzo ${i}`;
+          const badge = document.createElement('span');
+          badge.className = 'badge';
+          badge.textContent = 'Quest';
+          header.appendChild(title);
+          header.appendChild(badge);
+
+          const grid = document.createElement('div');
+          grid.className = 'palazzo-grid';
+
+          // tipo domanda
+          const f1 = document.createElement('div');
+          const l1 = document.createElement('label');
+          l1.textContent = 'Tipo domanda';
+          const s1 = makeSelect(TYPES, TYPES[(i-1) % TYPES.length].value);
+          s1.name = `p${i}_type`;
+          f1.appendChild(l1);
+          f1.appendChild(s1);
+
+          // materia
+          const f2 = document.createElement('div');
+          const l2 = document.createElement('label');
+          l2.textContent = 'Materia';
+          const s2 = makeSelect(SUBJECTS, SUBJECTS[(i-1) % SUBJECTS.length].value);
+          s2.name = `p${i}_subject`;
+          f2.appendChild(l2);
+          f2.appendChild(s2);
+
+          // difficoltà
+          const f3 = document.createElement('div');
+          const l3 = document.createElement('label');
+          l3.textContent = 'Difficoltà';
+          const s3 = makeSelect([
+            {value:'easy', label:'Facile'},
+            {value:'medium', label:'Media'},
+            {value:'hard', label:'Difficile'},
+          ], 'medium');
+          s3.name = `p${i}_difficulty`;
+          f3.appendChild(l3);
+          f3.appendChild(s3);
+
+          // extra modulare (placeholder)
+          const f4 = document.createElement('div');
+          const l4 = document.createElement('label');
+          l4.textContent = 'Moduli (bozza)';
+          const s4 = makeSelect([
+            {value:'core', label:'Core'},
+            {value:'timed', label:'A tempo'},
+            {value:'hint', label:'Con suggerimenti'},
+          ], 'core');
+          s4.name = `p${i}_module`;
+          f4.appendChild(l4);
+          f4.appendChild(s4);
+
+          grid.appendChild(f1);
+          grid.appendChild(f2);
+          grid.appendChild(f3);
+          grid.appendChild(f4);
+
+          card.appendChild(header);
+          card.appendChild(grid);
+          palazziWrap.appendChild(card);
+        }
+
+        // blocks nel canvas (semplice layout)
+        const cols = Math.min(3, Math.max(2, Math.ceil(n / 2)));
+        const gap = 18;
+        const blockW = 140;
+        const blockH = 92;
+
+        for(let i=1;i<=n;i++){
+          const b = document.createElement('div');
+          b.className = 'block';
+          b.setAttribute('role', 'group');
+          b.setAttribute('aria-label', `Palazzo ${i}`);
+          b.innerHTML = `Palazzo ${i}<em>Configura a destra</em>`;
+
+          const r = Math.floor((i-1)/cols);
+          const c = (i-1)%cols;
+          b.style.left = `${gap + c*(blockW + gap)}px`;
+          b.style.top = `${gap + r*(blockH + gap)}px`;
+          canvas.appendChild(b);
+        }
+
+        hint.textContent = `Palazzi generati: ${n}`;
+        showToast('Palazzi generati (solo preview).');
+      }
+
+      function collectDraft(){
+        const n = palazziWrap.children.length;
+        const mapName = $('mapName').value || 'Nuova mappa';
+        const theme = $('mapTheme').value;
+
+        const palazzi = [];
+        for(const card of palazziWrap.children){
+          const i = parseInt(card.dataset.index, 10);
+          const type = card.querySelector(`select[name="p${i}_type"]`)?.value || 'fill_gap';
+          const subject = card.querySelector(`select[name="p${i}_subject"]`)?.value || 'math';
+          const difficulty = card.querySelector(`select[name="p${i}_difficulty"]`)?.value || 'medium';
+          const module = card.querySelector(`select[name="p${i}_module"]`)?.value || 'core';
+          palazzi.push({
+            index: i,
+            question_type: type,
+            subject,
+            difficulty,
+            module,
+          });
+        }
+
+        return {
+          name: mapName,
+          theme,
+          buildings_count: n,
+          buildings: palazzi,
+          note: 'BOZZA: non salvata. Serve solo per UI.'
+        };
+      }
+
+      // highlight link on scroll (semplice)
+      const links = [
+        { id: 'dipendenti', link: $('link-dipendenti') },
+        { id: 'corsi', link: $('link-corsi') },
+        { id: 'editor', link: $('link-editor') },
+      ];
+      function setActive(sectionId){
+        for(const l of links){
+          if(!l.link) continue;
+          l.link.classList.toggle('active', l.id === sectionId);
+        }
+      }
+      function onScroll(){
+        const y = window.scrollY;
+        let current = 'dipendenti';
+        for(const l of links){
+          const el = document.getElementById(l.id);
+          if(!el) continue;
+          const top = el.getBoundingClientRect().top + window.scrollY;
+          if(y + 140 >= top) current = l.id;
+        }
+        setActive(current);
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      $('btn-genera').addEventListener('click', () => {
+        output.value = '';
+        generatePalazzi();
+      });
+
+      $('btn-bozza').addEventListener('click', () => {
+        if(palazziWrap.children.length === 0) generatePalazzi();
+        const draft = collectDraft();
+        output.value = JSON.stringify(draft, null, 2);
+        showToast('Bozza creata ✅ (non salvata)');
+      });
+
+      // prima render: genera 4 palazzi come default (solo UI)
+      try{ generatePalazzi(); } catch(e) {}
+      onScroll();
+    })();
+  </script>
 </body>
 </html>

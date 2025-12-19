@@ -18,8 +18,7 @@
         <div>UrbanKnowledge</div>
       </a>
 
-      <!-- NAVIGAZIONE DESKTOP -->
-      <nav class="nav-desktop "  aria-label="Navigazione principale">
+      <nav class="nav" aria-label="Navigazione principale">
         <a href="#come-funziona">Come funziona</a>
         <a href="#privati">Per privati</a>
         <a href="#aziende">Per aziende</a>
@@ -27,38 +26,12 @@
         <a href="#faq">FAQ</a>
       </nav>
 
-      <!-- BOTTONI DESKTOP -->
-      <div class="cta-desktop">
-        <a class="btn btn-ghost" href="{% url 'login' %}">Accedi</a>
-        <a class="btn btn-primary" href="{% url 'register' %}">Inizia gratis</a>
-      </div>
-
-      <!-- HAMBURGER MENU (solo mobile) -->
-      <button class="hamburger" type="button" aria-label="Apri menu" aria-expanded="false" aria-controls="mobileMenu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div> <!-- Fine .header-inner -->
-
-    <!-- MENU MOBILE (dropdown) -->
-    <div id="mobileMenu" class="mobile-menu" hidden>
-      <nav class="mobile-nav" aria-label="Menu mobile">
-        <a href="#come-funziona">Come funziona</a>
-        <a href="#privati">Per privati</a>
-        <a href="#aziende">Per aziende</a>
-        <a href="#recensioni">Recensioni</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-
-      <div class="mobile-cta">
+      <div class="btn-row">
         <a class="btn btn-ghost" href="{% url 'login' %}">Accedi</a>
         <a class="btn btn-primary" href="{% url 'register' %}">Inizia gratis</a>
       </div>
     </div>
-  </header> <!-- Chiusura corretta del header -->
-
-  <!-- Resto del tuo codice HTML rimane uguale -->
+  </header>
 
   <!-- MAIN -->
   <main>
@@ -398,40 +371,6 @@
     });
 
     updateStateFromDOM();
-
-    const hamburger = document.querySelector(".hamburger");
-  const mobileMenu = document.getElementById("mobileMenu");
-
-  function closeMenu(){
-    mobileMenu.hidden = true;
-    hamburger.setAttribute("aria-expanded", "false");
-  }
-
-  function toggleMenu(){
-    const isOpen = !mobileMenu.hidden;
-    mobileMenu.hidden = isOpen;
-    hamburger.setAttribute("aria-expanded", String(!isOpen));
-  }
-
-  hamburger.addEventListener("click", toggleMenu);
-
-  // Chiudi cliccando un link
-  mobileMenu.querySelectorAll("a").forEach(a => {
-    a.addEventListener("click", closeMenu);
-  });
-
-  // Chiudi cliccando fuori
-  document.addEventListener("click", (e) => {
-    const clickedInsideHeader = e.target.closest(".site-header");
-    if(!clickedInsideHeader && !mobileMenu.hidden){
-      closeMenu();
-    }
-  });
-
-  // Se torni desktop, chiudi
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 900) closeMenu();
-  });
   </script>
 </body>
 </html>

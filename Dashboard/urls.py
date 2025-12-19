@@ -13,4 +13,6 @@ urlpatterns = [
     path("private/search/", views.private_page, {"tab": "search"}, name="private_search"),
 
     path("private/profile/", views.profile_page, name="private_profile"),
+    path("employees/add/", views.add_employee_email, name="company_add_employee"),
+    path("employees/remove/", views.remove_employee_email, name="company_remove_employee"),
 ]
