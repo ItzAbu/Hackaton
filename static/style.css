@@ -638,7 +638,7 @@ hr.sep{
 
 .reg-panels{
   display: flex;
-  width: 100%;
+  width: 200%;
   transform: translateX(0%);
   transition: transform .45s cubic-bezier(.2,.8,.2,1);
 }
@@ -646,11 +646,6 @@ hr.sep{
 .reg-panel{
   width: 50%;
   padding: 18px;
-}
-
-.reg-panel .field{
-  margin-bottom: 12px;
-  width: 200px;
 }
 
 #acc-azienda:checked ~ .reg-viewport .reg-panels{

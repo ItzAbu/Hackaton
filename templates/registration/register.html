@@ -38,20 +38,18 @@
           {% endif %}
 
           <!-- Tipo account -->
-          <div class="field">
-            <label>Tipo account</label>
-            <div class="grid cols-2" style="align-items:center;">
-              <label style="display:flex; gap:10px; align-items:center; font-weight:700;">
-                <input type="radio" name="user_type" value="PRIVATE"
-                       {% if form.user_type.value == "PRIVATE" or not form.user_type.value %}checked{% endif %}>
-                Privato
-              </label>
-              <label style="display:flex; gap:10px; align-items:center; font-weight:700;">
-                <input type="radio" name="user_type" value="COMPANY"
-                       {% if form.user_type.value == "COMPANY" %}checked{% endif %}>
-                Azienda
-              </label>
-            </div>
+          <div class="reg-switch">
+          <input type="radio" name="tipo-account" id="acc-privato" checked>
+          <input type="radio" name="tipo-account" id="acc-azienda">
+
+          <div class="reg-tabs">
+            <label for="acc-privato" class="reg-tab">Privato</label>
+            <label for="acc-azienda" class="reg-tab">Azienda</label>
+            <span class="reg-indicator" aria-hidden="true"></span>
+          </div>
+
+          <div class="reg-viewport">
+            <div class="reg-panels">
             {% for err in form.user_type.errors %}
               <div class="help" style="color:#b00020;">{{ err }}</div>
             {% endfor %}
