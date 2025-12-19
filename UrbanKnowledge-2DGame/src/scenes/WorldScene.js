@@ -15,7 +15,6 @@ export default class WorldScene extends Phaser.Scene {
 
   preload() {
     // imposta base path dagli static di Django
-    this.load.setPath(window.GAME_ASSET_BASE);
 
     // Map
     this.load.image("world_map", "{% static 'static/assets/Asset_Mappa_Gioco.jpeg' %}");
