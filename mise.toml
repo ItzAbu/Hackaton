@@ -1,0 +1,7 @@
+min_version = "4.38.1"
+
+[tools]
+python = "3.11.9"
+
+[settings]
+python.compile = true
