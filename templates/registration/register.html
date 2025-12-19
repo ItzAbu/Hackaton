@@ -7,6 +7,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>UrbanKnowledge — Registrazione</title>
   <link rel="stylesheet" href="{% static 'style.css' %}" />
+
+  
+  <style>
+    /* FIX: textbox visibili anche se il CSS globale li rende trasparenti */
+    .field { display:flex; flex-direction:column; gap:6px; }
+    .field label { font-weight: 600; }
+
+    .field input, .field select, .field textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid rgba(0,0,0,.25);
+      border-radius: 12px;
+      background: #fff;
+      color: #111;
+      box-sizing: border-box;
+
+      /* anti-“invisibile” */
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: block !important;
+    }
+
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: none;
+      border-color: rgba(0,0,0,.55);
+    }
+
+    /* se il tuo layout usa grid */
+    .grid.cols-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 720px) { .grid.cols-2 { grid-template-columns: 1fr; } }
+  </style>
 </head>
 
 <body class="auth">
@@ -35,12 +67,15 @@
           {% csrf_token %}
 
           {% if form.non_field_errors %}
-          <div class="alert error" style="margin-bottom:10px;">{{ form.non_field_errors }}</div>
+            <div class="alert error" style="margin-bottom:10px;">{{ form.non_field_errors }}</div>
           {% endif %}
 
           <div class="reg-switch">
+            <!-- Switch UI -->
             <input type="radio" name="tipo-account-ui" id="acc-privato" checked>
             <input type="radio" name="tipo-account-ui" id="acc-azienda">
+
+            <!-- Valore inviato al backend -->
             <input type="hidden" name="user_type" id="id_user_type" value="PRIVATE">
 
             <div class="reg-tabs">
@@ -49,6 +84,26 @@
               <span class="reg-indicator" aria-hidden="true"></span>
             </div>
 
+            <!-- EMAIL + TELEFONO (UNA SOLA VOLTA) -->
+            <div class="grid cols-2" style="margin-top:12px;">
+              <div class="field">
+                <label for="{{ form.email.id_for_label }}">E-Mail</label>
+                {{ form.email }}
+                {% for err in form.email.errors %}
+                  <div class="help" style="color:#b00020;">{{ err }}</div>
+                {% endfor %}
+              </div>
+
+              <div class="field">
+                <label for="{{ form.phone.id_for_label }}">Telefono</label>
+                {{ form.phone }}
+                {% for err in form.phone.errors %}
+                  <div class="help" style="color:#b00020;">{{ err }}</div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <!-- Pannelli -->
             <div class="reg-viewport" style="margin-top:12px;">
               <div class="reg-panels">
 
@@ -58,10 +113,17 @@
                     <div class="field">
                       <label for="{{ form.first_name.id_for_label }}">Nome</label>
                       {{ form.first_name }}
+                      {% for err in form.first_name.errors %}
+                        <div class="help" style="color:#b00020;">{{ err }}</div>
+                      {% endfor %}
                     </div>
+
                     <div class="field">
                       <label for="{{ form.last_name.id_for_label }}">Cognome</label>
                       {{ form.last_name }}
+                      {% for err in form.last_name.errors %}
+                        <div class="help" style="color:#b00020;">{{ err }}</div>
+                      {% endfor %}
                     </div>
                   </div>
                 </div>
@@ -72,47 +134,39 @@
                     <div class="field">
                       <label for="{{ form.company_name.id_for_label }}">Nome azienda</label>
                       {{ form.company_name }}
+                      {% for err in form.company_name.errors %}
+                        <div class="help" style="color:#b00020;">{{ err }}</div>
+                      {% endfor %}
                     </div>
+
                     <div class="field">
                       <label for="{{ form.piva.id_for_label }}">P.IVA</label>
                       {{ form.piva }}
+                      {% for err in form.piva.errors %}
+                        <div class="help" style="color:#b00020;">{{ err }}</div>
+                      {% endfor %}
                     </div>
                   </div>
 
                   <div class="field" style="margin-top:12px;">
                     <label for="{{ form.city.id_for_label }}">Città</label>
                     {{ form.city }}
+                    {% for err in form.city.errors %}
+                      <div class="help" style="color:#b00020;">{{ err }}</div>
+                    {% endfor %}
                   </div>
                 </div>
+
               </div>
             </div>
 
-            <!-- ✅ Campi COMUNI a entrambi i tipi di account -->
-            <div class="grid cols-2" style="margin-top:12px;">
-              <div class="field">
-                <label for="{{ form.email.id_for_label }}">E-Mail</label>
-                {{ form.email }}
-                {% for err in form.email.errors %}
-                <div class="help" style="color:#b00020;">{{ err }}</div>
-                {% endfor %}
-              </div>
-
-              <div class="field">
-                <label for="{{ form.phone.id_for_label }}">Telefono</label>
-                {{ form.phone }}
-                {% for err in form.phone.errors %}
-                <div class="help" style="color:#b00020;">{{ err }}</div>
-                {% endfor %}
-              </div>
-            </div>
-
-            <!-- Password -->
+            <!-- PASSWORD -->
             <div class="grid cols-2" style="margin-top:12px;">
               <div class="field">
                 <label for="{{ form.password1.id_for_label }}">Password</label>
                 {{ form.password1 }}
                 {% for err in form.password1.errors %}
-                <div class="help" style="color:#b00020;">{{ err }}</div>
+                  <div class="help" style="color:#b00020;">{{ err }}</div>
                 {% endfor %}
               </div>
 
@@ -120,7 +174,7 @@
                 <label for="{{ form.password2.id_for_label }}">Conferma password</label>
                 {{ form.password2 }}
                 {% for err in form.password2.errors %}
-                <div class="help" style="color:#b00020;">{{ err }}</div>
+                  <div class="help" style="color:#b00020;">{{ err }}</div>
                 {% endfor %}
               </div>
             </div>
@@ -131,10 +185,11 @@
             </div>
 
             <p class="help" style="margin-top:12px;">
-              Creando un account accetti i Termini e l'Informativa Privacy.
+              Creando un account accetti i Termini e l’Informativa Privacy.
             </p>
           </div>
         </form>
+
       </div>
     </div>
   </main>
@@ -146,35 +201,20 @@
         el.disabled = disabled;
       });
       container.setAttribute("aria-hidden", disabled ? "true" : "false");
+      // opzionale: nascondi visivamente il pannello non attivo
+      container.style.display = disabled ? "none" : "";
     }
 
     function syncRegisterFields() {
       const isCompany = document.getElementById("acc-azienda").checked;
       document.getElementById("id_user_type").value = isCompany ? "COMPANY" : "PRIVATE";
-      
-      // Disabilita i campi non attivi
-      const companyFields = document.getElementById("companyFields");
-      const privateFields = document.getElementById("privateFields");
-      
-      if (companyFields) setDisabled(companyFields, !isCompany);
-      if (privateFields) setDisabled(privateFields, isCompany);
+      setDisabled(document.getElementById("companyFields"), !isCompany);
+      setDisabled(document.getElementById("privateFields"), isCompany);
     }
 
-    // Assicurati che gli elementi esistano prima di aggiungere event listener
-    document.addEventListener('DOMContentLoaded', function() {
-      const privatoRadio = document.getElementById("acc-privato");
-      const aziendaRadio = document.getElementById("acc-azienda");
-      
-      if (privatoRadio) {
-        privatoRadio.addEventListener("change", syncRegisterFields);
-      }
-      if (aziendaRadio) {
-        aziendaRadio.addEventListener("change", syncRegisterFields);
-      }
-      
-      // Imposta lo stato iniziale
-      syncRegisterFields();
-    });
+    document.getElementById("acc-privato").addEventListener("change", syncRegisterFields);
+    document.getElementById("acc-azienda").addEventListener("change", syncRegisterFields);
+    syncRegisterFields();
   </script>
 </body>
 
